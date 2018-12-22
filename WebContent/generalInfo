@@ -1,0 +1,31 @@
+--User
+Status:
+0: inactive
+1: active
+2: pending (waiting for email activation)
+
+--Play
+Status:
+0: hidden
+1: to be shown
+
+--Show
+Status:
+0: no more place
+1: places available
+
+--Showseat
+Status:
+0: available
+1: bought and delivered
+2: bought and pending for delivery
+
+--Card
+Status:
+0: deleted
+1: available
+
+--Ticket
+Status:
+0: not delivered
+1: delivered

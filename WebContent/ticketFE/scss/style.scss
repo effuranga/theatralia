@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
+$white: #ffffff;
+$grey: #aaaaac;
+$black: #000000;
+$dark: #0b1521;
+$blue: #3b8acf;
+$lightblue: #d3e6f4;
+
+* {
+  box-sizing: border-box;
+  &::before, &::after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  background-image: url("https://images.unsplash.com/photo-1483304528321-0674f0040030?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a658ae60843537b1b88478c56f783669&dpr=1&auto=format&fit=crop&w=1600&q=80&cs=tinysrgb");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+img {
+  height: auto;
+  width: 100%;
+}
+
+.ticket {
+  background: $white;
+  border-radius: 4px;
+  color: $dark;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  padding: 30px;
+  margin: 80px auto;
+  max-width: 400px;
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 50px 0;
+    position: relative;
+    
+    & > svg.separator {
+      animation: flight 2s infinite;
+      display: block;
+      color: $lightblue;
+      height: 30px;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+    }
+    
+  }
+  
+  &-departure {
+    text-align: left;
+  }
+  
+  &-destination {
+    text-align: right;
+  }
+  
+  & .city-abbr {
+    color: $blue;
+    font-size: 45px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 50px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  & .city-name {
+    color: $grey;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
+  & .item:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  
+  & .name {
+    color: $grey;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  & .value {
+    color: $black;
+    font-size: 16px;
+    line-height: 20px;
+  }
+ 
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  
+  &-vertical {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    & > .col {
+      flex: 0;
+    }
+    
+  }
+  
+  & > .col {
+    flex: 1;
+    
+    &.half {
+      flex-basis: 50%;
+    }
+    
+  }
+  
+}

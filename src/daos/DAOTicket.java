@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import business.Seat;
+import utils.DTODeliveryTable;
 import utils.DTOPurchase;
 import utils.DTOSell;
 
@@ -417,5 +418,45 @@ System.out.println(sql);
 			e.printStackTrace();
 		}
 		return false;	
+	}
+
+	/**
+	 * Este metodo cambia el isPaid del ticket a 1 (paid) y agrega un record en la tabla chargedCard
+	 * PARA CADA TICKET que SEA VIEJO y que NO ESTE PAGO
+	 * @return
+	 */
+	public boolean chargeAllCards(ArrayList<DTODeliveryTable> rows) {
+		Connection conn = connect();
+		String list = createListOfIDs(rows);
+		String sql = "UPDATE `theatralia`.`ticket` SET `isPaid` = 1 WHERE `ticketId` IN ("+list+");";
+		System.out.println(sql);
+		try {
+			int affectedRows = conn.createStatement().executeUpdate(sql);
+			if(affectedRows != 0) {
+				for(DTODeliveryTable r : rows) {
+					sql = "INSERT INTO `theatralia`.`chargedcard` (`ticketId`, `userId`) VALUES ("+r.getTicketId()+", "+r.getClientId()+");";
+					System.out.println(sql);
+					conn.createStatement().executeUpdate(sql);
+				}
+				done();
+				return true;
+			}
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		}
+		done();
+		return false;	
+	}
+	
+	private String createListOfIDs(ArrayList<DTODeliveryTable> rows) {
+		String list ="";	
+		int size = rows.size();
+		
+		for(int i = 0; i<size-1; i++) {
+			list += rows.get(i).getTicketId()+",";
+		}
+		list += rows.get(size-1).getTicketId();
+		
+		return list;
 	}
 }

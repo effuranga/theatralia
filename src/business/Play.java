@@ -132,7 +132,6 @@ public class Play {
 	public void removeShowsWithNoSeatsLeft() {
 		Iterator<Show> i = this.shows.iterator();
 		while(i.hasNext()) {
-			@SuppressWarnings("unused")
 			Show s = i.next();
 			if(!s.hasSeatsAvailable()) {
 				i.remove();
@@ -159,7 +158,6 @@ public class Play {
 	public void removeShowsFromThePast() {
 		Iterator<Show> i = this.shows.iterator();
 		while(i.hasNext()) {
-			@SuppressWarnings("unused")
 			Show s = i.next();
 			if(!s.isAFutureShow()) {
 				i.remove();

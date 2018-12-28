@@ -12,15 +12,23 @@ switch(action){
 	case "2": //Imprimir ticket	
 		message = "Imprimiendo ticket...";
 		redirect = "home";
+		break;
 	case "3": //Imprimir ticket desde la entrega	
 		message = "Imprimiendo ticket...";
 		redirect = "delivery?action=delivery";
+		break;
 	case "4": //Cobrar ticket desde caja	
 		message = "Dando ticket por cobrado...";
 		redirect = "delivery?action=pay";
+		break;
 	case "5": //Cargar en la tarjeta el monto de un ticket particular	
 		message = "Cargando monto...";
-		redirect = "expiredticket?action=singlecharge";
+		redirect = "expiredtickets?action=singlecharge";
+		break;
+	case "6": //Cargo en todas las tarjetas el monto de un ticket particular	
+		message = "Cargando montos...";
+		redirect = "expiredtickets?action=batchcharge";
+		break;
 }
 %>    
     

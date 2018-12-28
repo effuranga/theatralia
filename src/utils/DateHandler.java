@@ -38,6 +38,7 @@ public class DateHandler {
 		System.out.println("recibo "+dateString+" y me queda la date: "+date);
 		return date;
 	}
+	
 
 	/**
 	 * Devuelve true si la fecha argumento es igual o mayor a la actual (Solo considerando el dia)
@@ -53,5 +54,43 @@ public class DateHandler {
 		}
 		System.out.println("la fecha es posterior");
 		return true;
+	}
+	
+	/**
+	 * A partir de un String date sacado de SQL, parsea SOLO SU FECHA en formato dd/mm/aaaa
+	 * @param dateString
+	 * @return dateHTML Ej: 31/12/2010
+	 */
+	public String getHTMLDate(String dateString) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date;
+		try {
+			date = format.parse(dateString);
+			String dateHTML = new SimpleDateFormat("dd/MM/yyyy").format(date);		
+			return dateHTML;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return "00/00/0000";
+	}
+	
+	/**
+	 * A partir de un String date sacado de SQL, parsea SOLO SU HORMA en formato HH:mm
+	 * @param dateString
+	 * @return dateHTML Ej: 15:21
+	 */
+	public String getHTMLTime(String dateString) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date;
+		try {
+			date = format.parse(dateString);
+			String dateHTML = new SimpleDateFormat("HH:mm").format(date);		
+			return dateHTML;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return "00:00";
 	}
 }

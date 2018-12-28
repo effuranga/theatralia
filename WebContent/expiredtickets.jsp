@@ -83,8 +83,13 @@ ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttr
               Tickets Delivery <br>
               <small>(*) Solo se muestran los tickets de fechas pasadas que no fueron entregados (pagados o morosos)</small>
               <%if(loggedUser.isAdmin()){ %>
-              <br><a class="btn btn-primary" href="delivery">Atras</a>
-              <%} %>
+              <br><a class="btn btn-primary" href="delivery">Atras</a> 
+              		<%if(isAnyPaidPending(rows)) { %>
+		              <a class="btn btn-primary" href="chargeallcards" style="background-color: #ff3333; border-color: #ff3333;"
+		              onclick="return confirm('Esta a punto de realizar una transacción bancaria masiva a todas las tarjetas morosas. ¿Está seguro que desea continuar?');"
+		              >(!) Cargar todos</a>
+              <%	}
+              } %>
 			</div>
             <div class="card-body">
               <div class="table-responsive">
@@ -116,7 +121,7 @@ ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttr
                   <tbody>
 <%				if(rows.isEmpty()){%> 
 				 <tr>
-				 <td>No hay tickets pendientes de entrega</td>
+				 <td>No hay tickets vencidos</td>
 				 </tr>
 <%				}
 				else{
@@ -192,6 +197,9 @@ ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttr
 	    	case "singlecharge":
 	    		message = "Se cargó el monto a la tarjeta correctamente";
 	    		break;
+	    	case "batchcharge":
+	    		message = "Todos los montos se han cargado satisfactoriamente";
+	    		break;
 	    }
     %>
 	    <script>
@@ -205,3 +213,14 @@ ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttr
   </body>
 
 </html>
+
+<%! 
+boolean isAnyPaidPending(ArrayList<DTODeliveryTable> rows){
+	for(DTODeliveryTable r : rows){
+		if(!r.isPaid()){
+			return true;
+		}
+	}
+	return false;
+}
+%>

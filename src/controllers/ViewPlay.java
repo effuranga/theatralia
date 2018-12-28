@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import business.Comment;
 import business.Play;
 import business.User;
+import services.CommentHandler;
 import services.PlayHandler;
 import services.UserHandler;
 
@@ -51,6 +54,11 @@ public class ViewPlay extends HttpServlet {
 				UserHandler userHandler = new UserHandler();
 				boolean addedInLibrary = userHandler.isThisPlayInLibrary(loggedUser.getUserId(), play.getId());
 				request.setAttribute("addedInLibrary", addedInLibrary);
+				
+				// Necesito recuperar los comentarios de la obra
+				CommentHandler commentHandler = new CommentHandler();
+				HashMap<Integer, Comment> comments = commentHandler.getCommentsForPlay(play.getId());
+				request.setAttribute("comments", comments);
 				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("viewplay.jsp");
 				requestDispatcher.forward(request, response);

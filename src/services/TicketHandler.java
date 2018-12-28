@@ -3,6 +3,7 @@ package services;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import business.Card;
 import business.Play;
@@ -282,5 +283,27 @@ public class TicketHandler {
 		DAOTicket daoTicket = new DAOTicket();
 		
 		return daoTicket.payTicketByChargingInCard(ticketId, userId);
+	}
+
+	/**
+	 * Este metodo cambia el isPaid del ticket a 1 (paid) y agrega un record en la tabla chargedCard
+	 * PARA CADA TICKET que SEA VIEJO y que NO ESTE PAGO
+	 * @return
+	 */
+	public boolean chargeAllCards() {
+		ArrayList<DTODeliveryTable> rows = getExpiredTableDTOs();
+		Iterator<DTODeliveryTable> iterator = rows.iterator();
+		while(iterator.hasNext()) {
+			DTODeliveryTable r = iterator.next();
+			if(r.isPaid()) {
+				iterator.remove(); //Si esta fila esta paga, lo saco de la coleccion
+			}
+		}
+		if(rows.isEmpty()) {
+			return true;
+		}
+		DAOTicket daoTicket = new DAOTicket();
+		
+		return daoTicket.chargeAllCards(rows);
 	}
 }

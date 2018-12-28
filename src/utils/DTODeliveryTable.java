@@ -34,6 +34,7 @@ public class DTODeliveryTable {
 		this.buyingDate = buyingDate;
 	}
 
+
 	public int getTicketId() {
 		return ticketId;
 	}

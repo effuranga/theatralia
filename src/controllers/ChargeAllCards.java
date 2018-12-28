@@ -12,10 +12,10 @@ import business.User;
 import services.TicketHandler;
 
 /**
- * Servlet implementation class PayTicket
+ * Servlet implementation class ChargeAllCards
  */
-@WebServlet("/chargeincard")
-public class ChargeInCard extends HttpServlet {
+@WebServlet("/chargeallcards")
+public class ChargeAllCards extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -29,13 +29,13 @@ public class ChargeInCard extends HttpServlet {
 			return;
 		}
 		
-		int ticketId = Integer.parseInt(request.getParameter("ticketId"));
+		
 		
 		TicketHandler ticketHandler = new TicketHandler();
-		boolean valid = ticketHandler.payTicketByChargingInCard(ticketId, loggedUser.getUserId());
+		boolean valid = ticketHandler.chargeAllCards();
 		
 		if(valid) {
-			response.sendRedirect("validation.jsp?action=5");
+			response.sendRedirect("validation.jsp?action=6");
 		}
 		else {
 			response.sendRedirect("error.jsp?e=Problema con el cobro");

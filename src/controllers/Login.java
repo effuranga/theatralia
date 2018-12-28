@@ -26,6 +26,10 @@ public class Login extends HttpServlet {
 		UserHandler userHandler = new UserHandler();
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+		if(userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+			response.sendRedirect("home");
+			return;
+		}
 
 		User loggedUser = userHandler.getLoggedUser(userName, password);
 		HttpSession session = request.getSession();

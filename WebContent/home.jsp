@@ -138,6 +138,7 @@
         <div class="row no-gutters popup-gallery">
         
         <%
+        /*
         ArrayList<Play> sp = (ArrayList<Play>) request.getAttribute("starredPlays");
         for(Play p: sp){
         %>
@@ -157,7 +158,7 @@
             </a>
           </div>
 
-		<%}
+		<%}*/
         %>
         </div>
       </div>
@@ -166,7 +167,7 @@
     <section class="bg-dark text-white">
       <div class="container text-center">
         <h2 class="mb-4">¡Conoce todas nuestras obras!</h2>
-        <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">¡Muéstrame más!</a>
+        <a class="btn btn-light btn-xl js-scroll-trigger" href="#contact">¡Muéstrame más!</a>
       </div>
     </section>
 

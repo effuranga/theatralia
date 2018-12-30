@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Comment {
 	private int id;
@@ -12,6 +13,19 @@ public class Comment {
 	private String date;
 	private ArrayList<Comment> children;
 	boolean isParent;
+	private ArrayList<Integer> likes; //Lista de userIds que likearon este comment
+	
+	/**
+	 * Devuelve una coleccion con el id de todos los hijos
+	 * @return
+	 */
+	public ArrayList <Integer> getAllYourChildrenIDs(){
+		ArrayList <Integer> childrenIDs = new ArrayList <Integer>();
+		for(Comment child : this.children) {
+			childrenIDs.add(child.getId());
+		}
+		return childrenIDs;
+	}
 	
 	
 	
@@ -33,6 +47,7 @@ public class Comment {
 		this.date = date;
 		this.isParent = true;
 		this.children = new ArrayList<Comment>();
+		this.likes = new ArrayList<Integer> ();
 	}
 	
 	/**
@@ -55,8 +70,51 @@ public class Comment {
 		this.date = date;
 		this.isParent = false;
 		this.children = new ArrayList<Comment>();
+		this.likes = new ArrayList<Integer> ();
 	}
 	
+	public HashMap<Integer, Comment> getYourChildrenAsHashMap(){
+		HashMap<Integer, Comment> children = new HashMap<Integer, Comment>();
+		for(Comment child : this.children) {
+			children.put(child.getId(), child);
+		}
+		return children;
+	}
+	
+	/**
+	 * Devuelve el número de likes del comment
+	 * @return 
+	 */
+	public int amountOfLikes() {
+		return this.likes.size();
+	}
+	
+	/**
+	 * Verifica si el usuario parametro likeó este comment
+	 * @param userId
+	 * @return true si está likeado por userId, sino false
+	 */
+	public boolean hasMyLike(int userId) {
+		for(int id : this.likes) {
+			if(id == userId) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addLike(int userId) {
+		this.likes.add(userId);
+	}
+	
+	public ArrayList<Integer> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(ArrayList<Integer> likes) {
+		this.likes = likes;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

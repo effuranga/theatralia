@@ -43,6 +43,15 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
     
   </head>
 		<style>
+		a.replylink:link {
+		    text-decoration: inherit;
+		    color: orange;
+		}
+		
+		a.replylink:visited {
+		    text-decoration: inherit;
+		    color: orange;
+		}
 		a.nostyle:link {
 		    text-decoration: inherit;
 		    color: inherit;
@@ -184,9 +193,27 @@ if(!comments.isEmpty()){
 			 				<li><i class="fa fa-pencil"></i> <span class="user"><%=parent.getUserName() %></span></li>
 			 			</ul>
 			 		</div><!-- inc. share/reply and love --><div class="comment_tools">
+			 		<%
+			 		int amountOfLikes = parent.amountOfLikes();
+			 		boolean hasMyLike = parent.hasMyLike(loggedUser.getUserId());
+			 		String amountHTML = "";
+			 		if(amountOfLikes != 0){
+			 			amountHTML = "<span class=\"love_amt\"> "+amountOfLikes+"</span>";
+			 		}
+			 		String noStyleClass = "";
+			 		String coloured = "";
+			 		String URLto = "like";
+			 		if(!hasMyLike){
+			 			noStyleClass = "class=\"nostyle\"";
+			 		}
+			 		else{
+			 			coloured = "style=\"color: #FF6347;\"";
+			 			URLto = "dislike";
+			 		}
+			 		%>
 			 			<ul>
-			 				<li><a href="viewplay?id=<%=play.getId() %>&parentId=<%=parent.getId() %>#bar"><i class="fa fa-reply"></i></a></li>
-			 				<li><i class="fa fa-heart love"></i></li>
+			 				<li><a href="viewplay?id=<%=play.getId() %>&parentId=<%=parent.getId() %>#bar" class="replylink"><i class="fa fa-reply"></i></a></li>
+			 				<li><a href="<%=URLto %>?commentId=<%=parent.getId() %>&playId=<%=play.getId() %>" <%=noStyleClass %>><i class="fa fa-heart love" <%=coloured %>><%=amountHTML %></i></a></li>
 			 			</ul>
 			 		</div>
 
@@ -219,7 +246,25 @@ if(!comments.isEmpty()){
 			 			</ul>
 			 		</div><!-- inc. share/reply and love --><div class="comment_tools">
 			 			<ul>
-			 				<li><i class="fa fa-heart love"><span class="love_amt"> 4</span></i></li>
+			 			<%
+				 		amountOfLikes = child.amountOfLikes();
+				 		hasMyLike = child.hasMyLike(loggedUser.getUserId());
+				 		amountHTML = "";
+				 		if(amountOfLikes != 0){
+				 			amountHTML = "<span class=\"love_amt\"> "+amountOfLikes+"</span>";
+				 		}
+				 		noStyleClass = "";
+				 		coloured = "";
+				 		URLto = "like";
+				 		if(!hasMyLike){
+				 			noStyleClass = "class=\"nostyle\"";
+				 		}
+				 		else{
+				 			coloured = "style=\"color: #FF6347;\"";
+				 			URLto = "dislike";
+				 		}
+				 		%>
+			 				<li><a href="<%=URLto %>?commentId=<%=child.getId() %>&playId=<%=play.getId() %>" <%=noStyleClass %>><i class="fa fa-heart love" <%=coloured %>><%=amountHTML %></i></a></li>
 			 			</ul>
 			 		</div>
 

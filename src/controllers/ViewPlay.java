@@ -58,6 +58,10 @@ public class ViewPlay extends HttpServlet {
 				// Necesito recuperar los comentarios de la obra
 				CommentHandler commentHandler = new CommentHandler();
 				HashMap<Integer, Comment> comments = commentHandler.getCommentsForPlay(play.getId());
+							
+				// Necesito llenar de likes los comentarios
+				commentHandler.fillWithLikes(comments);
+				
 				request.setAttribute("comments", comments);
 				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("viewplay.jsp");

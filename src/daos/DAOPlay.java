@@ -235,5 +235,34 @@ System.out.println(qry);
 		
 		return list;
 	}
+
+	/**
+	 * Devuelve un Resultset de Plays cuyo nombre, autor o descripcion concuerde con la lista de palabras
+	 * que recibe como parametro
+	 * @param words
+	 * @return
+	 */
+	public ResultSet getPlaysBySearch(String[] words) {
+	Connection conn = connect();
+		
+		String qry = "SELECT * FROM theatralia.play WHERE ";
+		for(String s : words) {
+			qry += "name LIKE '%"+s+"%' OR description LIKE '%"+s+"%' OR author LIKE '%"+s+"%' OR ";
+		}
+		qry = qry.substring(0, qry.length()-4);
+		qry += ";";
+		
+		System.out.println(qry);
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(qry);
+			ResultSet rs = ps.executeQuery();
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
 	
 }

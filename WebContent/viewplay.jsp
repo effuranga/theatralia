@@ -146,7 +146,7 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 
 		 	%>
 		 		<form name="loginBox" id="loginBox" method="get" action="createcomment">
-					<input type="text" name="text" id="text" placeholder="<%=ph %>" maxlength="200" required>
+					<input type="text" name="text" id="text" placeholder="<%=ph %>" maxlength="200" required <%if(isReply) out.print("autofocus"); %>>
 					<input type="hidden" name="playId" value="<%=play.getId() %>" >
 					<%
 					if(isReply){
@@ -177,7 +177,7 @@ if(!comments.isEmpty()){
 
 		 		<!-- current user avatar -->
 			 	<div class="user_avatar">
-			 		<img src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/73.jpg">
+			 		<a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/73.jpg"></a>
 			 	</div><!-- the comment body --><div class="comment_body">
 			 		<p><%=parent.getText() %></p>
 			 	</div>
@@ -190,7 +190,7 @@ if(!comments.isEmpty()){
 			 			<ul>
 			 				<li><i class="fa fa-clock-o"></i> <%=dh.getHTMLTime(parent.getDate()) %></li>
 			 				<li><i class="fa fa-calendar"></i> <%=dh.getHTMLDate(parent.getDate()) %></li>
-			 				<li><i class="fa fa-pencil"></i> <span class="user"><%=parent.getUserName() %></span></li>
+			 				<li><i class="fa fa-pencil"></i> <a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><span class="user"><%=parent.getUserName() %></span></a></li>
 			 			</ul>
 			 		</div><!-- inc. share/reply and love --><div class="comment_tools">
 			 		<%
@@ -229,9 +229,9 @@ if(!comments.isEmpty()){
 		 		
 		 		<!-- current user avatar -->
 			 	<div class="user_avatar">
-			 		<img src="https://s3.amazonaws.com/uifaces/faces/twitter/manugamero/73.jpg">
+			 		<a href="viewuser?requestedUserId=<%=child.getUserId() %>" class="nostyle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/manugamero/73.jpg"></a>
 			 	</div><!-- the comment body --><div class="comment_body">
-			 		<p><div class="replied_to"><p><span class="user"><%=parent.getUserName() %></span><%=parent.getText() %></p></div><%=child.getText() %></p>
+			 		<p><div class="replied_to"><p><a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><span class="user"><%=parent.getUserName() %></span></a><%=parent.getText() %></p></div><%=child.getText() %></p>
 			 	</div>
 
 			 	<!-- comments toolbar -->
@@ -242,7 +242,7 @@ if(!comments.isEmpty()){
 			 			<ul>
 			 				<li><i class="fa fa-clock-o"></i> <%=dh.getHTMLTime(child.getDate()) %></li>
 			 				<li><i class="fa fa-calendar"></i> <%=dh.getHTMLDate(child.getDate()) %></li>
-			 				<li><i class="fa fa-pencil"></i> <span class="user"><%=child.getUserName() %></span></li>
+			 				<li><i class="fa fa-pencil"></i> <a href="viewuser?requestedUserId=<%=child.getUserId() %>" class="nostyle"><span class="user"><%=child.getUserName() %></span></a></li>
 			 			</ul>
 			 		</div><!-- inc. share/reply and love --><div class="comment_tools">
 			 			<ul>

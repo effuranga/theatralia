@@ -12,8 +12,9 @@ public class Comment {
 	private String userName;
 	private String date;
 	private ArrayList<Comment> children;
-	boolean isParent;
+	private boolean isParent;
 	private ArrayList<Integer> likes; //Lista de userIds que likearon este comment
+	private String playName; //Para mostrar en el perfil del usuario
 	
 	/**
 	 * Devuelve una coleccion con el id de todos los hijos
@@ -48,6 +49,29 @@ public class Comment {
 		this.isParent = true;
 		this.children = new ArrayList<Comment>();
 		this.likes = new ArrayList<Integer> ();
+	}
+	
+	/**
+	 * Constructor para Padre con playName
+	 * @param id
+	 * @param userId
+	 * @param playId
+	 * @param text
+	 * @param date
+	 * @param playName
+	 */
+	public Comment(int id, int userId, String userName, int playId, String text, String date, String playName) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.userName = userName;
+		this.playId = playId;
+		this.text = text;
+		this.date = date;
+		this.isParent = true;
+		this.children = new ArrayList<Comment>();
+		this.likes = new ArrayList<Integer> ();
+		this.playName = playName;
 	}
 	
 	/**
@@ -178,8 +202,16 @@ public class Comment {
 	public void addChild(Comment child) {
 		this.children.add(child);
 		
+	}	
+	public String getPlayName() {
+		return playName;
 	}
-	
+	public void setPlayName(String playName) {
+		this.playName = playName;
+	}
+
+
+
 	/**
 	 * Metodo para aplicar a los padres y saber si tienen comentarios hijos
 	 * @return

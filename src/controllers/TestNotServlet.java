@@ -1,19 +1,14 @@
 package controllers;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
-
-import daos.DAOComment;
-import utils.DateHandler;
 
 public class TestNotServlet {
-	public static void main(String[] args) throws ParseException, SQLException {
+	public static void main(String[] args) {
 	
-		
+		String text = "Texto de prueba. 5687";
+		String sinPunc = text.replaceAll("[^\\w]", "");
+		System.out.println(sinPunc);
+		String[] result = text.split("\\W+");
+		for(String s: result) System.out.println(s+" ");
 		
 	}
 }

@@ -272,4 +272,45 @@ public class PlayHandler {
 		daoPlay.done();
 		return playList;
 	}
+
+	/**
+	 * Devuelve un arreglo de Plays cuyo nombre, autor o descripcion concuerde con la lista de palabras
+	 * que recibe como parametro
+	 * @param words
+	 * @return playsResult lleno o vacio
+	 */
+	public ArrayList<Play> getPlaysBySearch(String[] words) {
+		DAOPlay daoPlay = new DAOPlay();
+		ArrayList<Play> playsResult = new ArrayList<Play>();
+		//Variables del resultset
+		int playId, status;
+		String name, description, author, image;
+		Play play;
+		
+		ResultSet rs = daoPlay.getPlaysBySearch(words);
+		
+		// Logica para convertir el resultSet en el HashMap
+		try {
+			while(rs.next()) {
+				playId = rs.getInt("playId");
+				name = rs.getString("name");
+				description = rs.getString("description");
+				author = rs.getString("author");
+				status = rs.getInt("status");
+				image = rs.getString("image");
+				
+				play = new Play(playId, name, description, author, status, image);
+				
+				playsResult.add(play);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		  catch (NullPointerException e) {
+			e.printStackTrace();
+		  }
+		//Fin de la logica
+		daoPlay.done();
+		return playsResult;
+	}
 }

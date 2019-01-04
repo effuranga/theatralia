@@ -158,5 +158,47 @@ public class CommentHandler {
 		}
 		return null;
 	}
+	
+	/**
+	 * Este metodo devuelve todos los comentarios VALIDOS, PADRES -escritos por el user param- O
+	 * PADRE-HIJO donde el HIJO esta escrito por el user param- (el padre PUEDE estar escrito por user param o por otro)
+	 * con el añadido del nombre de la obra SOLO EN EL PADRE
+	 * @param userId
+	 * @return comments lleno o empty
+	 */
+	public HashMap<Integer, Comment> getCommentsForUser(int userId) {
+		HashMap<Integer, Comment> comments = new HashMap<Integer, Comment>();
+		
+		DAOComment daoComment = new DAOComment();
+		ResultSet rs = daoComment.getCommentsForUser(userId);
+		if(rs != null) {
+			try {
+				while(rs.next()) {
+					//En el resultset, primero POR QUERY vienen los que tienen parentId en Null, o sea, los que son padres en sí
+					//luego vienen todos los hijos
+					int commentId = rs.getInt("commentId");
+					int parentId = rs.getInt("parentId");
+					int playId = rs.getInt("playId");
+					String text = rs.getString("text");
+					String date = rs.getString("date");
+					String userName = rs.getString("userName");
+					String playName = rs.getString("playName");
+					
+					if(parentId == 0) { //Es un padre
+						comments.put(commentId, new Comment(commentId, userId, userName, playId, text, date, playName));
+					}
+					else { //Es un hijo
+						Comment parent = comments.get(parentId); //Obtengo al padre
+						Comment child = new Comment(commentId, userId, userName, parentId, text, date);
+						parent.addChild(child);
+					}				
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		daoComment.done();
+		return comments;
+	}
 
 }

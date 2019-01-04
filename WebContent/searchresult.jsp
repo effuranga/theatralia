@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="java.util.HashMap"
+    import="java.util.ArrayList"
     import="java.util.Collection"
     import="business.Play"
     import="business.User"%>
@@ -10,8 +10,8 @@ if(loggedUser == null){
 	response.sendRedirect("error.jsp?e=No tengo el usuario en la session");
 	return;
 }
-HashMap<Integer, Play> currentPlays = (HashMap<Integer, Play>)request.getAttribute("currentPlays");
-boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false;
+ArrayList<Play> playsResult = (ArrayList<Play>)request.getAttribute("playsResult");
+boolean toShow = (playsResult != null && !playsResult.isEmpty())? true : false;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +23,14 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Resultados</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dashboardFE/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
+
 
   </head>
 
@@ -45,11 +46,8 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
           	<li class="nav-item">
-              <a class="nav-link" href="search.jsp">Buscar Obras</a>
+              <a class="nav-link" href="search.jsp">Buscar</a>
             </li>  
-            <li class="nav-item">
-              <a class="nav-link" href="searchuser.jsp">Buscar Usuarios</a>
-            </li>
           <%
           if(!loggedUser.isClient()){%>
         	<li class="nav-item">
@@ -68,12 +66,17 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
               <a class="nav-link" href="newplay.jsp">Nueva obra</a>
             </li>
           <%} 
+          if(loggedUser.isClient()){%>  
+        	<li class="nav-item">
+              <a class="nav-link" href="library">Biblioteca</a>
+            </li>
+       <% }
           %>
             <li class="nav-item active">
               <a class="nav-link" href="home">Programación</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="viewuser?requestedUserId=<%=loggedUser.getUserId() %>"><%=loggedUser.getName() %></a>
+              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="logout">Salir</a>
@@ -87,14 +90,14 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
     <div class="container">
 
       <!-- Page Heading -->
-      <h1 class="my-4">Obras
-        <small></small>
+      <h1 class="my-4">Resultados para: 
+        <small><%=request.getParameter("q") %></small>
       </h1>
+      <a class="btn btn-primary" href="search.jsp">Volver</a>
 
 <%
 if(toShow){
-	Collection<Play> plays = currentPlays.values();
-	for(Play p : plays){%>
+	for(Play p : playsResult){%>
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
@@ -113,7 +116,7 @@ if(toShow){
 }
 else{
 %>
-	<p>No hay obras disponibles actualmente</p>
+	<p>No se han encontrado coincidencias</p>
 <%
 }
 %>

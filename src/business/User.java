@@ -41,6 +41,24 @@ public class User {
 		
 	}
 
+	public User(int userId, int status, String userName, String name, String lastName, String email, String created, String role, Date birthday, String profImage) {
+		super();
+		this.userId = userId;
+		this.status = status;
+		this.userName = userName;
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.created = created;
+		
+		if(role.equals(User.ADMIN)) this.role = User.ADMIN;
+		if(role.equals(User.CLIENT)) this.role = User.CLIENT;
+		if(role.equals(User.EMPLOYEE)) this.role = User.EMPLOYEE;
+		
+		this.birthday = birthday;
+		this.profImage = profImage;
+		
+	}
 
 //	
 //	int userId

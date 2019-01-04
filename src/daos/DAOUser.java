@@ -280,4 +280,34 @@ public class DAOUser extends DAO {
 		done();
 		return null;
 	}
+	
+	/**
+	 * Devuelve un Resultset de Users cuyo nombre, apellido o userName concuerde con la lista de palabras
+	 * que recibe como parametro
+	 * @param words
+	 * @return rs
+	 */
+	public ResultSet getUsersBySearch(String[] words) {
+		Connection conn = connect();
+		String sql = "SELECT U.`userId`, U.`userName`, U.`name`, U.`lastName`, U.`status`, U.`email`, U.`created`, R.`description`\r\n" + 
+				"FROM `user` U INNER JOIN `userrole` UR ON U.`userId` = UR.`userId`\r\n" + 
+				"INNER JOIN `role` R ON UR.`roleId` = R.`roleId`\r\n" + 
+				"WHERE U.`status` = 1 AND " ;
+		
+		for(String s : words) {
+			sql += "U.`userName` LIKE '%"+s+"%' OR U.`name` LIKE '%"+s+"%' OR U.`lastName` LIKE '%"+s+"%' OR ";
+		}
+		sql = sql.substring(0, sql.length()-4);
+		sql += ";";
+		System.out.println(sql);
+		
+		try {
+			ResultSet rs = conn.prepareStatement(sql).executeQuery();
+			return rs;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;		
+	}
 }

@@ -187,4 +187,35 @@ public class DAOComment extends DAO{
 		
 		return list;
 	}
+
+	/**
+	 * Devuelve comentarios del usuario parametro, hijos como padres, y de los hijos, los respectivos padres (escritos por otros
+	 * usuarios), en estado VALID = 1 /comentarios no banneados/ mas el añadido del nombre de la PLAY
+	 * @param userId
+	 * @return rs
+	 */
+	public ResultSet getCommentsForUser(int userId) {
+		Connection conn = connect();
+		
+		String qry = "SELECT distinct C.*, U.`userName`, P.`name` AS \"playName\" \r\n" + 
+				"FROM `theatralia`.`comment` C \r\n" + 
+				"INNER JOIN `theatralia`.`user` U ON C.`userId` = U.`userId` \r\n" + 
+				"INNER JOIN `theatralia`.`play` P ON C.`playId` = P.`playId` \r\n" + 
+				"WHERE C.`valid` = 1 AND C.`userId` = "+userId+" OR C.`commentId` IN (\r\n" + 
+				"-- Comentarios padre de hijos del user\r\n" + 
+				"SELECT distinct CP.`parentId`\r\n" + 
+				"FROM `theatralia`.`comment` CP\r\n" + 
+				"WHERE CP.`userId` = "+userId+" AND CP.`parentId` IS NOT NULL)\r\n " +
+				"ORDER BY C.`parentId` ASC;";
+		System.out.println(qry);
+		try {
+			PreparedStatement ps = conn.prepareStatement(qry);
+			ResultSet rs = ps.executeQuery();
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
 }

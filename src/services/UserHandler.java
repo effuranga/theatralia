@@ -36,9 +36,11 @@ public class UserHandler {
 				String email = rs.getString("email");
 				String created = rs.getString("created");
 				String role = rs.getString("description");
+				Date birthday = rs.getDate("birthday");
+				String profImage = rs.getString("profImage");
 				
 				daoUser.done();
-				return(new User(userId, status, userName, name, lastName, email, created, role));
+				return(new User(userId, status, userName, name, lastName, email, created, role, birthday, profImage));
 			}
 			
 		}
@@ -498,5 +500,43 @@ public class UserHandler {
 		}
 		daoUser.done();
 		return playsIds;
+	}
+
+	/**
+	 * Devuelve un arreglo de Users VALIDOS cuyo nombre, apellido o username concuerde con la lista de palabras
+	 * que recibe como parametro
+	 * @param words
+	 * @return usersResult lleno o vacio
+	 */
+	public ArrayList<User> getUsersBySearch(String[] words) {
+		ArrayList<User> usersResult = new ArrayList<User>();
+		DAOUser daoUser = new DAOUser();
+		
+		ResultSet rs = daoUser.getUsersBySearch(words);
+		
+		try {
+			while(rs.next()) {
+				int userId = rs.getInt("userId");
+				String userName = rs.getString("userName"); 
+				String name = rs.getString("name");
+				String lastName = rs.getString("lastName"); 
+				int status = rs.getInt("status");
+				String email = rs.getString("email");
+				String created = rs.getString("created");
+				String role = rs.getString("description");
+				
+				usersResult.add(new User(userId, status, userName, name, lastName, email, created, role));
+			}
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();			
+		}
+		catch (NullPointerException e) {
+			e.printStackTrace();			
+		}
+		
+		daoUser.done();
+		return usersResult;
 	}
 }

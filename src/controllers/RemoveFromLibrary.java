@@ -32,13 +32,17 @@ public class RemoveFromLibrary extends HttpServlet {
 			UserHandler userHandler = new UserHandler();
 			boolean success = userHandler.removeFromLibrary(userId, playId);
 			if(success) {
-				if(request.getParameter("returnToLibrary") == null) {
+				if(request.getParameter("returnToLibrary") == null && request.getParameter("returnToViewUser") == null) {
 					//Vengo de viewPlay
 					response.sendRedirect("viewplay?id="+playId);
 				}
-				else {
+				if(request.getParameter("returnToLibrary") != null) {
 					//Vengo de library
 					response.sendRedirect("library");
+				}		
+				if(request.getParameter("returnToViewUser") != null) {
+					//Vengo de viewUser
+					response.sendRedirect("viewuser?requestedUserId="+user.getUserId());
 				}		
 			}
 			else {

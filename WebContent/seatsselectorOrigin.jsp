@@ -7,26 +7,43 @@
     import="business.User"
     import="business.Seat"
     import="business.Card"
-    import="utils.DTOPurchase"%>
+    import="utils.DTOPurchase"
+    import="utils.DTOSell"
+    %>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
-DTOPurchase dto = (DTOPurchase) session.getAttribute("purchase");
-
-if(loggedUser == null || dto == null){
-	response.sendRedirect("error.jsp?e=usuario no loggeado o dto en null");
+if(loggedUser == null){
+	response.sendRedirect("error.jsp?e=El usuario no está loggeado");
 	return;
 }
-Play play = dto.getPlay();
-Show show = dto.getShow();
-ArrayList<Seat> seats = dto.getSeats();
-Card card = dto.getCard();
-boolean payWithCard = dto.isPayWithCard();
-float total = 0;
-for(Seat s : seats){
-	total += s.getPrice();
-}
-String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
 
+Show show = (Show) request.getAttribute("show");
+String action = (loggedUser.isClient())? "setpayment" : "validatesell";
+// Logica horrible para distinguir los DTOs
+/*
+String action;
+Show show = null;
+if(loggedUser.isClient()){
+	DTOPurchase dto = (DTOPurchase) session.getAttribute("purchase");
+	action = "setpayment";
+	if(dto != null) show = dto.getShow();
+}
+else{
+	DTOSell dto = (DTOSell) session.getAttribute("purchase");
+	action = "validatesell";
+	if(dto != null) show = dto.getShow();
+}
+
+if(show == null){
+	response.sendRedirect("error.jsp?e=Fallo la logica de distincion de DTOs en seatsselector.jsp");
+	return;
+}
+*/
+if(show == null){
+	response.sendRedirect("error.jsp?e=El show no se encontro en seatsselector.jsp - desde SeatsSelector o desde Sell");
+	return;
+}
+ArrayList<Seat> seats = show.getSeats();
 
 %>
 <!DOCTYPE html>
@@ -39,13 +56,16 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Confirmar</title>
+    <title>Elegir asiento</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dashboardFE/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
+    
+    <!-- Seats -->
+    <link rel="stylesheet" href="seats/css/style.css">
 
   </head>
 
@@ -77,44 +97,37 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
     <div class="container">
 
       <!-- Page Heading -->
-      <h1 class="my-4">Confirmar compra
+      <h1 class="my-4">Asientos
         <small></small>
       </h1>
-
-
-      <!-- Play -->
-      <div class="row">
-        <div class="col-md-7">
-          <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%="playPictures/"+play.getImage() %>" alt="">
-          </a>
-        </div>
-        <div class="col-md-5">
-          <h3><%=play.getName() %></h3>
-          <p>Funcion: <%=show.getDate() %></p><br />
-          <p>Asientos:</p><br />
-<% 			for(Seat s: seats){%>
-			<p><%=s.getRow()+s.getColumn()+"   "+s.getPrice() %></p><br />
-<%}%>
-          <p>Total a abonar: <%=total %></p><br />
-          <p>Saldo a cargar en tarjeta: <%if(payWithCard) out.print(total); else out.print("0.0");%></p><br />
-          <p>Modalidad: <%=delivery %></p><br />
-          <p>Tarjeta: <%=card.getType()+" "+card.getNumber() %></p><br /><br />
-          
-          <form action="confirmpurchase" method="post" >
-          	<label>Nombre en la tarjeta: <input type="text" name="nameInCard" value="" required/></label><br>
-	      	<label>Vcmto: <input type="number" name="exp_month" min="1" max="12" placeholder="mm" required> / <input type="number" name="exp_year" min="19" max="30" placeholder="aa" required></label><br>
-	        <label>Codigo: <input type="password" name="securityCode" maxlength="3" size="3" value="" required/></label><br>	
-          	<a class="btn btn-secondary" href="home">Cancelar</a>
-          	<input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
-          </form>
-                    
-          
-        </div>
-      </div>
-      <hr> <!-- Esta linea divide las obras -->		
-
-
+	
+		<div class="theatre">
+		    
+		      <div class="cinema-seats left">
+		        <div class="cinema-row row-1">
+<%			for(Seat seat : seats){ 
+				if(seat.getStatus() == 0){%>		 
+		          <label for="<%=seat.getId() %>"><div class="seat"></div></label>
+<%				}
+				else{%>
+				  <label><div class="seat" style="background: linear-gradient(to top, #3F68BF, #19294C, #19294C, #19294C, #19294C, #3F68BF,  #3F68BF); pointer-events:none;"></div></label>	
+<%				}
+			}%>		          
+		        </div>
+		      </div>
+		      	
+		    <form method="GET" action="<%=action %>">  
+		      
+<%			for(Seat seat : seats){ System.out.println((seat.getStatus()));
+				if(seat.getStatus() == 0){%>
+			  	  <input type="checkbox" name="selectedSeats" id="<%=seat.getId() %>" value="<%=seat.getId() %>" style="visibility: hidden; display: none;">
+<% 				}
+			}%>
+		
+	<br/>  <input type="submit" name="submit" class="btn btn-primary" value="Continuar">
+		    </form>
+		
+		</div>
 
     </div>
     <!-- /.container -->
@@ -123,6 +136,10 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
     <!-- Bootstrap core JavaScript -->
     <script src="dashboardFE/vendor/jquery/jquery.min.js"></script>
     <script src="dashboardFE/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Seats -->
+    <script src='seats/jquery.min.js'></script>
+    <script  src="seats/js/index.js"></script>
 
   </body>
 

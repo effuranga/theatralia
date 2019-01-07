@@ -89,7 +89,7 @@ for(Seat s : seats){
           <p>Funcion: <%=show.getDate() %></p><br />
           <p>Asientos:</p><br />
 <% 			for(Seat s: seats){%>
-			<p><%=s.getId()+"   "+s.getPrice() %></p><br />
+			<p><%=s.getId()+"   "+s.getRow()+s.getColumn()+"                 $"+s.getPrice() %></p><br />
 <%}%>
           <p>Total a abonar: <%=total %></p><br />
           <p>Modalidad: Venta por ventanilla - Entrega inmediata</p><br />

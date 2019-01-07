@@ -5,6 +5,8 @@ public class Seat {
 	private int id;
 	private String description;
 	private int status;
+	private String row;
+	private int column;
 	
 	public Seat(int id, float price) {
 		super();
@@ -17,6 +19,15 @@ public class Seat {
 		this.setId(id);
 		this.price = price;
 		this.status = status;
+	}
+	
+	public Seat(int id, float price, int status, String row, int column) {
+		super();
+		this.setId(id);
+		this.price = price;
+		this.status = status;
+		this.row = row;
+		this.column = column;
 	}
 	
 	public float getPrice() {
@@ -45,6 +56,24 @@ public class Seat {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public String getRow() {
+		return row;
+	}
+
+	public void setRow(String row) {
+		this.row = row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	
+	
 	
 	
 }

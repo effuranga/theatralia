@@ -20,7 +20,8 @@ public class SeatHandler {
 		ArrayList<Show> shows = play.getShows();
 		ResultSet rs;
 		DAOSeat daoSeat = new DAOSeat();
-		int showId, seatId, status;
+		int showId, seatId, status, column;
+		String row;
 		float price;
 		Seat seat;
 		for(Show s : shows) {
@@ -31,7 +32,9 @@ public class SeatHandler {
 					seatId = rs.getInt(1);
 					price = rs.getFloat(2);
 					status = rs.getInt(3);
-					seat = new Seat(seatId, price, status);
+					row = rs.getString(4);
+					column = rs.getInt(5);
+					seat = new Seat(seatId, price, status, row, column);
 					s.addSeat(seat);
 				
 				}
@@ -55,14 +58,16 @@ public class SeatHandler {
 					int seatId = Integer.parseInt(id);
 					float price = rs.getFloat(1);
 					int status = rs.getInt(2);
+					String row = rs.getString(3);
+					int column = rs.getInt(4);
 					daoSeat.done();
-					return (new Seat(seatId, price, status));
+					return (new Seat(seatId, price, status, row, column));
 				
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		daoSeat.done();
-		return null;	
+		return null;
 		}
 }

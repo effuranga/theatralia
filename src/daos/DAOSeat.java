@@ -16,9 +16,11 @@ public class DAOSeat extends DAO {
 	 */
 	public ResultSet getSeatsForShow(int idShow) {
 		Connection conn = connect();
-		String sql="SELECT distinct SS.showSeatId, SS.price, SS.status FROM theatralia.`show` S INNER JOIN theatralia.showseat SS\r\n" + 
-				"ON S.showId = SS.showId\r\n" + 
+		String sql="SELECT distinct SS.showSeatId, SS.price, SS.status, SE.row, SE.column FROM theatralia.`show` S INNER JOIN theatralia.showseat SS\r\n" + 
+				"ON S.showId = SS.showId\r\n" +
+				"INNER JOIN theatralia.`seat` SE ON SS.seatId = SE.seatId\r\n " + 
 				"WHERE S.showId = "+idShow+";";
+		System.out.println(sql);
 		try {
 			ResultSet rs = conn.prepareStatement(sql).executeQuery();
 			return rs;
@@ -69,9 +71,11 @@ System.out.println(sql);
 
 	public ResultSet getSeat(String id) {
 		Connection conn = connect();
-		String sql="SELECT SS.price, SS.status "
-				+ "FROM theatralia.showseat SS\r\n" + 
+		String sql="SELECT SS.price, SS.status, SE.row, SE.column "
+				+ "FROM theatralia.showseat SS\r\n"
+				+ "INNER JOIN theatralia.`seat` SE ON SS.seatId = SE.seatId\r\n " + 
 				"WHERE SS.showSeatId = "+id+";";
+		System.out.println(sql);
 		try {
 			ResultSet rs = conn.prepareStatement(sql).executeQuery();
 			return rs;

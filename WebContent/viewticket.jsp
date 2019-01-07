@@ -168,10 +168,10 @@ Play play = ticket.getPlay();
 		    %>
 		    <div class="row">
 		      <div class="col item">
-		        <h2 class="name">Fila</h2><span class="value"><%=seats.get(0).getId() %></span>
+		        <h2 class="name">Fila</h2><span class="value"><%=seats.get(0).getRow() %></span>
 		      </div>
 		      <div class="col item">
-		        <h2 class="name">Nro</h2><span class="value"><%=seats.get(0).getId() %></span>
+		        <h2 class="name">Nro</h2><span class="value"><%=seats.get(0).getColumn() %></span>
 		      </div>
 		      <div class="col item">
 		        <h2 class="name">Precio</h2><span class="value"><%=seats.get(0).getPrice() %></span>
@@ -184,10 +184,10 @@ Play play = ticket.getPlay();
 		    %>
 		    <div class="row">
 		      <div class="col item">
-		        <span class="value"><%=s.getId() %></span>
+		        <span class="value"><%=s.getRow() %></span>
 		      </div>
 		      <div class="col item">
-		        <span class="value"><%=s.getId() %></span>
+		        <span class="value"><%=s.getColumn() %></span>
 		      </div>
 		      <div class="col item">
 		        <span class="value"><%=s.getPrice() %></span>

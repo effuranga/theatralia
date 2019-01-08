@@ -80,25 +80,28 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Administrar obras</div>
+              Administrar obras
+              <br /><a class="btn btn-primary" href="newplay.jsp">Nueva obra</a></div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>ID</th>
                       <th>Obra</th>
-                      <th>Visible</th>
-                      <th>Estrella</th>
-                      <th>Shows</th>
+                      <th>Autor</th>
+                      <th>En cartelera</th>
+                      <th>Funciones</th>
                       <th>Editar</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>ID</th>
                       <th>Obra</th>
-                      <th>Visible</th>
-                      <th>Estrella</th>
-                      <th>Shows</th>
+                      <th>Autor</th>
+                      <th>En cartelera</th>
+                      <th>Funciones</th>
                       <th>Editar</th>
                     </tr>
                   </tfoot>
@@ -107,7 +110,9 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
 				for(Play p : plays){
 %>                  
                     <tr>
-                      <td><%=p.getName() %></td>
+                      <td><%=p.getId() %></td>
+                      <td><a href="viewplay?id=<%=p.getId() %>"><%=p.getName() %></a></td>
+                      <td><%=p.getAuthor() %></td>
                       <% 
                       String action = "changeplayvisibility?playId="+p.getId()+"&toStatus=";
                       String text ="";
@@ -121,8 +126,7 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
                       	}                    
                       %>
                       <td><a href="<%=action %>"><%=text %></a></td>
-                      <td><% if(p.getStarred() == 1) out.print("Si"); else out.print("No");%></td>
-                      <td><a href="viewshows?playid=<%=p.getId() %>">Ver shows</a></td>
+                      <td><%=p.getShows().size() %></td>
                       <td><a href="editplay?playid=<%=p.getId() %>">Editar</a></td>
                     </tr>
 <%

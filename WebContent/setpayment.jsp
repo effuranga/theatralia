@@ -46,6 +46,9 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
+    
+    <!-- myCSS -->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
 
   </head>
 
@@ -102,9 +105,9 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
           <p>Tarjeta: <%=card.getType()+" "+card.getNumber() %></p><br /><br />
           
           <form action="confirmpurchase" method="post" >
-          	<label>Nombre en la tarjeta: <input type="text" name="nameInCard" value="" required/></label><br>
-	      	<label>Vcmto: <input type="number" name="exp_month" min="1" max="12" placeholder="mm" required> / <input type="number" name="exp_year" min="19" max="30" placeholder="aa" required></label><br>
-	        <label>Codigo: <input type="password" name="securityCode" maxlength="3" size="3" value="" required/></label><br>	
+          	<label>Nombre en la tarjeta: <input type="text" name="nameInCard" value="" class="round" required/></label><br>
+	      	<label>Vcmto: <input type="number" name="exp_month" min="1" max="12" placeholder="mm" class="round" required> / <input type="number" name="exp_year" min="19" max="30" placeholder="aa" class="round" required></label><br>
+	        <label>Codigo: <input type="password" name="securityCode" maxlength="3" size="3" value="" class="round" required/></label><br>	
           	<a class="btn btn-secondary" href="home">Cancelar</a>
           	<input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
           </form>

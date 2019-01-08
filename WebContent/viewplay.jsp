@@ -38,8 +38,11 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
 
-	    <!-- Comment -->
+	<!-- Comment -->
     <link rel="stylesheet" href="commentFE/css/style.css">
+    
+    <!-- myCSS -->
+    <link rel="stylesheet" href="myCSS/myCSS.css">
     
   </head>
 		<style>
@@ -103,7 +106,7 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	          <h3><%=play.getName() %></h3>
 	          <p><%=play.getDescription() %></p>
 	<%		if(loggedUser.isClient()) {
-	          if(play.getStatus()==1 && play.hasShowsInTheFuture()) {%><a class="btn btn-primary" href="setpurchase?id=<%=play.getId() %>">Comprar</a> <%}%>    	 
+	          if(play.getStatus()==1 && play.hasShowsInTheFuture() && play.oneShowInTheFutureHasAvailableSeats()) {%><a class="btn btn-primary" href="setpurchase?id=<%=play.getId() %>">Comprar</a> <%}%>    	 
 	 <%			if(!(boolean) request.getAttribute("addedInLibrary")){ %>
 		 			<a class="btn btn-primary" href="addtolibrary?playId=<%=play.getId() %>">(+)Biblioteca</a>
 	<%			}
@@ -114,10 +117,12 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 			else{
 		      	if(play.getStatus()==1 && play.hasShowsInTheFuture()) {%>             
 		          <form action="sell" method="get">
-		          	<select name="showId" required>
+		          	<select name="showId" class="round" required>
 	<%         			for(Show s : shows){
+							if(s.hasSeatsAvailable()){
 	%>						<option value="<%=s.getId()%>"><%=s.getDate()%></option>
-	<%        			}%>          		
+	<%        				}
+						}%>          		
 					</select>
 					<input type="hidden" name="id" value="<%=play.getId() %>">
 					<input type="submit" class="btn btn-primary" value="Vender" />	

@@ -40,7 +40,8 @@ public class ViewPlay extends HttpServlet {
 		String id = request.getParameter("id");
 		if(id != null && !id.trim().isEmpty()) {
 			PlayHandler playHandler = new PlayHandler();
-			Play play = playHandler.getBasicPlay(id);
+		//	Play play = playHandler.getBasicPlay(id);
+			Play play = playHandler.getWholePlay(Integer.parseInt(id));
 			if(play == null) {
 				response.sendRedirect("error.jsp?e=La obra solicitada no existe");
 			}

@@ -29,6 +29,9 @@
 
     <!-- Custom styles for this template -->
     <link href="homeFE/css/creative.min.css" rel="stylesheet">
+    
+    <!-- My CSS-->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
 
   </head>
 
@@ -179,8 +182,8 @@
             <hr class="my-4">
             <p class="mb-5">Formulario de acceso</p>
             <form action="login" method="POST">
-              <input type="text" id="userName" name="userName" placeholder="Usuario" /><br/>  
-              <input type="password" id="password" name="password" placeholder="Contraseña" /><br/>
+              <input type="text" id="userName" name="userName" placeholder="Usuario" class="round" required /><br/>  
+              <input type="password" id="password" name="password" placeholder="Contraseña" class="round" required /><br/>
               <br/>
               <input type="submit"class="btn btn-primary btn-xl" value="Inicia sesión"/><br/>
               <p> </p>

@@ -29,7 +29,23 @@
 
     <!-- Custom styles for this template -->
     <link href="homeFE/css/creative.min.css" rel="stylesheet">
+    
+    <!-- My CSS-->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
 
+	<style>
+		  body  {
+		  background-image: url("homeFE/img/header.jpg");
+		   /* Full height */
+		  height: 100%; 
+		
+		  /* Center and scale the image nicely */
+		
+		  background-repeat: no-repeat;
+		  background-size: cover;
+	      background-attachment: fixed;
+		}
+	  </style>
   </head>
 
 <%
@@ -44,25 +60,24 @@
 %>
   <body id="page-top">
 
-    <section id="contact">
+    <section id="contact" style="padding-top:3rem; padding-bottom:3rem;">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading">¡Regístrate en Theatralia®!</h2>
+            <h2 class="section-heading" style="color:white;">¡Regístrate en Theatralia®!</h2>
             <hr class="my-4">
-            <p class="mb-5">Formulario de registro</p>
             <form action="signin" method="POST">
-              <input type="text" placeholder="User name" name="userName" <%if(fail){ %>value="<%=request.getParameter("userName") %>" <%} %>/> <br/>
-              <input type="password" placeholder="Password" name="password" /><br/>
-              <input type="password" placeholder="Repeat password" name="repPassword" /><br/>
-              <input type="text" placeholder="Name" name="name" <%if(fail){ %>value="<%=request.getParameter("name") %>" <%} %>/><br/>
-              <input type="text" placeholder="Last name" name="lastName" <%if(fail){ %>value="<%=request.getParameter("lastName") %>" <%} %>/><br/>
-              <input type="date" name="birthday" /><br/>
-              <input type="text" name="email" placeholder="email" <%if(fail){ %>value="<%=request.getParameter("email") %>" <%} %>/><br/>
+              <input type="text" placeholder="User name" name="userName" <%if(fail){ %>value="<%=request.getParameter("userName") %>" <%} %> class="round" required/> <br/>
+              <input type="password" placeholder="Password" name="password" class="round" required /><br/>
+              <input type="password" placeholder="Repeat password" name="repPassword" class="round" required /><br/>
+              <input type="text" placeholder="Name" name="name" <%if(fail){ %>value="<%=request.getParameter("name") %>" <%} %> class="round" required/><br/>
+              <input type="text" placeholder="Last name" name="lastName" <%if(fail){ %>value="<%=request.getParameter("lastName") %>" <%} %> class="round" required/><br/>
+              <input type="date" name="birthday"  class="round" required/><br/>
+              <input type="text" name="email" placeholder="email" <%if(fail){ %>value="<%=request.getParameter("email") %>" <%} %> class="round" required/><br/>
               <br/>
               <input type="submit"class="btn btn-primary btn-xl" value="¡Regístrate!"/><br/>
               <p> </p>
-              <a class="btn btn-secondary btn-xl sr-button" href="#">Volver</a>
+              <a class="btn btn-secondary btn-xl sr-button" href="home">Volver</a>
             </form>  
             <%
 if(fail){
@@ -73,18 +88,7 @@ if(fail){
 %>    
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-4 ml-auto text-center">
-            <i class="fas fa-phone fa-3x mb-3 sr-contact-1"></i>
-            <p>123-456-6789</p>
-          </div>
-          <div class="col-lg-4 mr-auto text-center">
-            <i class="fas fa-envelope fa-3x mb-3 sr-contact-2"></i>
-            <p>
-              <a href="mailto:your-email@your-domain.com">contato@theatraliaplatform.com</a>
-            </p>
-          </div>
-        </div>
+        
       </div>
     </section>
 

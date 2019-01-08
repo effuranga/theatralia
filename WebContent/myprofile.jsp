@@ -49,6 +49,14 @@ if(changeData || changeImage || changePass){
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
+    
+    <!-- My CSS-->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
+    
+    <!--File button-->
+    <link rel="stylesheet" type="text/css" href="fileButton/component.css" />
+	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
+	
 
   </head>
 
@@ -91,7 +99,10 @@ if(changeData || changeImage || changePass){
           %>
           <br/>
           <form action="updateimage" method="POST" id="updateImage" enctype="multipart/form-data">
-        	  <input type="file" name="uploadFile" style="margin-top:10px; margin-bottom:10px;"/><br/>
+        	  <div class="box">
+					<input type="file" name="uploadFile" id="uploadFile" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" style="display:none;" multiple />
+					<label for="uploadFile"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Cargar imagen&hellip;</span></label>
+				</div>
         	  <input type="submit" class="btn btn-primary" value="Subir"/>
 	          <a href="myprofile.jsp" class="btn btn-secondary">Cancelar</a>
           </form>
@@ -116,12 +127,12 @@ if(changeData || changeImage || changePass){
           %>
           	<form action="updatedata" method="POST" id="updateData">
 	          <h2>Actualizar datos</h2>
-	          <p>Usuario: <input type="text" name="userName" id="userName" value="<%=loggedUser.getUserName() %>" /></p>
+	          <p>Usuario: <input type="text" name="userName" id="userName" value="<%=loggedUser.getUserName() %>" class="round" required /></p>
 	          <p>Contraseña: ********</p>
-	          <p>Nombre: <input type="text" name="name" id="name" value="<%=loggedUser.getName() %>" /></p>
-	          <p>Apellido: <input type="text" name="lastName" id="lastName" value="<%=loggedUser.getLastName() %>" /></p> 
-	          <p>Fecha de nacimiento: <input type="date" name="birthday" id="birthday" value="<%=loggedUser.getBirthday() %>" /></p>
-	          <p>Email: <input type="text" name="email" id="email" value="<%=loggedUser.getEmail() %>" /></p>
+	          <p>Nombre: <input type="text" name="name" id="name" value="<%=loggedUser.getName() %>" class="round" required /></p>
+	          <p>Apellido: <input type="text" name="lastName" id="lastName" value="<%=loggedUser.getLastName() %>" class="round" required /></p> 
+	          <p>Fecha de nacimiento: <input type="date" name="birthday" id="birthday" value="<%=loggedUser.getBirthday() %>" class="round" required /></p>
+	          <p>Email: <input type="text" name="email" id="email" value="<%=loggedUser.getEmail() %>" class="round" required /></p>
 	          <input type="submit" class="btn btn-primary" value="Actualizar"/>
 	          <a href="myprofile.jsp" class="btn btn-secondary">Cancelar</a>
 	        </form>
@@ -131,8 +142,8 @@ if(changeData || changeImage || changePass){
           %>
           <form action="updatepassword" method="POST" id="updatePassword">
         	  <h2>Cambiar contraseña</h2>
-        	  <p>Nueva Contraseña: <input type="password" name="password" id="password" /></p>
-        	  <p>Repetir Contraseña: <input type="password" name="password" id="password" /></p>
+        	  <p>Nueva Contraseña: <input type="password" name="password" id="password" class="round" required /></p>
+        	  <p>Repetir Contraseña: <input type="password" name="password" id="password" class="round" required /></p>
         	  <input type="submit" class="btn btn-primary" value="Cambiar"/>
 	          <a href="myprofile.jsp" class="btn btn-secondary">Cancelar</a>
           </form>
@@ -167,17 +178,14 @@ if(errorList != null){
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark" style="bottom:0px; position:absolute; width:100%;">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Thetralia® 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="dashboardFE/vendor/jquery/jquery.min.js"></script>
     <script src="dashboardFE/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- File button-->
+    <script src="fileButton/custom-file-input.js"></script>
 
   </body>
 

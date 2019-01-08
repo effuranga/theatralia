@@ -80,5 +80,19 @@ public class Show {
 		return dateHandler.isAFutureDate(this.date);
 	}
 	
+	/**
+	 * Devuelve la cantidad de asientos vacios que tiene el show
+	 * @return
+	 */
+	public int countSeatsAvailable() {
+		int cant = 0;
+		for(Seat s : this.seats) {
+			if(s.getStatus() == 0) {
+				cant++;
+			}
+		}
+		return cant;
+	}
+	
 	
 }

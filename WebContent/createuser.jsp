@@ -38,6 +38,9 @@ boolean fail = (dto != null)? true : false;
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
+    
+    <!-- My CSS-->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
 
   </head>
 
@@ -94,17 +97,16 @@ boolean fail = (dto != null)? true : false;
           	<form action="createuser" id="form" method="POST">
 	          <h2>Crear Usuario</h2>
 
-				<input type="text" name="userName" placeholder="Username" <%if(fail){out.print("value=\""+dto.getUserName()+"\"");}%> required /><br/>
-				<input type="text" name="password" placeholder="Contraseña" <%if(fail){out.print("value=\""+dto.getPassword()+"\"");}%> required /><br/>
-				<label>Rol </label>
-				<select name="roleId">
+				<input type="text" name="userName" placeholder="Username" <%if(fail){out.print("value=\""+dto.getUserName()+"\"");}%> class="round" required /><br/>
+				<input type="text" name="password" placeholder="Contraseña" <%if(fail){out.print("value=\""+dto.getPassword()+"\"");}%> class="round" required /><br/>
+				<select name="roleId" class="round" >
                   <option value="2" <%if(fail && dto.getRoleId().equals("2")){out.print("selected");}%>> Empleado</option>
                   <option value="3" <%if(fail && dto.getRoleId().equals("3")){out.print("selected");}%>> Administrador</option>
 	            </select> <br/>
-				<input type="text" name="name" placeholder="Nombre" <%if(fail){out.print("value=\""+dto.getName()+"\"");}%> required /><br/>
-				<input type="text" name="lastName" placeholder="Apellido" <%if(fail){out.print("value=\""+dto.getLastName()+"\"");}%> required /><br/>
-				<input type="text" name="email" placeholder="EMail" <%if(fail){out.print("value=\""+dto.getEmail()+"\"");}%> required /><br/>
-				<label>Fecha de nac: </label><input type="date" name="birthday" <%if(fail){out.print("value=\""+dto.getBirthday()+"\"");}%> required> <br/>
+				<input type="text" name="name" placeholder="Nombre" <%if(fail){out.print("value=\""+dto.getName()+"\"");}%> class="round" required /><br/>
+				<input type="text" name="lastName" placeholder="Apellido" <%if(fail){out.print("value=\""+dto.getLastName()+"\"");}%> class="round" required /><br/>
+				<input type="text" name="email" placeholder="EMail" <%if(fail){out.print("value=\""+dto.getEmail()+"\"");}%> class="round" required /><br/>
+				<label>Fecha de nac: </label><input type="date" name="birthday" <%if(fail){out.print("value=\""+dto.getBirthday()+"\"");}%> class="round"  required> <br/>
 				
 	          <input type="submit" class="btn btn-primary" value="Cargar"/>
 	          <a href="adminusers" class="btn btn-secondary">Cancelar</a>

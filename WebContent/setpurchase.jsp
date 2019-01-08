@@ -32,6 +32,9 @@ ArrayList<Show> shows = play.getShows();
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
 
+	<!-- myCSS -->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
+    
   </head>
 
   <body>
@@ -81,14 +84,14 @@ ArrayList<Show> shows = play.getShows();
           <!-- Form para settings de compras -->
           <form action="seatsselector" method="GET">
           	<label for="showId">Funcion</label>
-          		<select name="showId" required>
+          		<select name="showId" class="round" required>
 <%         			for(Show s : shows){
 %>						<option value="<%=s.getId()%>"><%=s.getDate()%></option>
 <%        			}%>          		
 				</select>
 				<br/>
 			<label for="cantSeats">Cantidad</label>
-          		<select name="cantSeats" required>
+          		<select name="cantSeats" class="round" required>
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -97,13 +100,13 @@ ArrayList<Show> shows = play.getShows();
 				</select>
 				<br/>	
 			<label for="delivery">Medio de pago</label>
-          		<select name="delivery" required>
+          		<select name="delivery" class="round" required>
 						<option value="1">Pagar con tarjeta</option>
 						<option value="2">Pagar por ventanilla</option>   		
 				</select>
 				<br/>	
 			<label for="card">Elegir tarjeta(*)</label>
-          		<select name="card" required>
+          		<select name="card" class="round" required>
 <%         			for(Card c : allCards){
 					   if(c.getStatus()==1) {
 %>						<option value="<%=c.getId()%>"><%=c.getType()+" "+c.getNumber()%></option>

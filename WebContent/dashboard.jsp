@@ -64,9 +64,6 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
           	<li class="nav-item">
               <a class="nav-link" href="adminplays">Admin Obras</a>
             </li>
-          	<li class="nav-item">
-              <a class="nav-link" href="newplay.jsp">Nueva obra</a>
-            </li>
           <%} 
           %>
             <li class="nav-item active">

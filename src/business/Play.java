@@ -166,6 +166,15 @@ public class Play {
 		
 	}
 	
+	public boolean oneShowInTheFutureHasAvailableSeats() {
+		for(Show s : this.shows) {
+			if(s.isAFutureShow() && s.hasSeatsAvailable()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	
 }

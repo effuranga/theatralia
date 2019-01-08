@@ -203,7 +203,7 @@ if(user == null || play == null || !user.isAdmin()){
             
             %>
             <div class="card-footer small text-muted"><form action="createshow?id=<%=play.getId() %>" method="POST" >
-        		<input type="datetime-local" name="showdate" min="<%=now %>" required> 
+        		<input type="datetime-local" name="showdate" min="<%=now %>" class="round" required> 
         		<input type="submit" class="btn btn-primary" onclick="return confirm('Si ha editado la obra y aún no ha hecho click en Editar, se perderán los cambios. ¿Está seguro que desea continuar?');" value="Nueva funcion" >
         	</form></div>
           </div>

@@ -91,7 +91,6 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
                       <th>Obra</th>
                       <th>Autor</th>
                       <th>En cartelera</th>
-                      <th>Funciones</th>
                       <th>Editar</th>
                     </tr>
                   </thead>
@@ -101,7 +100,6 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
                       <th>Obra</th>
                       <th>Autor</th>
                       <th>En cartelera</th>
-                      <th>Funciones</th>
                       <th>Editar</th>
                     </tr>
                   </tfoot>
@@ -126,7 +124,6 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
                       	}                    
                       %>
                       <td><a href="<%=action %>"><%=text %></a></td>
-                      <td><%=p.getShows().size() %></td>
                       <td><a href="editplay?playid=<%=p.getId() %>">Editar</a></td>
                     </tr>
 <%

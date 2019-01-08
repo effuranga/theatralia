@@ -115,10 +115,10 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	<%			}
 			} 
 			else{
-		      	if(play.getStatus()==1 && play.hasShowsInTheFuture()) {%>             
+		      	if(play.getStatus()==1 && play.hasShowsInTheFuture() && play.oneShowInTheFutureHasAvailableSeats()) {%>             
 		          <form action="sell" method="get">
 		          	<select name="showId" class="round" required>
-	<%         			for(Show s : shows){
+	<%  				for(Show s : shows){
 							if(s.hasSeatsAvailable()){
 	%>						<option value="<%=s.getId()%>"><%=s.getDate()%></option>
 	<%        				}

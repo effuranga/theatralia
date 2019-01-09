@@ -3,6 +3,7 @@
     import="java.util.ArrayList"
     import="java.util.Collection"
     import="business.Play"
+    import="utils.Header"
     import="business.User"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -36,55 +37,7 @@ boolean toShow = (playsResult != null && !playsResult.isEmpty())? true : false;
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-          	<li class="nav-item">
-              <a class="nav-link" href="search.jsp">Buscar</a>
-            </li>  
-          <%
-          if(!loggedUser.isClient()){%>
-        	<li class="nav-item">
-              <a class="nav-link" href="delivery">Tickets</a>
-            </li>  
- <%       }
-          if(loggedUser.isAdmin()){
-          %>
-          	<li class="nav-item">
-              <a class="nav-link" href="adminusers">Admin Users</a>
-            </li>
-          	<li class="nav-item">
-              <a class="nav-link" href="adminplays">Admin Obras</a>
-            </li>
-          	<li class="nav-item">
-              <a class="nav-link" href="newplay.jsp">Nueva obra</a>
-            </li>
-          <%} 
-          if(loggedUser.isClient()){%>  
-        	<li class="nav-item">
-              <a class="nav-link" href="library">Biblioteca</a>
-            </li>
-       <% }
-          %>
-            <li class="nav-item active">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%=Header.getHeader(loggedUser, "searchplay") %>
 
     <!-- Page Content -->
     <div class="container">

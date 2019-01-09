@@ -93,4 +93,14 @@ public class DateHandler {
 		
 		return "00:00";
 	}
+	
+	/**
+	 * A partir de un Date sacado de SQL, parsea SOLO SU FECHA en formato dd/mm/aaaa
+	 * @param dateString
+	 * @return dateHTML Ej: 31/12/2010
+	 */
+	public String getHTMLDate(Date date) {
+		String dateHTML = new SimpleDateFormat("dd/MM/yyyy").format(date);		
+		return dateHTML;
+	}
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
     import="java.util.ArrayList"
+    import="utils.Header"
+    import="utils.DateHandler"
     import="business.User"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -9,6 +11,7 @@ if(loggedUser == null || !loggedUser.isAdmin()){
 	return;
 }
 ArrayList<User> allUsers = (ArrayList<User>) request.getAttribute("allUsers");
+DateHandler dh = new DateHandler();
 
 %>
 <!DOCTYPE html>
@@ -45,28 +48,7 @@ ArrayList<User> allUsers = (ArrayList<User>) request.getAttribute("allUsers");
 
   <body id="page-top">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%=Header.getHeader(loggedUser, "adminusers") %>
 
     <!-- Page Content -->
     
@@ -142,7 +124,7 @@ ArrayList<User> allUsers = (ArrayList<User>) request.getAttribute("allUsers");
 	                      <option value="<%=redir+3 %>" <%=selectedAdmin %>>Administrador</option>
 	                     </select>  
 					 </td>
-                      <td><%=u.getCreated() %></td>
+                      <td><%=dh.getHTMLDate(u.getCreated())+" "+dh.getHTMLTime(u.getCreated()) %></td>
                     </tr>
 <%
 				}

@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"
     import="java.util.ArrayList"
     import="utils.DTODeliveryTable"
+    import="utils.Header"
+    import="utils.DateHandler"
     import="business.User"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -11,7 +13,7 @@ if(loggedUser == null || !loggedUser.isAdmin()){
 }
 
 ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttribute("rows");
-
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,29 +49,8 @@ ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttr
 
   <body id="page-top">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    <%=Header.getHeader(loggedUser, "tickets") %>
+    
     <!-- Page Content -->
     
         <div id="wrapper">
@@ -130,10 +111,10 @@ ArrayList<DTODeliveryTable> rows = (ArrayList<DTODeliveryTable>) request.getAttr
 	                    <tr>
 	                      <td><a href="previewticket?ticketId=<%=dto.getTicketId() %>" target="_blank"><%=dto.getTicketId() %></a></td>
 	                      <td><%=dto.getPlayName() %></td>
-	                      <td><%=dto.getShowDate() %></td>
+	                      <td><%=dh.getHTMLDate(dto.getShowDate())+" "+dh.getHTMLDate(dto.getShowDate()) %></td>
 	                      <td><%=dto.getUserLastName()+", "+dto.getUserName() %></td>  
 	                      <td><%=(dto.isPaid())? "Si" : "No" %></td>
-	                      <td><%=dto.getBuyingDate() %></td>
+	                      <td><%=dh.getHTMLDate(dto.getBuyingDate())+" "+dh.getHTMLTime(dto.getBuyingDate()) %></td>
 	                      <td><%=dto.getCardNumber() %></td>
 	                      <td><a href="chargeincard?ticketId=<%=dto.getTicketId() %>" onclick="return confirm('ATENCION. Esta a punto de cargar facturación a la tarjeta del cliente. Este proceso incurrirá en acciones bancarias y no se podrá deshacer.');" <%=(dto.isPaid())? "style=\"pointer-events: none; cursor: default; color: grey\"" : ""%>>Cargar</a></td>                         			
 	                    </tr>

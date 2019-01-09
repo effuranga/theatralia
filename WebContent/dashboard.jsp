@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"
     import="java.util.HashMap"
     import="java.util.Collection"
+    import="utils.Header"
     import="business.Play"
     import="business.User"%>
 <%
@@ -35,50 +36,7 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-          	<li class="nav-item">
-              <a class="nav-link" href="search.jsp">Buscar Obras</a>
-            </li>  
-            <li class="nav-item">
-              <a class="nav-link" href="searchuser.jsp">Buscar Usuarios</a>
-            </li>
-          <%
-          if(!loggedUser.isClient()){%>
-        	<li class="nav-item">
-              <a class="nav-link" href="delivery">Tickets</a>
-            </li>  
- <%       }
-          if(loggedUser.isAdmin()){
-          %>
-          	<li class="nav-item">
-              <a class="nav-link" href="adminusers">Admin Users</a>
-            </li>
-          	<li class="nav-item">
-              <a class="nav-link" href="adminplays">Admin Obras</a>
-            </li>
-          <%} 
-          %>
-            <li class="nav-item active">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="viewuser?requestedUserId=<%=loggedUser.getUserId() %>"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%=Header.getHeader(loggedUser, "dashboard") %>
 
     <!-- Page Content -->
     <div class="container">

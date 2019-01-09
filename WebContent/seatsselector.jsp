@@ -7,8 +7,7 @@
     import="business.User"
     import="business.Seat"
     import="business.Card"
-    import="utils.DTOPurchase"
-    import="utils.DTOSell"
+    import="utils.Header"
     %>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -19,26 +18,7 @@ if(loggedUser == null){
 
 Show show = (Show) request.getAttribute("show");
 String action = (loggedUser.isClient())? "setpayment" : "validatesell";
-// Logica horrible para distinguir los DTOs
-/*
-String action;
-Show show = null;
-if(loggedUser.isClient()){
-	DTOPurchase dto = (DTOPurchase) session.getAttribute("purchase");
-	action = "setpayment";
-	if(dto != null) show = dto.getShow();
-}
-else{
-	DTOSell dto = (DTOSell) session.getAttribute("purchase");
-	action = "validatesell";
-	if(dto != null) show = dto.getShow();
-}
 
-if(show == null){
-	response.sendRedirect("error.jsp?e=Fallo la logica de distincion de DTOs en seatsselector.jsp");
-	return;
-}
-*/
 if(show == null){
 	response.sendRedirect("error.jsp?e=El show no se encontro en seatsselector.jsp - desde SeatsSelector o desde Sell");
 	return;
@@ -100,28 +80,8 @@ if(seats == null || seats.size() != 98){
                                   supported by Chrome and Opera */
 }
   </style>
- <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+ 
+<%=Header.getHeader(loggedUser, "dashboard") %>
 
     <!-- Page Content -->
     <div class="container">

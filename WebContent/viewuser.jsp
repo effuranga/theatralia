@@ -6,6 +6,7 @@
     import="business.Comment"
     import="java.util.Set"
     import="utils.DateHandler"
+    import="utils.Header"
     import="business.User"%>
 <%
 //El usuario loggeado
@@ -33,6 +34,8 @@ boolean toShow = (playList != null && !playList.isEmpty())? true : false;
 
 //Los comentarios del usuario
 HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttribute("comments");
+
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,28 +62,14 @@ HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttr
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%
+    if(isMe){
+    	out.print(Header.getHeader(loggedUser, "profile"));
+    }
+    else{
+    	out.print(Header.getHeader(loggedUser, "searchuser"));
+    }
+    %>
 
     <!-- Page Content -->
     <div class="container" >
@@ -110,7 +99,7 @@ HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttr
 		    	  <%  }
 		    	  	  %>
 			          <p>Alias: <%=requestedUser.getUserName() %></p>
-			          <p>Fecha de nacimiento: <%=requestedUser.getBirthday()  %></p>
+			          <p>Fecha de nacimiento: <%=dh.getHTMLDate(requestedUser.getBirthday()) %></p>
 			          <p>Email: <%=requestedUser.getEmail() %></p>
 		
 		        </div>  
@@ -171,7 +160,6 @@ if(!comments.isEmpty()){ %>
 	<div class="comment_block">
 <%	
 	Set<Integer> ids = comments.keySet();
-	DateHandler dh = new DateHandler();
 	for(int parentId : ids){
 		Comment parent = comments.get(parentId); 
 		

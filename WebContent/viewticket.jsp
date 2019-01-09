@@ -7,6 +7,7 @@
     import="business.Seat"
     import="business.Show"
     import="business.User"
+    import="utils.Header"
     import="business.Ticket"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -37,7 +38,7 @@ Play play = ticket.getPlay();
   </head>
 
   <body>
- <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="home">Theatralia</a>
@@ -46,14 +47,36 @@ Play play = ticket.getPlay();
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          	<li class="nav-item">
+              <a class="nav-link" href="search.jsp"><img src="homeFE/img/search.svg" style="height:20px; width:20px;"/>Obras</a>
+            </li>  
             <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
+              <a class="nav-link" href="searchuser.jsp"><img src="homeFE/img/search.svg" style="height:20px; width:20px;"/>Usuarios</a>
+            </li>
+          <%
+          if(!loggedUser.isClient()){%>
+        	<li class="nav-item">
+              <a class="nav-link" href="delivery"><img src="homeFE/img/ticket.png" style="height:16px; width:16px;"/> Tickets</a>
+            </li>  
+ <%       }
+          if(loggedUser.isAdmin()){
+          %>
+          	<li class="nav-item">
+              <a class="nav-link" href="adminusers"><img src="homeFE/img/admin.png" style="height:16px; width:16px;"/> Users</a>
+            </li>
+          	<li class="nav-item">
+              <a class="nav-link" href="adminplays"><img src="homeFE/img/admin.png" style="height:16px; width:16px;"/> Obras</a>
+            </li>
+          <%} 
+          %>
+            <li class="nav-item active">
+              <a class="nav-link" href="home"><img src="homeFE/img/list.png" style="height:16px; width:16px;"/> Programación</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
+              <a class="nav-link" href="viewuser?requestedUserId=<%=loggedUser.getUserId() %>"><img src="homeFE/img/user.png" style="height:16px; width:16px;"/> <%=loggedUser.getName() %></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
+              <a class="nav-link" href="logout"><img src="homeFE/img/logout.svg" style="height:16px; width:16px;"/> Salir</a>
             </li>
           </ul>
         </div>

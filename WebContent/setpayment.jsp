@@ -7,6 +7,7 @@
     import="business.User"
     import="business.Seat"
     import="business.Card"
+    import="utils.Header"
     import="utils.DTOPurchase"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -53,28 +54,8 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
   </head>
 
   <body>
- <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+
+	<%=Header.getHeader(loggedUser, "dashboard") %>
 
     <!-- Page Content -->
     <div class="container">

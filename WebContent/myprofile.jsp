@@ -3,7 +3,10 @@
     import="java.util.HashMap"
     import="java.util.ArrayList"
     import="business.Play"
+    import="utils.Header"
+    import="utils.DateHandler"
     import="business.User"%>
+    
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
 if(loggedUser == null){
@@ -31,6 +34,7 @@ if(changeData || changeImage || changePass){
 	regular = false;
 }
 
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,28 +66,7 @@ if(changeData || changeImage || changePass){
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%=Header.getHeader(loggedUser, "profile") %>
 
     <!-- Page Content -->
     <div class="container" >
@@ -156,7 +139,7 @@ if(changeData || changeImage || changePass){
 	          <p>Contraseña: ********</p>
 	          <p>Nombre: <%=loggedUser.getName() %></p>
 	          <p>Apellido: <%=loggedUser.getLastName() %></p> 
-	          <p>Fecha de nacimiento: <%=loggedUser.getBirthday()  %></p>
+	          <p>Fecha de nacimiento: <%=dh.getHTMLDate(loggedUser.getBirthday()) %></p>
 	          <p>Email: <%=loggedUser.getEmail() %></p>
     	  <%	  
           }

@@ -4,7 +4,9 @@
     import="java.util.Collection"
     import="business.Play"
     import="business.Card"
-    import="business.Show" 
+    import="business.Show"
+    import="utils.Header" 
+    import="utils.DateHandler" 
     import="business.User"%>
 <%
 Play play = (Play) request.getAttribute("play");
@@ -12,6 +14,7 @@ ArrayList<Card> allCards = (ArrayList<Card>) request.getAttribute("allCards");
 User loggedUser = (User) session.getAttribute("loggedUser");
 
 ArrayList<Show> shows = play.getShows();
+DateHandler dh = new DateHandler();
 
 %>
 <!DOCTYPE html>
@@ -38,28 +41,8 @@ ArrayList<Show> shows = play.getShows();
   </head>
 
   <body>
- <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="myprofile.jsp"><%=loggedUser.getName() %></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+ 
+	<%=Header.getHeader(loggedUser, "dashboard") %>
 
     <!-- Page Content -->
     <div class="container">
@@ -86,7 +69,7 @@ ArrayList<Show> shows = play.getShows();
           	<label for="showId">Funcion</label>
           		<select name="showId" class="round" required>
 <%         			for(Show s : shows){
-%>						<option value="<%=s.getId()%>"><%=s.getDate()%></option>
+%>						<option value="<%=s.getId()%>"><%=dh.getHTMLDate(s.getDate())+" "+dh.getHTMLTime(s.getDate())%></option>
 <%        			}%>          		
 				</select>
 				<br/>

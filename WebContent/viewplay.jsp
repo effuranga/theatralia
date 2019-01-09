@@ -8,6 +8,7 @@
     import="business.Comment"
     import="java.util.Set"
     import="utils.DateHandler"
+    import="utils.Header"
     import="business.User"%>
 <%
 // ACA YA ME LLEGA LA OBRA SIN SHOWS PASADOS, NI SHOWS QUE NO TENGAN ASIENTOS
@@ -66,25 +67,8 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 		}
 		</style>
   <body>
- <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="home">Theatralia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="home">Programación</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout">Salir</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+ 
+	<%=(play.getStatus() == 1)? Header.getHeader(loggedUser, "dashboard") : Header.getHeader(loggedUser, "searchplay") %>
     
     	<!-- Page Content -->
 	    <div class="container">
@@ -115,12 +99,14 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	<%			}
 			} 
 			else{
-		      	if(play.getStatus()==1 && play.hasShowsInTheFuture() && play.oneShowInTheFutureHasAvailableSeats()) {%>             
+		      	if(play.getStatus()==1 && play.hasShowsInTheFuture() && play.oneShowInTheFutureHasAvailableSeats()) {
+		      		DateHandler dh = new DateHandler();
+		      	%>             
 		          <form action="sell" method="get">
 		          	<select name="showId" class="round" required>
 	<%  				for(Show s : shows){
 							if(s.hasSeatsAvailable()){
-	%>						<option value="<%=s.getId()%>"><%=s.getDate()%></option>
+	%>						<option value="<%=s.getId()%>"><%=dh.getHTMLDate(s.getDate())+" "+dh.getHTMLTime(s.getDate())%></option>
 	<%        				}
 						}%>          		
 					</select>

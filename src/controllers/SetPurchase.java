@@ -31,7 +31,7 @@ public class SetPurchase extends HttpServlet {
 		// Vaildaer que el usuario este loggeado y sea cliente
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isClient()) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o no es un cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como cliente) para poder realizar esta accion.");
 			return;
 		}
 		
@@ -68,7 +68,7 @@ public class SetPurchase extends HttpServlet {
 		CardHandler cardHandler = new CardHandler();
 		boolean activeCards = cardHandler.existActiveCardsForUser(user.getUserId());
 		if(!activeCards) {
-			response.sendRedirect("error.jsp?e=El usuario no tiene tarjetas activas. REDIRIGIR A UN LADO COPADO");
+			response.sendRedirect("error.jsp?e=El usuario no tiene tarjetas activas.");
 			return;
 		}
 		

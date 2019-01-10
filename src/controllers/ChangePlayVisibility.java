@@ -23,7 +23,7 @@ public class ChangePlayVisibility extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isAdmin()) {
-			response.sendRedirect("error.jsp?e=Usuario no loggeado o no admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como administrador) para poder realizar esta accion.");
 			return;
 		}
 		try {
@@ -37,12 +37,12 @@ public class ChangePlayVisibility extends HttpServlet {
 				response.sendRedirect("adminplays");
 			}
 			else {
-				response.sendRedirect("error.jsp?e=Fallo el cambio de status");
+				response.sendRedirect("error.jsp?e=Ocurrio un error durante la edicion de la obra. Intentelo de nuevo mas tarde");
 			}
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp?e=Fallo el parseo de string a int");
+			response.sendRedirect("error.jsp?e=Ocurrio un error al realizar esta accion. Intentelo de nuevo mas tarde");
 		}
 	}
 

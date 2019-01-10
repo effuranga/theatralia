@@ -24,13 +24,13 @@ public class SeatsSelector extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Recibe showId, cantSeats, delivery (1: pagar con tarjeta, 2: pagar por ventanilla)
+	 * Recibe showId, cantSeats, delivery (1: pagar con tarjeta, 2: pagar por ventanilla) SOLO COMO CLIENTE
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	// Vaildar que el usuario este loggeado y sea cliente
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isClient()) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o no es un cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como cliente) para poder realizar esta accion.");
 			return;
 		}
 	

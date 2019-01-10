@@ -25,7 +25,7 @@ public class CreateComment extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
 		if(loggedUser == null) {
-			response.sendRedirect("error.jsp?e=Accedi al servlet sin estar loggeado");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		
@@ -44,7 +44,7 @@ public class CreateComment extends HttpServlet {
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp?e=Error de parametros");
+			response.sendRedirect("error.jsp?e=Error de parametros. Comuniquese al 0800");
 			return;
 		}
 		
@@ -56,7 +56,7 @@ public class CreateComment extends HttpServlet {
 			response.sendRedirect("viewplay?id="+playId+"&action=newcommentsuccess#bar");
 		}
 		else {
-			response.sendRedirect("error.jsp?e=Error en la creación del comment");
+			response.sendRedirect("error.jsp?e=Error en la creación del comment. Comuniquese al 0800");
 		}
 	}
 

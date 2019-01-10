@@ -27,7 +27,7 @@ public class Library extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isClient()) {
-			response.sendRedirect("error.jsp?e=No estas loggeado o no es cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como cliente) para poder realizar esta accion.");
 			return;
 		}
 		UserHandler userHandler = new UserHandler();

@@ -39,13 +39,13 @@ public class SetPayment extends HttpServlet {
 		int seatId;
 		
 		if(user == null || dto == null) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o el DTO no está definido");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		
 		String[] seatsIds = request.getParameterValues("selectedSeats");
 		if(seatsIds.length == 0) {
-			response.sendRedirect("error.jsp?e=Selecciona algun asiento man");
+			response.sendRedirect("error.jsp?e=No se selecciono ningun asiento");
 			return;
 		}
 		
@@ -66,7 +66,7 @@ public class SetPayment extends HttpServlet {
 		}
 		//Fijarme una vez más que no quede vació el selectedSeats
 		if(selectedSeats.isEmpty()) {
-			response.sendRedirect("error.jsp?e=selectedSeats esta vacio");
+			response.sendRedirect("error.jsp?e=ERROR 202: selectedSeats esta vacio");
 			return;
 		}
 		

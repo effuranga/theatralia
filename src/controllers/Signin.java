@@ -47,7 +47,7 @@ public class Signin extends HttpServlet {
 				}
 			}
 			else {
-				response.sendRedirect("error.jsp?e=No pude darlo de alta");
+				response.sendRedirect("error.jsp?e=Falla de alta");
 			}
 		}
 		else {

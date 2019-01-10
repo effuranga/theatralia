@@ -24,7 +24,7 @@ public class EditPlay extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		String id = request.getParameter("playid");
 		if(user == null || !user.isAdmin() || id == null || id.trim().isEmpty()) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.jsp?e=Fallo la validacion de parametros iniciales para poder editar la obra.");
 			return;
 		}
 		try {
@@ -32,7 +32,7 @@ public class EditPlay extends HttpServlet {
 			PlayHandler playHandler = new PlayHandler();
 			Play play = playHandler.getWholePlay(playId);
 			if(play == null) {
-				response.sendRedirect("error.jsp?message=La obra buscada no existe");
+				response.sendRedirect("error.jsp?e=La obra buscada no existe");
 				return;
 			}
 			request.setAttribute("play", play);
@@ -40,7 +40,7 @@ public class EditPlay extends HttpServlet {
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("error.jsp?e=Parseo de playId incorrecto");
 			return;
 		}
 		

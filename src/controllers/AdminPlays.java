@@ -26,7 +26,7 @@ public class AdminPlays extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isAdmin()) {
-			response.sendRedirect("error.jsp?message= No estas loggeado o no sos admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como Administrador) para poder realizar esta accion.");
 			return;
 		}
 		PlayHandler playHandler = new PlayHandler();

@@ -26,7 +26,7 @@ public class CreateShow extends HttpServlet {
 		
 		//Validación inicial
 		if(user == null || !user.isAdmin() || id == null || id.trim().isEmpty() || showDate == null || showDate.trim().isEmpty()) {
-			response.sendRedirect("error.jsp?message=Fallo la validacion inicial");
+			response.sendRedirect("error.jsp?e=Fallo la validacion inicial al intentar crear la funcion");
 			return;
 		}
 		
@@ -42,13 +42,13 @@ public class CreateShow extends HttpServlet {
 				response.sendRedirect("editplay?playid="+id);
 			}
 			else {
-				response.sendRedirect("error.jsp?message=El show no se cargó correctamente");
+				response.sendRedirect("error.jsp?e=El show no se cargó correctamente");
 			}
 			
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp?message=El id es invalido");
+			response.sendRedirect("error.jsp?e=El id es invalido");
 		}
 		
 		

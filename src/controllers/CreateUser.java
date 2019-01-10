@@ -26,7 +26,7 @@ public class CreateUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isAdmin()) {
-			response.sendRedirect("error.jsp?e=No loggead o no admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como Administrador) para poder realizar esta accion.");
 			return;
 		}
 		String userName = request.getParameter("userName");

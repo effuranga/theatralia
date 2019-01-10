@@ -23,7 +23,7 @@ public class ChangeUserStatus extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isAdmin()) {
-			response.sendRedirect("error.jsp?e=Usuario no loggeado o no admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como Administrador) para poder realizar esta accion.");
 			return;
 		}
 		try {
@@ -37,12 +37,12 @@ public class ChangeUserStatus extends HttpServlet {
 				response.sendRedirect("adminusers?action=status");
 			}
 			else {
-				response.sendRedirect("error.jsp?e=Fallo el cambio de status");
+				response.sendRedirect("error.jsp?e=Fallo el cambio de estado. Vuelva a intentarlo mas tarde.");
 			}
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("error.jsp?e=Fallo el parseo de string a int");
+			response.sendRedirect("error.jsp?e=Fallo el parseo de string a int. Someone is messing up with the code.");
 		}
 	}
 

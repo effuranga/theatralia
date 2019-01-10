@@ -64,7 +64,7 @@ public class UpdatePlay extends HttpServlet {
           //Validate all text fields are mandatory
             if(name.isEmpty() || description.isEmpty() || author.isEmpty()) {
             	message = "Fallaron los text fields mandatory";
-            	response.sendRedirect("error.jsp?message="+message);
+            	response.sendRedirect("error.jsp?e="+message);
             	return;
             } 
          	// Let's update the play
@@ -73,7 +73,7 @@ public class UpdatePlay extends HttpServlet {
             	//Validate the play was successfully saved
             if(!updated) {
             	message = "La obra no se actualizo";
-            	response.sendRedirect("error.jsp?message="+message);
+            	response.sendRedirect("error.jsp?e="+message);
             	return;
             }   
            
@@ -103,7 +103,7 @@ public class UpdatePlay extends HttpServlet {
                      
         } catch (Exception ex) {
             message = "Ocurrio un error inesperado";
-        	response.sendRedirect("error.jsp?message="+message);
+        	response.sendRedirect("error.jsp?e="+message);
             
         }        
 	}

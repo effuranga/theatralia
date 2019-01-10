@@ -30,7 +30,7 @@ public class Sell extends HttpServlet {
 		// Vaildaer que el usuario este loggeado y NO sea cliente
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || user.isClient()) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o ES un cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como cliente o administrador) para poder realizar esta accion.");
 			return;
 		}
 		

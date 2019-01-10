@@ -25,7 +25,7 @@ public class PayTicket extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
 		if(loggedUser == null || loggedUser.isClient()) {
-			response.sendRedirect("error.jsp?e=Accedi al servlet sin estar loggeado o soy cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como empleado o administrador) para poder realizar esta accion.");
 			return;
 		}
 		

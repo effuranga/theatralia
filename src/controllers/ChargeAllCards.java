@@ -25,7 +25,7 @@ public class ChargeAllCards extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.isAdmin()) {
-			response.sendRedirect("error.jsp?e=Accedi al servlet sin estar loggeado o no soy Admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como Administrador) para poder realizar esta accion.");
 			return;
 		}
 		
@@ -38,7 +38,7 @@ public class ChargeAllCards extends HttpServlet {
 			response.sendRedirect("validation.jsp?action=6");
 		}
 		else {
-			response.sendRedirect("error.jsp?e=Problema con el cobro");
+			response.sendRedirect("error.jsp?e=La carga en bloque ha fallado. Vuelva a intentarlo mas tarde.");
 		}
 	}
 

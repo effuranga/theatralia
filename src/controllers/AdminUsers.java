@@ -25,7 +25,7 @@ public class AdminUsers extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isAdmin()) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o no es admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como administrador) para poder realizar esta accion.");
 			return;
 		}
 		

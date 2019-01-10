@@ -36,9 +36,7 @@ public class Login extends HttpServlet {
 		session.setAttribute("loggedUser", loggedUser);
 		System.out.println(loggedUser.getRole());
 		response.sendRedirect("home");
-		/*		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home");
-		requestDispatcher.forward(request, response);
-*/	}
+	}
 	
 
 }

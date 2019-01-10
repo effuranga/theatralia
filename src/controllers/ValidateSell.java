@@ -39,14 +39,14 @@ public class ValidateSell extends HttpServlet {
 		int seatId;
 		
 		if(user == null || dto == null) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o el DTO no está definido");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		
 		// Recupero los asientos elegidos
 		String[] seatsIds = request.getParameterValues("selectedSeats");
 		if(seatsIds.length == 0) {
-			response.sendRedirect("error.jsp?e=Selecciona algun asiento man");
+			response.sendRedirect("error.jsp?e=No hay asientos seleccionados");
 			return;
 		}
 		

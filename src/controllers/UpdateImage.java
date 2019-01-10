@@ -36,7 +36,7 @@ public class UpdateImage extends HttpServlet {
         
         if(user == null) {
         //El usuario no está loggeado
-        	response.sendRedirect("error.jsp?e=El usuario no está loggeado");
+        	response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
         	return;
         }	     
         try {
@@ -71,7 +71,8 @@ public class UpdateImage extends HttpServlet {
     		}      
             response.sendRedirect("error.jsp?e=Al parecer ocurrio un error al actualizar la imagen. Esto puede ser debido a que el archivo no es del tipo correcto .JPG/.JPEG");
         } catch (Exception ex) {
-            request.setAttribute("message", "There was an error: " + ex.getMessage());
+            ex.printStackTrace();
+            response.sendRedirect("error.jsp");
         }        
 	}
 

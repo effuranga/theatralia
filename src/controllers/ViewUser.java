@@ -30,7 +30,7 @@ public class ViewUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User loggedUser = (User) request.getSession().getAttribute("loggedUser");
 		if(loggedUser == null) {
-			response.sendRedirect("error.jsp?e= No estas loggeado");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		

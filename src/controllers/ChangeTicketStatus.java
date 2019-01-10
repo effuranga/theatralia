@@ -25,7 +25,7 @@ public class ChangeTicketStatus extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
 		if(loggedUser == null || loggedUser.isClient()) {
-			response.sendRedirect("error.jsp?e=Accedi al servlet sin estar loggeado o soy cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como empleado o administrador) para poder realizar esta accion.");
 			return;
 		}
 		
@@ -38,7 +38,7 @@ public class ChangeTicketStatus extends HttpServlet {
 			response.sendRedirect("validation.jsp?action=3");
 		}
 		else {
-			response.sendRedirect("error.jsp?e=Problema con el cobro");
+			response.sendRedirect("error.jsp?e=El cobro no se realizo de manera exitosa. Vuelva a intentarlo mas tarde.");
 		}
 	}
 

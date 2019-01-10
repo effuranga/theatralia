@@ -32,7 +32,7 @@ public class ExpiredTickets extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.isAdmin()) {
-			response.sendRedirect("error.jsp?e=Accedi al servlet sin estar loggeado o no soy admin");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como Administrador) para poder realizar esta accion.");
 			return;
 		}
 		TicketHandler ticketHandler = new TicketHandler();

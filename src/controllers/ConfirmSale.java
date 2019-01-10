@@ -32,14 +32,14 @@ public class ConfirmSale extends HttpServlet {
 		DTOSell dto = (DTOSell) session.getAttribute("sell");
 		
 		if(user == null || dto == null) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado o el DTO no está definido");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (con permisos correspondientes) para poder realizar esta accion.");
 			return;
 		}
 		
 		// Checkear que el DTO sea apto para impactar la DB
 		boolean isFit = dto.isFit();
 		if(!isFit) {
-			response.sendRedirect("error.jsp?e=El dto no es fit");
+			response.sendRedirect("error.jsp?e=ERROR 209: El DTOSell no es fit");
 			return;
 		}
 		
@@ -54,7 +54,7 @@ public class ConfirmSale extends HttpServlet {
 			response.sendRedirect("viewticket.jsp");
 		}
 		else {
-			response.sendRedirect("error.jsp?e=Fallo la venta. Puede haber quedado data inconsistente");
+			response.sendRedirect("error.jsp?e=Fallo la venta. Puede haber quedado data inconsistente. Comuniquese con el 0-800");
 		}
 
 	}

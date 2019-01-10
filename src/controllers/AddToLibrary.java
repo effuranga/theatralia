@@ -23,7 +23,7 @@ public class AddToLibrary extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isClient()) {
-			response.sendRedirect("error.jsp?e=No estas loggeado o no es cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como cliente) para poder realizar esta accion.");
 			return;
 		}
 		try {
@@ -35,12 +35,12 @@ public class AddToLibrary extends HttpServlet {
 				response.sendRedirect("viewplay?id="+playId);
 			}
 			else {
-				response.sendRedirect("No se actualizó");
+				response.sendRedirect("error.jsp?e=Ocurrio un error al agregar esta obra a tu biblioteca.");
 			}
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("Mal parametro");
+			response.sendRedirect("error.jsp?e=La obra solicitada no existe.");
 		}
 	}
 

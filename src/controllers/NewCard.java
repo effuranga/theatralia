@@ -25,7 +25,7 @@ public class NewCard extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User loggedUser = (User) request.getSession().getAttribute("loggedUser");
 		if(loggedUser == null) {
-			response.sendRedirect("error.jsp?e=El usuario no está logueado");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		
@@ -54,7 +54,7 @@ public class NewCard extends HttpServlet {
 				request.setAttribute("message", "La transacción no se ha podido realizar");
 			}
 		}
-		RequestDispatcher rs = request.getRequestDispatcher("validation.jsp?action=1"); //Implementar spinner
+		RequestDispatcher rs = request.getRequestDispatcher("validation.jsp?action=1");
 		rs.forward(request, response);
 	}
 

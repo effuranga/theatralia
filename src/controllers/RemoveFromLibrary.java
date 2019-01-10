@@ -23,7 +23,7 @@ public class RemoveFromLibrary extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		if(user == null || !user.isClient()) {
-			response.sendRedirect("error.jsp?e=No estas loggeado o no es cliente");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como cliente) para poder realizar esta accion.");
 			return;
 		}
 		try {
@@ -46,12 +46,12 @@ public class RemoveFromLibrary extends HttpServlet {
 				}		
 			}
 			else {
-				response.sendRedirect("No se actualizó");
+				response.sendRedirect("error.jsp?e=No se removio de la biblioteca correctamente");
 			}
 		}
 		catch(NumberFormatException e) {
 			e.printStackTrace();
-			response.sendRedirect("Mal parametro");
+			response.sendRedirect("error.jsp?e=Parametro incorrecto");
 		}
 	}
 }

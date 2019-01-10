@@ -26,7 +26,7 @@ public class LikeComment extends HttpServlet {
 		User user = (User) session.getAttribute("loggedUser");
 		
 		if(user == null) {
-			response.sendRedirect("error.jsp?e=El usuario no esta loggeado");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		

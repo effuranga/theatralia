@@ -28,7 +28,7 @@ public class Dashboard extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
 		if(loggedUser == null) {
-			response.sendRedirect("error.jsp?e=Accedi al servlet sin estar loggeado");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		/*Al estar loggeado, necesito popular las obras actuales en el dashboard asi que las pido

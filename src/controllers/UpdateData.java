@@ -28,7 +28,7 @@ public class UpdateData extends HttpServlet {
 		User user = (User) session.getAttribute("loggedUser");
 		
 		if(user == null) {
-			response.sendRedirect("error.jsp?e=El usuario no está en la sesión");
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		

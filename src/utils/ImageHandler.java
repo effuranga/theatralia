@@ -2,7 +2,6 @@ package utils;
 
 import java.io.File;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.FilenameUtils;
 
 public class ImageHandler {
 	private static final String UPLOAD_DIRECTORY_PLAY = "playPictures";
@@ -41,6 +40,7 @@ public class ImageHandler {
 	}
 	
 	public boolean saveImage(FileItem item, String servletContextRealPath, String id, String destionation_path) {
+		System.out.println("*** CONTENT TYPE del archivo subido ***"+item.getContentType());
         // constructs the directory path to store upload file
         String uploadPath = servletContextRealPath
             + File.separator + destionation_path;
@@ -55,8 +55,7 @@ public class ImageHandler {
         File storeFile = new File(filePath);
          
         // saves the file on disk
-        String extension = FilenameUtils.getExtension(fileName); //TODO revisar si esto no deberia ser uploadPath o ver como ubicar el nombre del archivo, y no este param que yo mismo declaro mas arriba
-        if(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equalsIgnoreCase("png")) {
+        if(item.getContentType().equals("image/jpeg")) {
         	try {
 				item.write(storeFile);
 				System.out.println("Upload has been done successfully!");

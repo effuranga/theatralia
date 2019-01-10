@@ -65,12 +65,11 @@ public class UpdateImage extends HttpServlet {
                 	return;
             	}
             	else {
-            		response.sendRedirect("error.jsp?message=La actualización de la DB no funciono");
+            		response.sendRedirect("error.jsp?e=La actualización de la DB no funciono");
     				return;
             	}
-    		}
-            getServletContext().getRequestDispatcher("/error.jsp?e=Ocurrio un error en el directorio de destino").forward(request, response);      
-            
+    		}      
+            response.sendRedirect("error.jsp?e=Al parecer ocurrio un error al actualizar la imagen. Esto puede ser debido a que el archivo no es del tipo correcto .JPG/.JPEG");
         } catch (Exception ex) {
             request.setAttribute("message", "There was an error: " + ex.getMessage());
         }        

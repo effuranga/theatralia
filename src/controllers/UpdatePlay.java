@@ -95,8 +95,9 @@ public class UpdatePlay extends HttpServlet {
     			playHandler.setImage(id);
     		}
             if(imageExist && !imageSaved) {
-            	message = "No se guardó la imagen";
-            	response.sendRedirect("error.jsp?message="+message);
+            	message = "Al parecer ocurrio un error al actualizar la imagen. Esto puede ser debido a que el archivo no es del tipo correcto .JPG/.JPEG";
+            	response.sendRedirect("error.jsp?e="+message);
+            	return;
             }
             response.sendRedirect("viewplay?id="+id);      	
                      

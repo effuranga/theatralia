@@ -13,6 +13,15 @@
 User loggedUser = (User) session.getAttribute("loggedUser");
 Ticket ticket = (Ticket)session.getAttribute("ticket");
 Play play = ticket.getPlay(); 
+
+//Manejo de la imagen
+String imageSRC = "";
+if(play.hasImage()){
+	imageSRC = "playPictures/"+play.getImage();
+}
+else{
+	imageSRC = "utils/noimage.jpg";
+}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,12 +105,21 @@ Play play = ticket.getPlay();
    <div class="row">
      <div class="col-md-7">
        <a href="#">
-         <img class="img-fluid rounded mb-3 mb-md-0" style="height: 900px; width: 600px" src="http://www.lineadesign.net/images/projects/batler-theater-play-poster/1272453039/standard/afisa-batler_middle.jpg" alt="">
+         <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
+         <br />
+         <br />
+          <%if(loggedUser.isClient()) {%>
+		 <a class="btn btn-primary" href="validation.jsp?action=2">Imprimir</a>
+		 <a class="btn btn-secondary" href="home" onclick="return confirm('Si desea salir sin haber impreso el ticket, recuerde anotar su delivery code. ¿Está seguro que desea continuar?');">Dashboard</a>
+		 <%} 
+		 else{%>
+		  <a class="btn btn-primary" href="validation.jsp?action=2">Imprimir</a> 
+		 <%} %>   
        </a>
      </div>
         
   <!--Aca va el ticket -->
-	  <div class="ticket">
+	  <div class="ticket" style="margin:unset;">
 		  <div class="ticket-header">
 		    <div class="ticket-departure">
 		      <h1 class="city-abbr">Theatralia</h1><span class="city-name"><%=play.getName() %></span>
@@ -220,14 +238,7 @@ Play play = ticket.getPlay();
 		    
 		  </div><!-- Ticket body -->		
 	</div><!-- Ticket -->	
- 
- <%if(loggedUser.isClient()) {%>
- <a class="btn btn-primary" href="validate.jsp?action=2">Imprimir</a>
- <a class="btn btn-secondary" href="home" onclick="return confirm('Si desea salir sin haber impreso el ticket, recuerde anotar su delivery code. ¿Está seguro que desea continuar?');">Dashboard</a>
- <%} 
- else{%>
-  <a class="btn btn-primary" href="validation.jsp?action=2">Imprimir</a> 
- <%} %>      
+   
 </div><!-- /.play -->
       <hr> <!-- Esta linea divide las obras -->		
 

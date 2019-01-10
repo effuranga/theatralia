@@ -14,6 +14,15 @@
 // ACA YA ME LLEGA LA OBRA SIN SHOWS PASADOS, NI SHOWS QUE NO TENGAN ASIENTOS
 
 Play play = (Play) request.getAttribute("play");
+if(play == null){
+	response.sendRedirect("error.jsp?e=La obra solicitada no existe");
+	return;
+}
+boolean hasImage = false;
+String noImage = "utils/noimage.jpg";
+if(play.getImage() != null && !play.getImage().equals("noimage.jpg")){
+	hasImage = true;
+}
 User loggedUser = (User) session.getAttribute("loggedUser");
 HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttribute("comments");
 
@@ -74,7 +83,7 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	    <div class="container">
 	
 	      <!-- Page Heading -->
-	      <h1 class="my-4">Obras
+	      <h1 class="my-4"><%=play.getName() %>
 	        <small></small>
 	      </h1>
 	
@@ -83,8 +92,8 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	      <div class="row">
 	        <div class="col-md-7">
 	          <a href="#">
-	            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="https://media-cdn.tripadvisor.com/media/photo-s/10/a3/87/18/the-play-that-goes-wrong.jpg" alt="">
-	          </a>
+	            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=(hasImage)? "playPictures/"+play.getImage() : noImage %>" alt="">
+	          </a> 
 	        </div>
 	        <div class="col-md-5">
 	          <h3><%=play.getName() %></h3>
@@ -128,7 +137,7 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 
 			<!-- current user avatar -->
 		 	<div class="user_avatar">
-		 		<img src="https://s3.amazonaws.com/uifaces/faces/twitter/BillSKenney/73.jpg">
+		 		<img src="<%=loggedUser.imageSRC() %>">
 		 	</div><!-- the input field --><div class="input_comment">
 		 	<% 
 		 	String pId = (String) request.getParameter("parentId");
@@ -168,7 +177,7 @@ if(!comments.isEmpty()){
 
 		 		<!-- current user avatar -->
 			 	<div class="user_avatar">
-			 		<a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/73.jpg"></a>
+			 		<a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><img src="<%=parent.imageSRC() %>"></a>
 			 	</div><!-- the comment body --><div class="comment_body">
 			 		<p><%=parent.getText() %></p>
 			 	</div>
@@ -220,7 +229,7 @@ if(!comments.isEmpty()){
 		 		
 		 		<!-- current user avatar -->
 			 	<div class="user_avatar">
-			 		<a href="viewuser?requestedUserId=<%=child.getUserId() %>" class="nostyle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/manugamero/73.jpg"></a>
+			 		<a href="viewuser?requestedUserId=<%=child.getUserId() %>" class="nostyle"><img src="<%=child.imageSRC() %>"></a>
 			 	</div><!-- the comment body --><div class="comment_body">
 			 		<p><div class="replied_to"><p><a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><span class="user"><%=parent.getUserName() %></span></a><%=parent.getText() %></p></div><%=child.getText() %></p>
 			 	</div>

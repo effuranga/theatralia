@@ -92,7 +92,7 @@ DateHandler dh = new DateHandler();
 %>                  
                     <tr>
                       <td><%=u.getUserId() %></td>
-                      <td><%=u.getUserName() %></td>
+                      <td><a href="viewuser?requestedUserId=<%=u.getUserId() %>"><%=u.getUserName() %></a></td>
                       <td><%=u.getLastName()+", "+u.getName() %></td>
                       <td><%=u.getEmail() %></td>
                       <td>

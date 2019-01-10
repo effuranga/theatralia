@@ -162,7 +162,33 @@ public class User {
 		return this.role;
 	}
 	
+	/**
+	 * Es para saber si tengo una direccion en la imagen o es null
+	 * @return TRUE si tiene una imagen, FALSE si la imagen es null o "noimage.jpg"
+	 */
+	private boolean hasImage() {
+		if(this.profImage != null && !this.profImage.equals("noimage.jpg")) {
+			return true;
+		}
+		return false;
+	}
 
+	/**
+	 * Devuelve la locación donde buscar la imagen de usuario, dependiendo si tiene el 
+	 * id seteado en profImage en DB o no
+	 * @return userPictures/ID.jpg o utils/nouser.png
+	 */
+	public String imageSRC() {
+		String imageSRC = "";
+		if(hasImage()){
+			imageSRC = "userPictures/"+getProfImage();
+		}
+		else{
+			imageSRC = "utils/nouser.png";
+		}
+		
+		return imageSRC;
+	}
 	
 	
 }

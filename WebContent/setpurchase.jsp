@@ -16,6 +16,15 @@ User loggedUser = (User) session.getAttribute("loggedUser");
 ArrayList<Show> shows = play.getShows();
 DateHandler dh = new DateHandler();
 
+//Manejo de la imagen
+String imageSRC = "";
+if(play.hasImage()){
+	imageSRC = "playPictures/"+play.getImage();
+}
+else{
+	imageSRC = "utils/noimage.jpg";
+}
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +66,7 @@ DateHandler dh = new DateHandler();
       <div class="row">
         <div class="col-md-7">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%="playPictures/"+play.getImage() %>" alt="">
+            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
           </a>
         </div>
         <div class="col-md-5">

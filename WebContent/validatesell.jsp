@@ -24,6 +24,15 @@ float total = 0;
 for(Seat s : seats){
 	total += s.getPrice();
 }
+
+// Manejo de la imagen
+String imageSRC = "";
+if(play.hasImage()){
+	imageSRC = "playPictures/"+play.getImage();
+}
+else{
+	imageSRC = "utils/noimage.jpg";
+}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +71,7 @@ for(Seat s : seats){
       <div class="row">
         <div class="col-md-7">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%="playPictures/"+play.getImage() %>" alt="">
+            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
           </a>
         </div>
         <div class="col-md-5">

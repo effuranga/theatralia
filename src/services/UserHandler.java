@@ -539,4 +539,17 @@ public class UserHandler {
 		daoUser.done();
 		return usersResult;
 	}
+	
+	/**
+	 * Devuelve lo que contenga profImage en la tabla user
+	 * @param userId
+	 * @return el string en profImage o NULL
+	 */
+	public String getImageById(int userId) {
+		DAOUser daoUser = new DAOUser();
+		
+		String image = daoUser.getImageById(userId);
+		
+		return image;
+	}
 }

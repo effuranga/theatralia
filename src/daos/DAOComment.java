@@ -84,7 +84,7 @@ public class DAOComment extends DAO{
 	public ResultSet getCommentsForPlay(int playId) {
 		Connection conn = connect();
 		
-		String qry = "SELECT C.*, U.userName FROM theatralia.comment C INNER JOIN theatralia.user U ON C.userId = U.userId "
+		String qry = "SELECT C.*, U.userName, U.profImage FROM theatralia.comment C INNER JOIN theatralia.user U ON C.userId = U.userId "
 				+ "WHERE C.playId = "+playId+" AND C.valid = 1 AND U.status = 1 ORDER BY parentId ASC;";
 		System.out.println(qry);
 		try {
@@ -197,7 +197,7 @@ public class DAOComment extends DAO{
 	public ResultSet getCommentsForUser(int userId) {
 		Connection conn = connect();
 		
-		String qry = "SELECT distinct C.*, U.`userName`, P.`name` AS \"playName\" \r\n" + 
+		String qry = "SELECT distinct C.*, U.`userName`, U.`profImage`, P.`name` AS \"playName\" \r\n" + 
 				"FROM `theatralia`.`comment` C \r\n" + 
 				"INNER JOIN `theatralia`.`user` U ON C.`userId` = U.`userId` \r\n" + 
 				"INNER JOIN `theatralia`.`play` P ON C.`playId` = P.`playId` \r\n" + 

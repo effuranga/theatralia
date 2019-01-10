@@ -53,11 +53,11 @@ public class Header {
 				          }
 				          if(loggedUser.isAdmin()){
 				        	  header+=
-				        			  			"<li class=\"nav-item "+adminusers+"\">\r\n" + 
-				        						"              <a class=\"nav-link\" href=\"adminusers\"><img src=\"homeFE/img/admin.png\" height=\"16\" width=\"16\" /> Users</a>\r\n" + 
-				        						"            </li>\r\n" + 
-				        						"          	<li class=\"nav-item "+adminplays+"\">\r\n" + 
+				        			  			"<li class=\"nav-item "+adminplays+"\">\r\n" + 
 				        						"              <a class=\"nav-link\" href=\"adminplays\"><img src=\"homeFE/img/admin.png\" height=\"16\" width=\"16\" /> Obras</a>\r\n" + 
+				        						"            </li>\r\n" + 
+				        						"			<li class=\"nav-item "+adminusers+"\">\r\n" + 
+				        						"              <a class=\"nav-link\" href=\"adminusers\"><img src=\"homeFE/img/admin.png\" height=\"16\" width=\"16\" /> Usuarios</a>\r\n" +  
 				        						"            </li>\r\n";
 				          }
 				          header+=

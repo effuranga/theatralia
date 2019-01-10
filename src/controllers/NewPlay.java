@@ -103,7 +103,7 @@ public class NewPlay extends HttpServlet {
                      
         } catch (Exception ex) {
             message = "Ocurrio un error inesperado";
-        	response.sendRedirect("newplay.jsp?message="+message);
+        	response.sendRedirect("error.jsp?e="+message);
             
         }        
 	}

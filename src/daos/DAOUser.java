@@ -310,4 +310,27 @@ public class DAOUser extends DAO {
 		}
 		return null;		
 	}
+
+	/**
+	 * Devuelve lo que contenga profImage en la tabla user
+	 * @param userId
+	 * @return el string en profImage o NULL
+	 */
+	public String getImageById(int userId) {
+		Connection conn = connect();
+		String sql = "SELECT profImage FROM user WHERE `userId` = "+userId+";";
+		System.out.println(sql);
+		try {
+			ResultSet rs = conn.prepareStatement(sql).executeQuery();
+			while(rs.next()) {
+				String image = rs.getString(1);
+				done();
+				return image;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		done();
+		return null;
+	}
 }

@@ -42,19 +42,27 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
     <div class="container">
 
       <!-- Page Heading -->
-      <h1 class="my-4">Obras
+      <h1 class="my-4">Programación / Cartelera
         <small></small>
       </h1>
 
 <%
 if(toShow){
 	Collection<Play> plays = currentPlays.values();
-	for(Play p : plays){%>
+	for(Play p : plays){
+		String imageSRC = "";
+		if(p.hasImage()){
+			imageSRC = "playPictures/"+p.getImage();
+		}
+		else{
+			imageSRC = "utils/noimage.jpg";
+		}
+	%>
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%="playPictures/"+p.getImage() %>" alt="">
+            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
           </a>
         </div>
         <div class="col-md-5">

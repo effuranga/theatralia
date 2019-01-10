@@ -41,7 +41,6 @@ public class ImageHandler {
 	}
 	
 	public boolean saveImage(FileItem item, String servletContextRealPath, String id, String destionation_path) {
-         System.out.println("entre"); 
         // constructs the directory path to store upload file
         String uploadPath = servletContextRealPath
             + File.separator + destionation_path;

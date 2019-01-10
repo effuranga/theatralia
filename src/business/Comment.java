@@ -3,6 +3,8 @@ package business;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import services.UserHandler;
+
 public class Comment {
 	private int id;
 	private int userId;
@@ -15,6 +17,7 @@ public class Comment {
 	private boolean isParent;
 	private ArrayList<Integer> likes; //Lista de userIds que likearon este comment
 	private String playName; //Para mostrar en el perfil del usuario
+	private String userProfImage;
 	
 	/**
 	 * Devuelve una coleccion con el id de todos los hijos
@@ -38,7 +41,7 @@ public class Comment {
 	 * @param text
 	 * @param date
 	 */
-	public Comment(int id, int userId, String userName, int playId, String text, String date) {
+	public Comment(int id, int userId, String userName, int playId, String text, String date, String userProfImage) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -49,6 +52,7 @@ public class Comment {
 		this.isParent = true;
 		this.children = new ArrayList<Comment>();
 		this.likes = new ArrayList<Integer> ();
+		this.userProfImage = userProfImage;
 	}
 	
 	/**
@@ -60,7 +64,7 @@ public class Comment {
 	 * @param date
 	 * @param playName
 	 */
-	public Comment(int id, int userId, String userName, int playId, String text, String date, String playName) {
+	public Comment(int id, int userId, String userName, int playId, String text, String date, String playName, String userProfImage) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -72,6 +76,8 @@ public class Comment {
 		this.children = new ArrayList<Comment>();
 		this.likes = new ArrayList<Integer> ();
 		this.playName = playName;
+		this.userProfImage = userProfImage;
+		
 	}
 	
 	/**
@@ -83,7 +89,7 @@ public class Comment {
 	 * @param text
 	 * @param date
 	 */
-	public Comment(int id, int userId, String userName, int playId, int parentId, String text, String date) {
+	public Comment(int id, int userId, String userName, int playId, int parentId, String text, String date, String userProfImage) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -95,6 +101,8 @@ public class Comment {
 		this.isParent = false;
 		this.children = new ArrayList<Comment>();
 		this.likes = new ArrayList<Integer> ();
+		this.userProfImage = userProfImage;
+		
 	}
 	
 	public HashMap<Integer, Comment> getYourChildrenAsHashMap(){
@@ -210,6 +218,14 @@ public class Comment {
 		this.playName = playName;
 	}
 
+	public String getUserProfImage() {
+		return userProfImage;
+	}
+
+	public void setUserProfImage(String userProfImage) {
+		this.userProfImage = userProfImage;
+	}
+
 
 
 	/**
@@ -223,5 +239,20 @@ public class Comment {
 		return true;
 	}
 	
-	
+	/**
+	 * Devuelve la locación donde buscar la imagen de usuario, dependiendo si tiene el 
+	 * id seteado en profImage en DB o no
+	 * @return userPictures/ID.jpg o utils/nouser.png
+	 */
+	public String imageSRC() {
+		String imageSRC = "";
+		if(this.userProfImage != null && !this.userProfImage.equals("nouser.jpg")){
+			imageSRC = "userPictures/"+this.userProfImage;
+		}
+		else{
+			imageSRC = "utils/nouser.png";
+		}
+		
+		return imageSRC;
+	}
 }

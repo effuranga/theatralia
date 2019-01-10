@@ -76,7 +76,7 @@ DateHandler dh = new DateHandler();
           height: 100%;
           padding:10px;
         ">
-          <img src="userPictures/<%=loggedUser.getProfImage() %>" width="300px" height="300px">
+          <img src="<%=loggedUser.imageSRC() %>" width="300px" height="300px">
           
 <%         if(changeImage){
           %>

@@ -59,13 +59,14 @@ public class CommentHandler {
 					String text = rs.getString("text");
 					String date = rs.getString("date");
 					String userName = rs.getString("userName");
+					String userProfImage = rs.getString("profImage");
 					
 					if(parentId == 0) { //Es un padre
-						comments.put(commentId, new Comment(commentId, userId, userName, playId, text, date));
+						comments.put(commentId, new Comment(commentId, userId, userName, playId, text, date, userProfImage));
 					}
 					else { //Es un hijo
 						Comment parent = comments.get(parentId); //Obtengo al padre
-						Comment child = new Comment(commentId, userId, userName, parentId, text, date);
+						Comment child = new Comment(commentId, userId, userName, parentId, text, date, userProfImage);
 						parent.addChild(child);
 					}				
 				}
@@ -183,13 +184,15 @@ public class CommentHandler {
 					String date = rs.getString("date");
 					String userName = rs.getString("userName");
 					String playName = rs.getString("playName");
+					String userProfImage = rs.getString("profImage");
+					userId = rs.getInt("userId");
 					
 					if(parentId == 0) { //Es un padre
-						comments.put(commentId, new Comment(commentId, userId, userName, playId, text, date, playName));
+						comments.put(commentId, new Comment(commentId, userId, userName, playId, text, date, playName, userProfImage));
 					}
 					else { //Es un hijo
 						Comment parent = comments.get(parentId); //Obtengo al padre
-						Comment child = new Comment(commentId, userId, userName, parentId, text, date);
+						Comment child = new Comment(commentId, userId, userName, parentId, text, date, userProfImage);
 						parent.addChild(child);
 					}				
 				}

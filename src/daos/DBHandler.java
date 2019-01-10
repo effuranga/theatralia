@@ -29,7 +29,7 @@ public class DBHandler {
 			InitialContext ctx = new InitialContext();
 			DataSource ds=(DataSource) ctx.lookup("java:comp/env/jdbc/theatralia");			
 			this.conn= ds.getConnection();
-								
+								System.out.println("*** ABRO CONEXION ****");
 			return conn;
 		}
 		catch(Exception e){
@@ -40,7 +40,7 @@ public class DBHandler {
 	
 	public void closeConnection(){
 		try {
-			this.conn.close(); 
+			this.conn.close();     System.out.println("*** CIERRO CONEXION ****");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

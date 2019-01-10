@@ -36,6 +36,10 @@ boolean toShow = (playList != null && !playList.isEmpty())? true : false;
 HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttribute("comments");
 
 DateHandler dh = new DateHandler();
+
+//Manejo de la imagen
+String imageSRC = requestedUser.imageSRC();
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +86,7 @@ DateHandler dh = new DateHandler();
 		          height: 100%;
 		          padding:10px;
 		        ">
-		          <img src="userPictures/<%=requestedUser.getProfImage() %>" width="300px" height="300px">
+		          <img src="<%=imageSRC %>" width="300px" height="300px">
 		          
 		        </div>
 	            <div id="info" style="
@@ -179,7 +183,7 @@ if(!comments.isEmpty()){ %>
 
 		 		<!-- current user avatar -->
 			 	<div class="user_avatar">
-			 		<a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/73.jpg"></a>
+			 		<a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><img src="<%=parent.imageSRC() %>"></a>
 			 	</div><!-- the comment body --><div class="comment_body">
 			 		<p><%=parent.getText() %></p>
 			 	</div>
@@ -208,7 +212,7 @@ if(!comments.isEmpty()){ %>
 		 		
 		 		<!-- current user avatar -->
 			 	<div class="user_avatar">
-			 		<a href="viewuser?requestedUserId=<%=child.getUserId() %>" class="nostyle"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/manugamero/73.jpg"></a>
+			 		<a href="viewuser?requestedUserId=<%=child.getUserId() %>" class="nostyle"><img src="<%=child.imageSRC() %>"></a>
 			 	</div><!-- the comment body --><div class="comment_body">
 			 		<p><div class="replied_to"><p><a href="viewuser?requestedUserId=<%=parent.getUserId() %>" class="nostyle"><span class="user"><%=parent.getUserName() %></span></a><%=parent.getText() %></p></div><%=child.getText() %></p>
 			 	</div>

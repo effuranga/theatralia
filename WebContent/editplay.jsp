@@ -17,6 +17,16 @@ if(user == null || play == null || !user.isAdmin()){
 	response.sendRedirect("error.jsp");
 	return;
 }
+
+//Manejo de la imagen
+String imageSRC = "";
+if(play.hasImage()){
+	imageSRC = "playPictures/"+play.getImage();
+}
+else{
+	imageSRC = "utils/noimage.jpg";
+}
+
 %>
 
 <!DOCTYPE html>
@@ -61,28 +71,32 @@ if(user == null || play == null || !user.isAdmin()){
   <body>
 
     <%=Header.getHeader(user, "adminplays") %>
-
+	
     <!-- Page Content -->
     <div class="container" >
+    
+    	<!-- Page Heading -->
+      <h1 class="my-4">Editar
+        <small><%=play.getName() %></small>
+      </h1>
+      
         <div id="image" style="
           float:left;
-          width: 30%;
           height: 100%;
-          padding:10px;
+
         ">
-          <img src="<%="playPictures/"+play.getImage() %>" width="300px" height="300px">
+
+          <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
           
         </div>
         <div id="info" style="
           float:left;
-          width: 70%;
+          width: 30%;
           height: 100%;
           padding:10px;
           ">
 
           	<form action="updateplay?id=<%=play.getId() %>" id="form" method="POST" enctype="multipart/form-data">
-	          <h2>Editar obra</h2>
-
 				<input type="text" name="name" placeholder="Name of the play" value="<%=play.getName() %>" class="round" required /><br/>
 				<input type="text" name="author" placeholder="Author of the play" value="<%=play.getAuthor() %>" class="round" required /><br/>
 				<textarea maxlength="500" rows="4" cols="50" form="form" name="description" placeholder="Description of the play" required><%=play.getDescription() %></textarea><br/>

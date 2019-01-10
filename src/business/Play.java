@@ -175,6 +175,17 @@ public class Play {
 		return false;
 	}
 	
+	/**
+	 * Es para saber si tengo una direccion en la imagen o es null
+	 * @return TRUE si tiene una imagen, FALSE si la imagen es null o "noimage.jpg"
+	 */
+	public boolean hasImage() {
+		if(this.image != null && !this.image.equals("noimage.jpg")) {
+			return true;
+		}
+		return false;
+	}
+	
 	
 	
 }

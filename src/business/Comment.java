@@ -3,7 +3,7 @@ package business;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import services.UserHandler;
+import utils.FileExistenceValidator;
 
 public class Comment {
 	private int id;
@@ -241,12 +241,12 @@ public class Comment {
 	
 	/**
 	 * Devuelve la locación donde buscar la imagen de usuario, dependiendo si tiene el 
-	 * id seteado en profImage en DB o no
+	 * id seteado en profImage en DB o no y de si existe en el disco, ubibacion absoluta
 	 * @return userPictures/ID.jpg o utils/nouser.png
 	 */
 	public String imageSRC() {
 		String imageSRC = "";
-		if(this.userProfImage != null && !this.userProfImage.equals("nouser.jpg")){
+		if(this.userProfImage != null && !this.userProfImage.equals("nouser.jpg") && FileExistenceValidator.userImageExists(this.userProfImage)){
 			imageSRC = "userPictures/"+this.userProfImage;
 		}
 		else{

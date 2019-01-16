@@ -43,19 +43,20 @@ boolean toShow = (playsResult != null && !playsResult.isEmpty())? true : false;
     <div class="container">
 
       <!-- Page Heading -->
-      <h1 class="my-4">Resultados para: 
+      <h1 class="my-4" style="margin-bottom: unset!important;">Resultados para: 
         <small><%=request.getParameter("q") %></small>
       </h1>
-      <a class="btn btn-primary" href="search.jsp">Volver</a>
+      <a class="btn btn-primary" href="search.jsp" style="margin-bottom: 10px;">Volver</a>
 
 <%
 if(toShow){
-	for(Play p : playsResult){%>
+	for(Play p : playsResult){
+	%>
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%="playPictures/"+p.getImage() %>" alt="">
+            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=p.imageSRC() %>" alt="">
           </a>
         </div>
         <div class="col-md-5">

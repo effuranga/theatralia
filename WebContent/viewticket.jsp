@@ -14,14 +14,7 @@ User loggedUser = (User) session.getAttribute("loggedUser");
 Ticket ticket = (Ticket)session.getAttribute("ticket");
 Play play = ticket.getPlay(); 
 
-//Manejo de la imagen
-String imageSRC = "";
-if(play.hasImage()){
-	imageSRC = "playPictures/"+play.getImage();
-}
-else{
-	imageSRC = "utils/noimage.jpg";
-}
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,7 +98,7 @@ else{
    <div class="row">
      <div class="col-md-7">
        <a href="#">
-         <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
+         <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=play.imageSRC() %>" alt="">
          <br />
          <br />
           <%if(loggedUser.isClient()) {%>

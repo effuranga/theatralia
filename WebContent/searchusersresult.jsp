@@ -71,7 +71,7 @@ if(toShow){
 		 		<!-- current user avatar -->
 		 		<a href="viewuser?requestedUserId=<%=u.getUserId() %>" class="nostyle">
 			 	<div class="user_avatar" style="margin-left: 45%;">
-			 		<img src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/73.jpg">
+			 		<img src="<%=u.imageSRC() %>">
 			 	</div><!-- the comment body --><div class="comment_body" style="
 			 	width: unset;
     			min-height: unset;

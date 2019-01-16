@@ -50,19 +50,12 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
 if(toShow){
 	Collection<Play> plays = currentPlays.values();
 	for(Play p : plays){
-		String imageSRC = "";
-		if(p.hasImage()){
-			imageSRC = "playPictures/"+p.getImage();
-		}
-		else{
-			imageSRC = "utils/noimage.jpg";
-		}
 	%>
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
           <a href="#">
-            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
+            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=p.imageSRC() %>" alt="">
           </a>
         </div>
         <div class="col-md-5">

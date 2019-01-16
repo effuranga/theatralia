@@ -2,6 +2,8 @@ package business;
 
 import java.util.Date;
 
+import utils.FileExistenceValidator;
+
 public class User {
 	public static String ADMIN = "ADMIN";
 	public static String EMPLOYEE = "EMPLOYEE";
@@ -175,12 +177,12 @@ public class User {
 
 	/**
 	 * Devuelve la locación donde buscar la imagen de usuario, dependiendo si tiene el 
-	 * id seteado en profImage en DB o no
+	 * id seteado en profImage en DB o no y de si existe en el disco, ubibacion absoluta
 	 * @return userPictures/ID.jpg o utils/nouser.png
 	 */
 	public String imageSRC() {
 		String imageSRC = "";
-		if(hasImage()){
+		if(hasImage() && FileExistenceValidator.userImageExists(getProfImage())){
 			imageSRC = "userPictures/"+getProfImage();
 		}
 		else{

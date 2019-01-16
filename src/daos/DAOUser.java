@@ -289,7 +289,7 @@ public class DAOUser extends DAO {
 	 */
 	public ResultSet getUsersBySearch(String[] words) {
 		Connection conn = connect();
-		String sql = "SELECT U.`userId`, U.`userName`, U.`name`, U.`lastName`, U.`status`, U.`email`, U.`created`, R.`description`\r\n" + 
+		String sql = "SELECT U.`userId`, U.`userName`, U.`name`, U.`lastName`, U.`status`, U.`email`, U.`created`, U.`profImage`, R.`description`\r\n" + 
 				"FROM `user` U INNER JOIN `userrole` UR ON U.`userId` = UR.`userId`\r\n" + 
 				"INNER JOIN `role` R ON UR.`roleId` = R.`roleId`\r\n" + 
 				"WHERE U.`status` = 1 AND " ;

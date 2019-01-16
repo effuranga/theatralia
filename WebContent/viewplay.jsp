@@ -20,9 +20,7 @@ if(play == null){
 }
 boolean hasImage = false;
 String noImage = "utils/noimage.jpg";
-if(play.getImage() != null && !play.getImage().equals("noimage.jpg")){
-	hasImage = true;
-}
+
 User loggedUser = (User) session.getAttribute("loggedUser");
 HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttribute("comments");
 
@@ -92,7 +90,7 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	      <div class="row">
 	        <div class="col-md-7">
 	          <a href="#">
-	            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=(hasImage)? "playPictures/"+play.getImage() : noImage %>" alt="">
+	            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=play.imageSRC() %>" alt="">
 	          </a> 
 	        </div>
 	        <div class="col-md-5">

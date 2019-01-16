@@ -123,7 +123,7 @@ String imageSRC = requestedUser.imageSRC();
 	      <div class="row">
 	        <div class="col-md-7">
 	          <a href="#">
-	            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%="playPictures/"+p.getImage() %>" alt="">
+	            <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=p.imageSRC() %>" alt="">
 	          </a>
 	        </div>
 	        <div class="col-md-5">

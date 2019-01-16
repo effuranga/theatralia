@@ -3,6 +3,8 @@ package business;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import utils.FileExistenceValidator;
+
 /**
  * @author Eff
  *
@@ -186,6 +188,22 @@ public class Play {
 		return false;
 	}
 	
+	/**
+	 * Devuelve la locación donde buscar la imagen de obra, dependiendo si tiene el 
+	 * id seteado en profImage en DB o no y de si existe en el disco, ubibacion absoluta
+	 * @return playPictures/ID.jpg o utils/noimage.jpg
+	 */
+	public String imageSRC() {
+		String imageSRC = "";
+		if(hasImage() && FileExistenceValidator.playImageExists(this.image)){
+			imageSRC = "playPictures/"+this.image;
+		}
+		else{
+			imageSRC = "utils/noimage.jpg";
+		}
+		
+		return imageSRC;
+	}
 	
 	
 }

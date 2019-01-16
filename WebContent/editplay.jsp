@@ -18,15 +18,6 @@ if(user == null || play == null || !user.isAdmin()){
 	return;
 }
 
-//Manejo de la imagen
-String imageSRC = "";
-if(play.hasImage()){
-	imageSRC = "playPictures/"+play.getImage();
-}
-else{
-	imageSRC = "utils/noimage.jpg";
-}
-
 %>
 
 <!DOCTYPE html>
@@ -86,7 +77,7 @@ else{
 
         ">
 
-          <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=imageSRC %>" alt="">
+          <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=play.imageSRC() %>" alt="">
           
         </div>
         <div id="info" style="

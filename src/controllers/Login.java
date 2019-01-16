@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import business.User;
 import services.UserHandler;
+import utils.FileExistenceValidator;
 
 /**
  * Servlet implementation class Login
@@ -30,11 +31,15 @@ public class Login extends HttpServlet {
 			response.sendRedirect("home");
 			return;
 		}
-
+		
 		User loggedUser = userHandler.getLoggedUser(userName, password);
 		HttpSession session = request.getSession();
 		session.setAttribute("loggedUser", loggedUser);
 		System.out.println(loggedUser.getRole());
+		
+		//Para el manejo de imagenes
+		FileExistenceValidator.setAbsolutePath(request.getServletContext().getRealPath(""));
+		
 		response.sendRedirect("home");
 	}
 	

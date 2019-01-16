@@ -525,7 +525,9 @@ public class UserHandler {
 				String created = rs.getString("created");
 				String role = rs.getString("description");
 				
-				usersResult.add(new User(userId, status, userName, name, lastName, email, created, role));
+				User user = new User(userId, status, userName, name, lastName, email, created, role);
+				user.setProfImage(rs.getString("profImage"));
+				usersResult.add(user);
 			}
 			
 		}

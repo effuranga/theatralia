@@ -110,12 +110,12 @@ DateHandler dh = new DateHandler();
           %>
           	<form action="updatedata" method="POST" id="updateData">
 	          <h2>Actualizar datos</h2>
-	          <p>Usuario: <input type="text" name="userName" id="userName" value="<%=loggedUser.getUserName() %>" class="round" required /></p>
+	          <p>Usuario: <input type="text" name="userName" id="userName" value="<%=loggedUser.getUserName() %>" class="round" maxlength="15" required /></p>
 	          <p>Contraseña: ********</p>
-	          <p>Nombre: <input type="text" name="name" id="name" value="<%=loggedUser.getName() %>" class="round" required /></p>
-	          <p>Apellido: <input type="text" name="lastName" id="lastName" value="<%=loggedUser.getLastName() %>" class="round" required /></p> 
+	          <p>Nombre: <input type="text" name="name" id="name" value="<%=loggedUser.getName() %>" class="round" maxlength="30" required /></p>
+	          <p>Apellido: <input type="text" name="lastName" id="lastName" value="<%=loggedUser.getLastName() %>" class="round" maxlength="30" required /></p> 
 	          <p>Fecha de nacimiento: <input type="date" name="birthday" id="birthday" value="<%=loggedUser.getBirthday() %>" class="round" required /></p>
-	          <p>Email: <input type="text" name="email" id="email" value="<%=loggedUser.getEmail() %>" class="round" required /></p>
+	          <p>Email: <input type="text" name="email" id="email" value="<%=loggedUser.getEmail() %>" class="round" maxlength="30" required /></p>
 	          <input type="submit" class="btn btn-primary" value="Actualizar"/>
 	          <a href="myprofile.jsp" class="btn btn-secondary">Cancelar</a>
 	        </form>
@@ -147,7 +147,7 @@ DateHandler dh = new DateHandler();
 
 <%if(!changeData) {%>          <a href="myprofile.jsp?changeData=true">Actualizar datos</a><br/> <%} %>
 <%if(!changePass) {%>          <a href="myprofile.jsp?changePass=true">Cambiar contraseña</a><br/> <%} %>
-          <a href="mycards">Ver mis métodos de pago</a><br/>
+ <%if(loggedUser.isClient()) {%>         <a href="mycards">Ver mis métodos de pago</a><br/><%} %>
         
         <%
 ArrayList<String> errorList = (ArrayList<String>)request.getAttribute("errorList");

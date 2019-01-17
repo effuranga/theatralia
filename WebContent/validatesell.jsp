@@ -63,19 +63,19 @@ for(Seat s : seats){
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
-          <a href="#">
+          
             <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=play.imageSRC() %>" alt="">
-          </a>
+          
         </div>
         <div class="col-md-5">
           <h3><%=play.getName() %></h3>
-          <p>Funcion: <%=show.getDate() %></p><br />
-          <p>Asientos:</p><br />
+          <p style="text-decoration: underline;">Funcion: <p style="text-decoration: none;"><%=show.getDate() %></p></p>
+          <p style="text-decoration: underline;">Asientos:</p>
 <% 			for(Seat s: seats){%>
-			<p><%=s.getId()+"   "+s.getRow()+s.getColumn()+"                 $"+s.getPrice() %></p><br />
+			<p><%=s.getId()+"   "+s.getRow()+s.getColumn()+"                 $"+s.getPrice() %></p>
 <%}%>
-          <p>Total a abonar: <%=total %></p><br />
-          <p>Modalidad: Venta por ventanilla - Entrega inmediata</p><br />
+          <p style="text-decoration: underline;">Total a abonar:<p style="text-decoration: none;"><%=total %></p></p>
+          <p style="text-decoration: underline;">Modalidad: <p style="text-decoration: none;">Venta por ventanilla - Entrega inmediata</p></p>
           
 	
           	<a class="btn btn-secondary" href="home">Cancelar</a>

@@ -88,8 +88,8 @@ if(user == null || play == null || !user.isAdmin()){
           ">
 
           	<form action="updateplay?id=<%=play.getId() %>" id="form" method="POST" enctype="multipart/form-data">
-				<input type="text" name="name" placeholder="Name of the play" value="<%=play.getName() %>" class="round" required /><br/>
-				<input type="text" name="author" placeholder="Author of the play" value="<%=play.getAuthor() %>" class="round" required /><br/>
+				<input type="text" name="name" placeholder="Name of the play" value="<%=play.getName() %>" class="round" maxlength="30" required /><br/>
+				<input type="text" name="author" placeholder="Author of the play" value="<%=play.getAuthor() %>" class="round" maxlength="30" required /><br/>
 				<textarea maxlength="500" rows="4" cols="50" form="form" name="description" placeholder="Description of the play" required><%=play.getDescription() %></textarea><br/>
 				
 				<div class="box">

@@ -69,21 +69,21 @@ String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
-          <a href="#">
+          
             <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=play.imageSRC() %>" alt="">
-          </a>
+         
         </div>
         <div class="col-md-5">
           <h3><%=play.getName() %></h3>
-          <p>Funcion: <%=show.getDate() %></p><br />
-          <p>Asientos:</p><br />
+          <p style="text-decoration: underline;">Funcion: <p style="text-decoration: none;"><%=show.getDate() %></p></p>
+          <p style="text-decoration: underline;">Asientos:</p>
 <% 			for(Seat s: seats){%>
-			<p><%=s.getRow()+s.getColumn()+"   "+s.getPrice() %></p><br />
+			<p><%=s.getRow()+s.getColumn()+"   $"+s.getPrice() %></p>
 <%}%>
-          <p>Total a abonar: <%=total %></p><br />
-          <p>Saldo a cargar en tarjeta: <%if(payWithCard) out.print(total); else out.print("0.0");%></p><br />
-          <p>Modalidad: <%=delivery %></p><br />
-          <p>Tarjeta: <%=card.getType()+" "+card.getNumber() %></p><br /><br />
+          <p style="text-decoration: underline;">Total a abonar:<p style="text-decoration: none;">$<%=total %></p></p>
+          <p style="text-decoration: underline;">Saldo a cargar en tarjeta: <p style="text-decoration: none;">$<%if(payWithCard) out.print(total); else out.print("0.0");%></p></p>
+          <p style="text-decoration: underline;">Modalidad: <p style="text-decoration: none;"><%=delivery %></p></p>
+          <p style="text-decoration: underline;">Tarjeta: <p style="text-decoration: none;"><%=card.getType()+" "+card.getNumber() %></p></p><br />
           
           <form action="confirmpurchase" method="post" >
           	<label>Nombre en la tarjeta: <input type="text" name="nameInCard" value="" class="round" required/></label><br>

@@ -292,13 +292,13 @@ public class DAOUser extends DAO {
 		String sql = "SELECT U.`userId`, U.`userName`, U.`name`, U.`lastName`, U.`status`, U.`email`, U.`created`, U.`profImage`, R.`description`\r\n" + 
 				"FROM `user` U INNER JOIN `userrole` UR ON U.`userId` = UR.`userId`\r\n" + 
 				"INNER JOIN `role` R ON UR.`roleId` = R.`roleId`\r\n" + 
-				"WHERE U.`status` = 1 AND " ;
+				"WHERE U.`status` = 1 AND (" ;
 		
 		for(String s : words) {
 			sql += "U.`userName` LIKE '%"+s+"%' OR U.`name` LIKE '%"+s+"%' OR U.`lastName` LIKE '%"+s+"%' OR ";
 		}
 		sql = sql.substring(0, sql.length()-4);
-		sql += ";";
+		sql += ");";
 		System.out.println(sql);
 		
 		try {

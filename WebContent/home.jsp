@@ -217,6 +217,30 @@
 
     <!-- Custom scripts for this template -->
     <script src="homeFE/js/creative.min.js"></script>
+    
+            <!-- Mensajes de alerta -->
+    <%
+    String action = request.getParameter("action");
+    boolean pop = (action != null)? true : false;
+    String message = "";
+    if(pop){
+	    switch(action){
+	    	case "falseauthentication":
+	    		message = "¡Usuario y/o contraseña incorrectos!";
+	    		break;
+	    	case "inactive":
+	    		message = "¡Oopsie! Al parecer la cuenta no esta activa";
+	    		break;
+	    }
+    %>
+	    <script>
+			function myFunction() {
+			  alert("<%=message %>");
+			}
+			
+			myFunction();
+		</script>
+<%  } %>
 
   </body>
 

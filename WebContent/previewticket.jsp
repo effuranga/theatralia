@@ -7,6 +7,7 @@
     import="business.Seat"
     import="business.Show"
     import="business.User"
+    import="utils.DateHandler"
     import="business.Ticket"%>
 <%
 User loggedUser = (User) request.getSession().getAttribute("loggedUser");
@@ -17,6 +18,8 @@ if(loggedUser.isClient()){
 Ticket ticket = (Ticket)request.getAttribute("ticket");
 Play play = ticket.getPlay(); 
 User user = ticket.getUser();
+
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,17 +74,17 @@ User user = ticket.getUser();
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		              <h2 class="name">Función</h2><span class="value"><%=ticket.getShow().getDate() %></span>
+		              <h2 class="name">Función</h2><span class="value"><%=dh.getHTMLDateAndTime(ticket.getShow().getDate()) %></span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		              <h2 class="name">Emisión</h2><span class="value"><%=ticket.getBuyingDate() %></span>
+		              <h2 class="name">Emisión</h2><span class="value"><%=dh.getHTMLDateAndTime(ticket.getBuyingDate()) %></span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		              <h2 class="name">Total</h2><span class="value"><%=ticket.getTotal() %></span>
+		              <h2 class="name">Total</h2><span class="value">$<%=ticket.getTotal() %></span>
 		            </div>
 		          </div>
 		          <div class="col">
@@ -116,7 +119,7 @@ User user = ticket.getUser();
 		        <h2 class="name">Nro</h2><span class="value"><%=seats.get(0).getColumn() %></span>
 		      </div>
 		      <div class="col item">
-		        <h2 class="name">Precio</h2><span class="value"><%=seats.get(0).getPrice() %></span>
+		        <h2 class="name">Precio</h2><span class="value">$<%=seats.get(0).getPrice() %></span>
 		      </div>
 		    </div>
 		    <%
@@ -132,7 +135,7 @@ User user = ticket.getUser();
 		        <span class="value"><%=s.getColumn() %></span>
 		      </div>
 		      <div class="col item">
-		        <span class="value"><%=s.getPrice() %></span>
+		        <span class="value">$<%=s.getPrice() %></span>
 		      </div>
 		    </div>
 		<%	} %>    

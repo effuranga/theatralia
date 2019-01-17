@@ -109,7 +109,7 @@ String imageSRC = requestedUser.imageSRC();
 		        </div>  
 	      </div>
 	      
-	      
+<%if(requestedUser.isClient()){ %>	      
     <!-- BIBLIOTECA -->   
        <!-- Page Heading -->
       <h1 class="my-4">Biblioteca
@@ -147,6 +147,7 @@ String imageSRC = requestedUser.imageSRC();
 		<p>Aun no has agregado obras a tu biblioteca. Te invitamos a que lo hagas desde nuestra <a href="home">cartelera</a> o bien desde nuestro <a href="search.jsp">buscador</a> </p>	
 <%		}
 	}
+}	
 %>  
 
 <!-- COMENTARIOS -->

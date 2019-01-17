@@ -103,4 +103,13 @@ public class DateHandler {
 		String dateHTML = new SimpleDateFormat("dd/MM/yyyy").format(date);		
 		return dateHTML;
 	}
+	
+	/**
+	 * A partir de un String date, parsea SU FECHA y HORA en formato dd/mm/aaaa hh:mm
+	 * @param date
+	 * @return dateHTML Ej: 31/12/2010 21:00
+	 */
+	public String getHTMLDateAndTime(String date) {
+		return getHTMLDate(date)+" "+getHTMLTime(date);
+	}
 }

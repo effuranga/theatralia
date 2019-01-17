@@ -105,10 +105,10 @@ public class UserHandler {
 				String storedPassword = rs.getString("password");
 				String rndSeed = rs.getString("rndSeed");
 				String hashedPassword = get_SHA_512_SecurePassword(password, rndSeed);
-					System.out.println("contra ingresada "+password);
-					System.out.println("semilla "+rndSeed);
-					System.out.println("hashed "+hashedPassword);
-					System.out.println("contra en la base "+storedPassword);
+//					System.out.println("contra ingresada "+password);
+//					System.out.println("semilla "+rndSeed);
+//					System.out.println("hashed "+hashedPassword);
+//					System.out.println("contra en la base "+storedPassword);
 				
 				if(hashedPassword.equals(storedPassword)) {
 					int userId = rs.getInt("userId");
@@ -161,7 +161,7 @@ public class UserHandler {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		daoUser.done();
 		rs = daoUser.getUserByEmail(email);	
 		try {
 			if(rs.next()) {

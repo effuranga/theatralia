@@ -54,7 +54,7 @@ if(toShow){
       <!-- Play -->
       <div class="row">
         <div class="col-md-7">
-          <a href="#">
+          <a href="viewplay?id=<%=p.getId()%>">
             <img class="img-fluid rounded mb-3 mb-md-0" style="height: 300px; width: 600px" src="<%=p.imageSRC() %>" alt="">
           </a>
         </div>

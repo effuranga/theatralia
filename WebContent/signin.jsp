@@ -3,6 +3,9 @@
     import="java.util.ArrayList"
     import="java.util.Collection"
     import="business.Play"
+    import="java.util.Date"
+    import="java.text.SimpleDateFormat"
+    import="utils.DateHandler"
     import="business.User"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,13 +70,22 @@
             <h2 class="section-heading" style="color:white;">¡Regístrate en Theatralia®!</h2>
             <hr class="my-4">
             <form action="signin" method="POST">
-              <input type="text" placeholder="User name" name="userName" <%if(fail){ %>value="<%=request.getParameter("userName") %>" <%} %> class="round" required/> <br/>
-              <input type="password" placeholder="Password" name="password" class="round" required /><br/>
-              <input type="password" placeholder="Repeat password" name="repPassword" class="round" required /><br/>
-              <input type="text" placeholder="Name" name="name" <%if(fail){ %>value="<%=request.getParameter("name") %>" <%} %> class="round" required/><br/>
-              <input type="text" placeholder="Last name" name="lastName" <%if(fail){ %>value="<%=request.getParameter("lastName") %>" <%} %> class="round" required/><br/>
-              <input type="date" name="birthday"  class="round" required/><br/>
-              <input type="text" name="email" placeholder="email" <%if(fail){ %>value="<%=request.getParameter("email") %>" <%} %> class="round" required/><br/>
+              <input type="text" placeholder="User name" name="userName" maxlength="15" <%if(fail){ %>value="<%=request.getParameter("userName") %>" <%} %> class="round" required/> <br/>
+              <input type="password" placeholder="Password" name="password" class="round" maxlength="30" required /><br/>
+              <input type="password" placeholder="Repeat password" name="repPassword" class="round" maxlength="30" required /><br/>
+              <input type="text" placeholder="Name" name="name" <%if(fail){ %>value="<%=request.getParameter("name") %>" <%} %> class="round" maxlength="30" required/><br/>
+              <input type="text" placeholder="Last name" name="lastName" <%if(fail){ %>value="<%=request.getParameter("lastName") %>" <%} %> class="round" maxlength="30" required/><br/>
+                <%
+	            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                int year = new Date().getYear();
+                year -= 18;
+                Date date = new Date();
+                date.setYear(year);
+	    		String now = format.format(date);
+	            
+	            %>
+              <input type="date" name="birthday" max="<%=now %>" <%if(fail){ %>value="<%=request.getParameter("birthday") %>" <%} %> class="round" required/><br/>
+              <input type="text" name="email" placeholder="email" <%if(fail){ %>value="<%=request.getParameter("email") %>" <%} %> class="round" maxlength="30" required/><br/>
               <br/>
               <input type="submit"class="btn btn-primary btn-xl" value="¡Regístrate!"/><br/>
               <p> </p>
@@ -81,9 +93,9 @@
             </form>  
             <%
 if(fail){
-	for(String s: errorsList){
-		out.println(s);
-	}
+	for(String s: errorsList){%>    
+		<p style="color:white;"><%="(*) "+s %> </p>
+<%	}
 }
 %>    
           </div>
@@ -103,6 +115,22 @@ if(fail){
 
     <!-- Custom scripts for this template -->
     <script src="homeFE/js/creative.min.js"></script>
+	
+	<script>
+	(function(window, location) {
+	    history.replaceState(null, document.title, location.pathname+"#!/stealingyourhistory");
+	    history.pushState(null, document.title, location.pathname);
+	
+	    window.addEventListener("popstate", function() {
+	      if(location.hash === "#!/stealingyourhistory") {
+	            history.replaceState(null, document.title, location.pathname);
+	            setTimeout(function(){
+	              location.replace("home");
+	            },0);
+	      }
+	    }, false);
+	}(window, location));
+	</script>
 
   </body>
 

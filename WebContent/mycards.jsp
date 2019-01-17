@@ -81,9 +81,9 @@ ArrayList<Card> cards = (ArrayList<Card>) request.getAttribute("cards");
 		  <option value="Mastercard">Mastercard</option>
 		  <option value="American Express">American Express</option>
 		</select>		
-	    <label>Número: <input type="number" name="number" class="round" required/></label><br/>
-	    <input type="text" name="name" placeholder="Nombre que figura en la tarjeta" size="50" class="round" required/><br />
-	    <input type="text" name="description" placeholder="Descripción (opcional)" class="round"/><br />
+	    <label>Número: <input type="number" name="number" class="round" max="9999999999999999" required/></label><br/>
+	    <input type="text" name="name" placeholder="Nombre que figura en la tarjeta" size="50" maxlength="20" class="round" required/><br />
+	    <input type="text" name="description" placeholder="Descripción (opcional)" maxlength="20" class="round"/><br />
 	    <label>Vmto: <input type="number" placeholder="mm" name="exp_month" min="1" max="12" class="round" required><br></label><small>/</small>
 	    <input type="number" placeholder="aa" name="exp_year" min="18" max="30" class="round" required><br/>
 	    <input type="submit" class="btn btn-primary" value="Guardar"/>

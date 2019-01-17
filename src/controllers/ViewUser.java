@@ -54,6 +54,12 @@ public class ViewUser extends HttpServlet {
 			//Si soy yo mismo
 			requestedUser = loggedUser;		
 		}
+		
+		// Tengo que validar no dejar entrar a ver al usuario si sos cliente y el usuario esta inactivo
+		if(requestedUser.getStatus() != 1 && loggedUser.isClient()) {
+			response.sendRedirect("error.jsp?e= El usuario solicitado esta inactivo");
+			return;
+		}
 			
 		// Busco la biblioteca del usuario en cuestion
 		UserHandler userHandler = new UserHandler();

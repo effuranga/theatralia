@@ -5,6 +5,9 @@
     import="business.Play"
     import="business.User"
     import="utils.Header"
+    import="java.util.Date"
+    import="java.text.SimpleDateFormat"
+    import="utils.DateHandler"
     import="utils.DTOCreateUserForm"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -70,16 +73,25 @@ boolean fail = (dto != null)? true : false;
           	<form action="createuser" id="form" method="POST">
 	          <h2>Crear Usuario</h2>
 
-				<input type="text" name="userName" placeholder="Username" <%if(fail){out.print("value=\""+dto.getUserName()+"\"");}%> class="round" required /><br/>
-				<input type="text" name="password" placeholder="Contraseña" <%if(fail){out.print("value=\""+dto.getPassword()+"\"");}%> class="round" required /><br/>
+				<input type="text" name="userName" placeholder="Username" <%if(fail){out.print("value=\""+dto.getUserName()+"\"");}%> class="round" maxlength="15" required /><br/>
+				<input type="text" name="password" placeholder="Password" <%if(fail){out.print("value=\""+dto.getPassword()+"\"");}%> class="round" maxlength="30" required /><br/>
 				<select name="roleId" class="round" >
                   <option value="2" <%if(fail && dto.getRoleId().equals("2")){out.print("selected");}%>> Empleado</option>
                   <option value="3" <%if(fail && dto.getRoleId().equals("3")){out.print("selected");}%>> Administrador</option>
 	            </select> <br/>
-				<input type="text" name="name" placeholder="Nombre" <%if(fail){out.print("value=\""+dto.getName()+"\"");}%> class="round" required /><br/>
-				<input type="text" name="lastName" placeholder="Apellido" <%if(fail){out.print("value=\""+dto.getLastName()+"\"");}%> class="round" required /><br/>
-				<input type="text" name="email" placeholder="EMail" <%if(fail){out.print("value=\""+dto.getEmail()+"\"");}%> class="round" required /><br/>
-				<label>Fecha de nac: </label><input type="date" name="birthday" <%if(fail){out.print("value=\""+dto.getBirthday()+"\"");}%> class="round"  required> <br/>
+				<input type="text" name="name" placeholder="Nombre" <%if(fail){out.print("value=\""+dto.getName()+"\"");}%> class="round" maxlength="30" required /><br/>
+				<input type="text" name="lastName" placeholder="Apellido" <%if(fail){out.print("value=\""+dto.getLastName()+"\"");}%> class="round" maxlength="30" required /><br/>
+				<input type="text" name="email" placeholder="EMail" <%if(fail){out.print("value=\""+dto.getEmail()+"\"");}%> class="round" maxlength="30" required /><br/>
+				<%
+	            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                int year = new Date().getYear();
+                year -= 18;
+                Date date = new Date();
+                date.setYear(year);
+	    		String now = format.format(date);
+	            
+	            %>
+				<label>Fecha de nac: </label><input type="date" name="birthday" max="<%=now %>" <%if(fail){out.print("value=\""+dto.getBirthday()+"\"");}%> class="round"  required> <br/>
 				
 	          <input type="submit" class="btn btn-primary" value="Cargar"/>
 	          <a href="adminusers" class="btn btn-secondary">Cancelar</a>

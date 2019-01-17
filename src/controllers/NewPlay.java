@@ -98,7 +98,7 @@ public class NewPlay extends HttpServlet {
     			return;
     		}
                      
-        	message = "No se guardó la imagen";
+        	message = "La obra fue guardada con exito pero sin imagen. Esto no se recomienda. Para agregarle la imagen vaya a Administrar Obras > Editar";
         	response.sendRedirect("newplay.jsp?message="+message);
                      
         } catch (Exception ex) {

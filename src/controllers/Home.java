@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import business.Play;
-import services.PlayHandler;
 
 /**
  * Servlet implementation class Home
@@ -31,18 +28,24 @@ public class Home extends HttpServlet {
 		HttpSession session = request.getSession();
 		RequestDispatcher requestDispatcher;
 		//valido si el usuario está logeado y lo redirijo a su dashboard
-		if(session.getAttribute("loggedUser") != null) {
+		if(session.getAttribute("loggedUser") != null) {			
 			requestDispatcher = request.getRequestDispatcher("dashboard");
 			requestDispatcher.forward(request, response);
 		}
 		else {
+			/*
 			PlayHandler playHandler = new PlayHandler();
-			ArrayList<Play> starredPlays = playHandler.getStarredPlays();
-	
-			// TODO validar la cantidad, que no sea mayor a 6 (tal vez en el SQL)
-			
+			ArrayList<Play> starredPlays = playHandler.getStarredPlays();		
 			request.setAttribute("starredPlays", starredPlays);
-			requestDispatcher = request.getRequestDispatcher("home.jsp");
+			*/
+			String action = "";
+			if(request.getParameter("falseauth") != null && request.getParameter("falseauth").equals("true")) {
+				action = "?action=falseauthentication";
+			}
+			if(request.getParameter("inactive") != null && request.getParameter("inactive").equals("true")) {
+				action = "?action=inactive";
+			}
+			requestDispatcher = request.getRequestDispatcher("home.jsp"+action);
 			requestDispatcher.forward(request, response);
 		}
 		

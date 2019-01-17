@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import business.User;
 import services.UserHandler;
 
 /**
@@ -35,11 +37,13 @@ public class Signin extends HttpServlet {
 		UserHandler userHandler = new UserHandler();
 		ArrayList<String> errorsList = userHandler.validateSignInFields(userName, password, repPassword, name, lastName, birthday, email);
 		if(errorsList.isEmpty()) {
-			System.out.println("no hay error");
 			boolean valid = userHandler.signIn(userName, password, name, lastName, birthday, email);
 			if(valid) {
 				boolean roleValid = userHandler.insertRole(userName, 1);
 				if(roleValid) {
+					User loggedUser = userHandler.getLoggedUser(userName, password);
+					HttpSession session = request.getSession();
+					session.setAttribute("loggedUser", loggedUser);
 					response.sendRedirect("dashboard");
 				}
 				else {
@@ -51,7 +55,6 @@ public class Signin extends HttpServlet {
 			}
 		}
 		else {
-			System.out.println(" hay error");
 			request.setAttribute("errorsList", errorsList);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("signin.jsp");
 			requestDispatcher.forward(request, response);

@@ -8,13 +8,14 @@
     import="business.Show"
     import="business.User"
     import="utils.Header"
+    import="utils.DateHandler"
     import="business.Ticket"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
 Ticket ticket = (Ticket)session.getAttribute("ticket");
 Play play = ticket.getPlay(); 
 
-
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +121,7 @@ Play play = ticket.getPlay();
 		  </div>
 		  <div class="ticket-body">
 		    <div class="row">
-		      <div class="col half">
+		      <div class="col half" style="padding:0px;">
 		        <div class="row-vertical">
 		         <div class="col">
 		            <div class="item">
@@ -153,24 +154,24 @@ Play play = ticket.getPlay();
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		              <h2 class="name">Función</h2><span class="value"><%=ticket.getShow().getDate() %></span>
+		              <h2 class="name">Función</h2><span class="value"><%=dh.getHTMLDateAndTime(ticket.getShow().getDate()) %></span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		              <h2 class="name">Emisión</h2><span class="value"><%=ticket.getBuyingDate() %></span>
+		              <h2 class="name">Emisión</h2><span class="value"><%=dh.getHTMLDateAndTime(ticket.getBuyingDate()) %></span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		              <h2 class="name">Total</h2><span class="value"><%=ticket.getTotal() %></span>
+		              <h2 class="name">Total</h2><span class="value">$<%=ticket.getTotal() %></span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
 		            <%
 		            String status = "";
-		            status = (ticket.isPaid())? "Pagado" : "Pago pendiente el boleteria";
+		            status = (ticket.isPaid())? "Pagado" : "Pago pendiente en boleteria";
 		            %>
 		              <h2 class="name">Estado</h2><span class="value"><%=status %></span>
 		            </div>
@@ -208,7 +209,7 @@ Play play = ticket.getPlay();
 		        <h2 class="name">Nro</h2><span class="value"><%=seats.get(0).getColumn() %></span>
 		      </div>
 		      <div class="col item">
-		        <h2 class="name">Precio</h2><span class="value"><%=seats.get(0).getPrice() %></span>
+		        <h2 class="name">Precio</h2><span class="value">$<%=seats.get(0).getPrice() %></span>
 		      </div>
 		    </div>
 		    <%
@@ -224,7 +225,7 @@ Play play = ticket.getPlay();
 		        <span class="value"><%=s.getColumn() %></span>
 		      </div>
 		      <div class="col item">
-		        <span class="value"><%=s.getPrice() %></span>
+		        <span class="value">$<%=s.getPrice() %></span>
 		      </div>
 		    </div>
 		<%	} %>    

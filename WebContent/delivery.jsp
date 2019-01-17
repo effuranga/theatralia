@@ -111,7 +111,7 @@ DateHandler dh = new DateHandler();
 	                    <tr>
 	                      <td><a href="previewticket?ticketId=<%=dto.getTicketId() %>" target="_blank"><%=dto.getTicketId() %></a></td>
 	                      <td><%=dto.getPlayName() %></td>
-	                      <td><%=dh.getHTMLDate(dto.getShowDate())+" "+dh.getHTMLDate(dto.getShowDate()) %></td>
+	                      <td><%=dh.getHTMLDate(dto.getShowDate())+" "+dh.getHTMLTime(dto.getShowDate()) %></td>
 	                      <td><%=dto.getUserLastName()+", "+dto.getUserName() %></td>
 	                      <td><%=dto.getCardNumber() %></td>
 	                      <td><%=(dto.isPaid())? "Si" : "No" %></td>

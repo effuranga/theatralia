@@ -35,12 +35,26 @@ public class Login extends HttpServlet {
 		User loggedUser = userHandler.getLoggedUser(userName, password);
 		HttpSession session = request.getSession();
 		session.setAttribute("loggedUser", loggedUser);
-		System.out.println(loggedUser.getRole());
 		
-		//Para el manejo de imagenes
-		FileExistenceValidator.setAbsolutePath(request.getServletContext().getRealPath(""));
+		if(loggedUser != null) {
+			if(loggedUser.getStatus() != 1) {
+				//El usuario no esta activo
+				session.setAttribute("loggedUser", null);
+				response.sendRedirect("home?inactive=true");
+				return;
+			}
+			//LOGGEO EXITOSO
+			System.out.println(loggedUser.getRole());
+			//Para el manejo de imagenes
+			FileExistenceValidator.setAbsolutePath(request.getServletContext().getRealPath(""));
+			response.sendRedirect("home");
+		}
+		else {
+			//LOGGEO FALLIDO
+			response.sendRedirect("home?falseauth=true");
+		}
 		
-		response.sendRedirect("home");
+		
 	}
 	
 

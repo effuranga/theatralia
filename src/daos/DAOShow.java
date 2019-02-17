@@ -17,7 +17,7 @@ public class DAOShow extends DAO{
 	 * @param datesList (de los shows)
 	 * @return
 	 */
-	public boolean createShowsForPlay(int id, ArrayList<String> datesList){
+	public boolean createShowsForPlay(int id, ArrayList<String> datesList, int price){
 		Connection conn = connect();
 		String sql = "";
 		
@@ -57,7 +57,8 @@ public class DAOShow extends DAO{
 		//Cargo los ShowSeats			
 			for(int showId : showIds) {
 				for(int seatId : seatIds) {
-					sql= "INSERT INTO `theatralia`.`showseat` (`seatId`, `showId`, `price`) VALUES ('"+seatId+"', '"+showId+"', '50');";
+					sql= "INSERT INTO `theatralia`.`showseat` (`seatId`, `showId`, `price`) VALUES ('"+seatId+"', '"+showId+"', '"+price+"');";
+					System.out.println(sql);
 					conn.createStatement().executeUpdate(sql);
 				}
 			}

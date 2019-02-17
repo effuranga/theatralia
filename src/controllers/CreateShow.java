@@ -24,8 +24,18 @@ public class CreateShow extends HttpServlet {
 		String showDate = request.getParameter("showdate");
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		
+		boolean validPrice = false;
+		int price = 0;
+		try {
+			price = Integer.parseInt(request.getParameter("price"));
+			validPrice = true;
+		}
+		catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
 		//Validación inicial
-		if(user == null || !user.isAdmin() || id == null || id.trim().isEmpty() || showDate == null || showDate.trim().isEmpty()) {
+		if(user == null || !user.isAdmin() || id == null || id.trim().isEmpty() || showDate == null || showDate.trim().isEmpty() || !validPrice) {
 			response.sendRedirect("error.jsp?e=Fallo la validacion inicial al intentar crear la funcion");
 			return;
 		}
@@ -37,7 +47,7 @@ public class CreateShow extends HttpServlet {
 		
 		try {
 			int intId = Integer.parseInt(id);
-			boolean savedShow = showHandler.createShowsForPlay(intId, datesList);
+			boolean savedShow = showHandler.createShowsForPlay(intId, datesList, price);
 			if(savedShow) {
 				response.sendRedirect("editplay?playid="+id);
 			}

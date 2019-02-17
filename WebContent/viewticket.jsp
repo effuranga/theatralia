@@ -104,7 +104,7 @@ DateHandler dh = new DateHandler();
          <br />
           <%if(loggedUser.isClient()) {%>
 		 <a class="btn btn-primary" href="validation.jsp?action=2">Imprimir</a>
-		 <a class="btn btn-secondary" href="home" onclick="return confirm('Si desea salir sin haber impreso el ticket, recuerde anotar su delivery code. ¿Está seguro que desea continuar?');">Dashboard</a>
+		 <a class="btn btn-secondary" href="home" onclick="return confirm('Si desea salir sin haber impreso el ticket, recuerde anotar su delivery code. ¿Está seguro que desea continuar?');">Cartelera</a>
 		 <%} 
 		 else{%>
 		  <a class="btn btn-primary" href="validation.jsp?action=2">Imprimir</a> 

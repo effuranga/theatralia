@@ -18,7 +18,7 @@ public class ShowHandler {
 	 * @param datesList
 	 * @return
 	 */
-	public boolean createShowsForPlay(int id, ArrayList<String> datesList){
+	public boolean createShowsForPlay(int id, ArrayList<String> datesList, int price){
 		if(datesList == null || datesList.isEmpty()) {
 			return false;
 		}
@@ -26,7 +26,7 @@ public class ShowHandler {
 			System.out.println(s);
 		}	
 		DAOShow daoShow = new DAOShow();	
-		boolean success = daoShow.createShowsForPlay(id, datesList);	
+		boolean success = daoShow.createShowsForPlay(id, datesList, price);	
 		
 		return success;
 	}

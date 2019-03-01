@@ -105,7 +105,11 @@ String imageSRC = requestedUser.imageSRC();
 			          <p>Alias: <%=requestedUser.getUserName() %></p>
 			          <p>Fecha de nacimiento: <%=dh.getHTMLDate(requestedUser.getBirthday()) %></p>
 			          <p>Email: <%=requestedUser.getEmail() %></p>
-		
+			          <%
+			          if(isMe && loggedUser.isClient()){
+			          %>
+			          <a class="btn btn-primary" href="mytickets">Mis tickets</a>
+					<%} %>
 		        </div>  
 	      </div>
 	      

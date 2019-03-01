@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import business.Card;
 import business.Seat;
 import business.Show;
 import business.User;
+import services.CardHandler;
 import utils.DTOPurchase;
 
 
@@ -72,6 +74,12 @@ public class SetPayment extends HttpServlet {
 		
 		// Agregarlos al DTO
 		dto.setSeats(selectedSeats);
+		
+// Agregar las tarjetas
+CardHandler cardHandler = new CardHandler();
+ArrayList<Card> allCards = cardHandler.getCardsByUserID(user.getUserId());
+session.setAttribute("allCards", allCards);
+		
 		session.setAttribute("purcahse", dto);
 		
 		response.sendRedirect("setpayment.jsp");

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import business.Play;
 import business.Show;
 import business.User;
-import business.Card;
-import services.CardHandler;
+//import business.Card;
+//import services.CardHandler;
 import utils.DTOPurchase;
 
 /**
@@ -35,16 +35,16 @@ public class SeatsSelector extends HttpServlet {
 		}
 	
 		int showId = 0;
-		int cantSeats = 0;
+//		int cantSeats = 0;
 		int delivery = 0;
-		int cardId = 0;
+//		int cardId = 0;
 		boolean payWithCard = false;
 	// Validar que los parametros sean correctos
 		try {
 			showId = Integer.parseInt(request.getParameter("showId"));
-			cantSeats = Integer.parseInt(request.getParameter("cantSeats"));
+//			cantSeats = Integer.parseInt(request.getParameter("cantSeats"));
 			delivery = Integer.parseInt(request.getParameter("delivery"));
-			cardId = Integer.parseInt(request.getParameter("card"));
+//			cardId = Integer.parseInt(request.getParameter("card"));
 			
 			payWithCard = (delivery == 1)? true : false;
 		}
@@ -54,8 +54,8 @@ public class SeatsSelector extends HttpServlet {
 		}
 		
 	// Recupero la card
-		CardHandler cardHandler = new CardHandler();
-		Card card = cardHandler.getCard(cardId);
+//		CardHandler cardHandler = new CardHandler();
+//		Card card = cardHandler.getCard(cardId);
 			
 	// Recupero la obra de la session y ubico su show
 		DTOPurchase dto = (DTOPurchase) request.getSession().getAttribute("purchase");
@@ -76,8 +76,8 @@ public class SeatsSelector extends HttpServlet {
 	// Termino de armar el DTO	
 		dto.setShow(show);
 		dto.setPayWithCard(payWithCard);
-		dto.setCantSeats(cantSeats);
-		dto.setCard(card);
+//		dto.setCantSeats(cantSeats);
+//		dto.setCard(card);
 		request.getSession().setAttribute("purchase", dto);
 		
 		request.setAttribute("show", show);

@@ -11,10 +11,11 @@
     import="business.Ticket"%>
 <%
 User loggedUser = (User) request.getSession().getAttribute("loggedUser");
+/*
 if(loggedUser.isClient()){
 	response.sendRedirect("error.jsp?e=Sos cliente");
 	return;
-}
+}*/
 Ticket ticket = (Ticket)request.getAttribute("ticket");
 Play play = ticket.getPlay(); 
 User user = ticket.getUser();
@@ -63,7 +64,7 @@ DateHandler dh = new DateHandler();
 		            <%
 		            String seller = loggedUser.getLastName()+", "+loggedUser.getName();
 		            %>
-		              <h2 class="name">Vendedor</h2><span class="value"><%=seller %></span>
+		              <h2 class="name">Vendedor</h2><span class="value"><%=loggedUser.isClient()? "WEB" : seller %></span>
 		            </div>
 		          </div>
 		          <div class="col">

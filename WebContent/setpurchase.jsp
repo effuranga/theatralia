@@ -73,7 +73,7 @@ DateHandler dh = new DateHandler();
 <%        			}%>          		
 				</select>
 				<br/>
-			<label for="cantSeats">Cantidad</label>
+<!-- 			<label for="cantSeats">Cantidad</label>
           		<select name="cantSeats" class="round" required>
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -81,14 +81,14 @@ DateHandler dh = new DateHandler();
 						<option value="4">4</option>
 						<option value="5">5</option>      		
 				</select>
-				<br/>	
+				<br/>	 -->
 			<label for="delivery">Medio de pago</label>
           		<select name="delivery" class="round" required>
 						<option value="1">Pagar con tarjeta</option>
 						<option value="2">Pagar por ventanilla</option>   		
 				</select>
 				<br/>	
-			<label for="card">Elegir tarjeta(*)</label>
+<!-- 			<label for="card">Elegir tarjeta(*)</label>
           		<select name="card" class="round" required>
 <%         			for(Card c : allCards){
 					   if(c.getStatus()==1) {
@@ -97,7 +97,7 @@ DateHandler dh = new DateHandler();
 					}%> 		
 				</select>
 				<p><small>(*)La tarjeta quedara asociada a la compra aun cuando se elija "Pagar por ventanilla". Se cargará $0 a la tarjeta. En caso de no retirar la entrada abonando en persona, se cargará a dicha tarjeta el monto real de la transaccion.</small></p>
-				<br/>		
+				<br/>	-->	
 			 <input type="submit" class="btn btn-primary" value="Continuar" />		
           </form>
          

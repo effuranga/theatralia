@@ -25,8 +25,8 @@ public class PreviewTicket extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User loggedUser = (User)session.getAttribute("loggedUser");
-		if(loggedUser == null || loggedUser.isClient()) {
-			response.sendRedirect("error.jsp?e=Debes iniciar sesion (como empleado o administrador) para poder realizar esta accion.");
+		if(loggedUser == null /*|| loggedUser.isClient()*/) {
+			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
 		int ticketId = Integer.parseInt(request.getParameter("ticketId"));

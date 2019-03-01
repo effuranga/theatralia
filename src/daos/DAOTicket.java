@@ -459,4 +459,25 @@ System.out.println(sql);
 		
 		return list;
 	}
+
+	public ResultSet getDTOMyTicketsList(int userId) {
+		Connection conn = connect();
+		
+		String qry = "SELECT T.*, P.`playId`, P.`name`, C.`number` AS cardNumber\r\n" + 
+				"FROM ticket T INNER JOIN `show` S ON T.`showId` = `S`.`showId` \r\n" + 
+				"INNER JOIN play P ON S.`playId` = P.`playId`\r\n" + 
+				"INNER JOIN card C ON T.`cardId` = C.`cardId`\r\n" + 
+				"WHERE T.`userId` = "+userId+";";
+		
+		System.out.println(qry);
+		try {
+			PreparedStatement ps = conn.prepareStatement(qry);
+			ResultSet rs = ps.executeQuery();
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
 }

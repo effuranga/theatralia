@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import business.Card;
 import business.Ticket;
 import business.User;
+import services.CardHandler;
 import services.PurchaseHandler;
 import services.TicketHandler;
 import utils.DTOPurchase;
@@ -33,6 +35,11 @@ public class ConfirmPurchase extends HttpServlet {
 			response.sendRedirect("error.jsp?e=Debes iniciar sesion para poder realizar esta accion.");
 			return;
 		}
+		
+// Recuperar la tarjeta
+CardHandler cardHandler = new CardHandler();
+Card card = cardHandler.getCard(Integer.parseInt(request.getParameter("card")));
+dto.setCard(card);
 		
 		// Checkear que el DTO sea apto para impactar la DB
 		boolean isFit = dto.isFit();

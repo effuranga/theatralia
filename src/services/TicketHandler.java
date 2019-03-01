@@ -13,6 +13,7 @@ import business.Ticket;
 import business.User;
 import daos.DAOTicket;
 import utils.DTODeliveryTable;
+import utils.DTOMyTickets;
 import utils.DTOPurchase;
 import utils.DTOSell;
 
@@ -305,5 +306,31 @@ public class TicketHandler {
 		DAOTicket daoTicket = new DAOTicket();
 		
 		return daoTicket.chargeAllCards(rows);
+	}
+
+	public ArrayList<DTOMyTickets> getDTOMyTicketsList(int userId) {
+		ArrayList<DTOMyTickets> dtoMyTicketsList = new ArrayList<DTOMyTickets>();
+		DAOTicket daoTicket = new DAOTicket();
+		ResultSet rs = daoTicket.getDTOMyTicketsList(userId);
+		
+		try {
+			while(rs != null && rs.next()) {
+				int ticketId = rs.getInt("ticketId");
+				String showDate = rs.getString("showDate");
+				String buyingDate = rs.getString("buyingDate");
+				int isDelivered = rs.getInt("status");
+				int isPaid = rs.getInt("isPaid");
+				String deliveryCode = rs.getString("deliveryCode");
+				int playId = rs.getInt("playId");
+				String playName = rs.getString("name");
+				String cardNumber = rs.getString("cardNumber");
+				dtoMyTicketsList.add(new DTOMyTickets(ticketId, showDate, buyingDate, isDelivered, isPaid, deliveryCode, playId, playName, cardNumber));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		daoTicket.done();
+		return dtoMyTicketsList;
 	}
 }

@@ -171,7 +171,7 @@ DateHandler dh = new DateHandler();
 		            <div class="item">
 		            <%
 		            String status = "";
-		            status = (ticket.isPaid())? "Pagado" : "Pago pendiente en boleteria";
+		            status = (ticket.isPaid())? "Pagado" : "Pagar en boleteria";
 		            %>
 		              <h2 class="name">Estado</h2><span class="value"><%=status %></span>
 		            </div>
@@ -182,7 +182,9 @@ DateHandler dh = new DateHandler();
 		            float charged = 0;
 		            charged = (ticket.isPaid() && loggedUser.isClient())? ticket.getTotal() : 0;
 		            %>
+		            <%if(loggedUser.isClient()) {%>
 		              <h2 class="name">Cargado en tarjeta</h2><span class="value"><%=charged %></span>
+		            <%} %>
 		            </div>
 		          </div>
 		          <div class="col">

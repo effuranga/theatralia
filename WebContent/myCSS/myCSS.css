@@ -54,3 +54,7 @@ textarea:focus {
 padding-left:10px;
 resize: none;
 }
+
+.mytitle {
+	background-color: rgb(255, 242, 230);
+}

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Set;
 
 
 /**
@@ -231,7 +232,9 @@ System.out.println(qry);
 		for(int i = 0; i<size-1; i++) {
 			list += ids.get(i)+",";
 		}
-		list += ids.get(size-1);
+		if(ids.size()>0) {
+			list += ids.get(size-1);
+		}
 		
 		return list;
 	}
@@ -251,6 +254,40 @@ System.out.println(qry);
 		}
 		qry = qry.substring(0, qry.length()-4);
 		qry += ";";
+		
+		System.out.println(qry);
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(qry);
+			ResultSet rs = ps.executeQuery();
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
+
+	/**
+	 * Devuelve un resultset con filas de playID, showId, showDate, price, availableSeats 
+	 * @param playsIDs
+	 * @return rs o null
+	 */
+	public ResultSet getDescriptionExtensionsForPlays(Set<Integer> playsIDs) {
+		Connection conn = connect();
+		ArrayList<String> ids = new ArrayList<String>();
+		for(int id : playsIDs) {
+			ids.add(""+id);
+		}
+		
+		String listOfIds = createListOfIDs(ids);
+		String coma = (listOfIds.isEmpty()) ? "" : ",";
+		String qry = "SELECT DISTINCT S.`playId`, S.`showId`, S.`date`, SS.`price`, count(*) AS \"available\"\r\n" + 
+				"FROM `show` S INNER JOIN `showseat` SS ON S.`showId` = SS.`showId`\r\n" + 
+				"WHERE cast(S.`date` as date) > cast(now() as date) AND SS.`status` = 0\r\n" + 
+				"AND S.`playId` IN (0"+coma+listOfIds+")\r\n" + 
+				"GROUP BY 2\r\n"
+				+ "ORDER BY date asc;";
 		
 		System.out.println(qry);
 

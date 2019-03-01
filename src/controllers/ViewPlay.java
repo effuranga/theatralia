@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,7 @@ import business.User;
 import services.CommentHandler;
 import services.PlayHandler;
 import services.UserHandler;
+import utils.DTODescriptionExtension;
 
 /**
  * Toma el pedido para ver una obra por metodo GET (?id=<id>)
@@ -64,6 +66,11 @@ public class ViewPlay extends HttpServlet {
 				commentHandler.fillWithLikes(comments);
 				
 				request.setAttribute("comments", comments);
+				
+				//Necesito añadir los shows, los precios y los asientos disponibles por obra
+				HashMap<Integer, Object> help = new HashMap<Integer, Object>(); help.put(play.getId(), new Object()); 
+				HashMap<Integer, ArrayList<DTODescriptionExtension>> descExt = playHandler.getDescriptionExtensionsForPlays(help.keySet());
+				request.setAttribute("descExt", descExt);
 				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("viewplay.jsp");
 				requestDispatcher.forward(request, response);

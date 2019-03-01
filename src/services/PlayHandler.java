@@ -4,9 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import business.Play;
 import daos.DAOPlay;
+import utils.DTODescriptionExtension;
 
 /**
  * Crea Plays y maneja su inforación a nivel de negocio.
@@ -312,5 +314,44 @@ public class PlayHandler {
 		//Fin de la logica
 		daoPlay.done();
 		return playsResult;
+	}
+
+	/**
+	 * Este metodo toma un set de enteros de playsIds y devuelve un hashmap donde para cada id de la play
+	 * le asigna un arreglo de DTOs (cada uno tiene la fecha del show, el precio y los asientos disponibles)
+	 * @param Set<Integer> playsIDs
+	 * @return descExt lleno de ids siempre, con su lista de dtos llena o vacia <- esto es lo que hay que validar
+	 */
+	public HashMap<Integer, ArrayList<DTODescriptionExtension>> getDescriptionExtensionsForPlays(
+			Set<Integer> playsIDs) {
+		HashMap<Integer, ArrayList<DTODescriptionExtension>> descExt = new HashMap<Integer, ArrayList<DTODescriptionExtension>>();
+		
+		for(int id : playsIDs) {
+			descExt.put(id, new ArrayList<DTODescriptionExtension>());
+		}
+		
+		DAOPlay daoPlay = new DAOPlay();
+		
+		ResultSet rs = daoPlay.getDescriptionExtensionsForPlays(playsIDs);
+		
+		// Logica para convertir el resultSet en el HashMap
+		try {
+			while(rs != null && rs.next()) {
+				int playId = rs.getInt("playId");
+				int showId = rs.getInt("showId");
+				String showDate = rs.getString("date");
+				String price = rs.getString("price");
+				int availableSeats = rs.getInt("available");
+				
+				descExt.get(playId).add(new DTODescriptionExtension(playId, showId, showDate, price, availableSeats));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		  finally {
+			  daoPlay.done();
+		  }
+		
+		return descExt;
 	}
 }

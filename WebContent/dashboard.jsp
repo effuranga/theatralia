@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
     import="java.util.HashMap"
+    import="java.util.ArrayList"
     import="java.util.Collection"
     import="utils.Header"
     import="business.Play"
+    import="utils.DateHandler"
+    import="utils.DTODescriptionExtension"
     import="business.User"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -13,6 +16,8 @@ if(loggedUser == null){
 }
 HashMap<Integer, Play> currentPlays = (HashMap<Integer, Play>)request.getAttribute("currentPlays");
 boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false;
+HashMap<Integer, ArrayList<DTODescriptionExtension>> descExt = (HashMap<Integer, ArrayList<DTODescriptionExtension>>)request.getAttribute("descExt");
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +36,10 @@ boolean toShow = (currentPlays != null && !currentPlays.isEmpty())? true : false
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
-
+	
+	<!-- MyCss -->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
+    
   </head>
 
   <body>
@@ -61,6 +69,16 @@ if(toShow){
         <div class="col-md-5">
           <h3><%=p.getName() %></h3>
           <p><%=p.getDescription() %></p>
+          <p class="mytitle">Proximas funciones</p>
+          <%if(descExt.get(p.getId()).isEmpty()) {%>
+          	<p>«No hay funciones disponibles»</p>
+          <%} 
+            else { 
+            	ArrayList<DTODescriptionExtension> list = descExt.get(p.getId());
+            	for(DTODescriptionExtension row : list){
+            		out.print("<p>"+dh.getHTMLDateAndTime(row.getShowDate())+"hs.   $"+row.getPrice()+" - ("+row.getAvailableSeats()+" asientos disponibles)</p>");
+            	}
+		   } %>
           <a class="btn btn-primary" href="viewplay?id=<%=p.getId()%>">Ver obra</a>
         </div>
       </div>

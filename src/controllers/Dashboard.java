@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import business.Play;
 import business.User;
 import services.PlayHandler;
+import utils.DTODescriptionExtension;
 
 /**
  * Servlet implementation class Dashboard
@@ -37,6 +39,11 @@ public class Dashboard extends HttpServlet {
 		PlayHandler playHandler = new PlayHandler();
 		HashMap<Integer, Play> currentPlays = playHandler.getCurrentPlays();
 		request.setAttribute("currentPlays", currentPlays);
+		
+		//Necesito añadir los shows, los precios y los asientos disponibles por obra
+		HashMap<Integer, ArrayList<DTODescriptionExtension>> descExt = playHandler.getDescriptionExtensionsForPlays(currentPlays.keySet());
+		request.setAttribute("descExt", descExt);
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("dashboard.jsp");
 		requestDispatcher.forward(request, response);
 

@@ -9,6 +9,8 @@
     import="java.util.Set"
     import="utils.DateHandler"
     import="utils.Header"
+    import="utils.DateHandler"
+    import="utils.DTODescriptionExtension"
     import="business.User"%>
 <%
 // ACA YA ME LLEGA LA OBRA SIN SHOWS PASADOS, NI SHOWS QUE NO TENGAN ASIENTOS
@@ -23,6 +25,9 @@ String noImage = "utils/noimage.jpg";
 
 User loggedUser = (User) session.getAttribute("loggedUser");
 HashMap<Integer, Comment> comments = (HashMap<Integer, Comment>) request.getAttribute("comments");
+
+HashMap<Integer, ArrayList<DTODescriptionExtension>> descExt = (HashMap<Integer, ArrayList<DTODescriptionExtension>>)request.getAttribute("descExt");
+DateHandler dh2 = new DateHandler();
 
 // Data por si tengo que vender
 ArrayList<Show> shows = play.getShows();
@@ -96,6 +101,18 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	        <div class="col-md-5">
 	          <h3><%=play.getName() %></h3>
 	          <p><%=play.getDescription() %></p>
+	      <%if(loggedUser.isClient()){ %>    
+	          <p class="mytitle">Proximas funciones</p>
+	          <%if(descExt.get(play.getId()).isEmpty()) {%>
+	          	<p>«No hay funciones disponibles»</p>
+	          <%} 
+	            else { 
+	            	ArrayList<DTODescriptionExtension> list = descExt.get(play.getId());
+	            	for(DTODescriptionExtension row : list){
+	            		out.print("<p>"+dh2.getHTMLDateAndTime(row.getShowDate())+"hs.   $"+row.getPrice()+" - ("+row.getAvailableSeats()+" asientos disponibles)</p>");
+	            	}
+			   }
+	       }%>
 	<%		if(loggedUser.isClient()) {
 	          if(play.getStatus()==1 && play.hasShowsInTheFuture() && play.oneShowInTheFutureHasAvailableSeats()) {%><a class="btn btn-primary" href="setpurchase?id=<%=play.getId() %>">Comprar</a> <%}%>    	 
 	 <%			if(!(boolean) request.getAttribute("addedInLibrary")){ %>

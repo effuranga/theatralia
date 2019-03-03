@@ -94,7 +94,7 @@ DateHandler dh = new DateHandler();
 				for(DTOMyTickets d : dtoMyTicketsList){
 %>                  
                     <tr>
-                      <td><a href="previewticket?ticketId=<%=d.getTicketId() %>"><%=d.getTicketId() %></a></td>
+                      <td><a target="_blank" href="previewticket?ticketId=<%=d.getTicketId() %>"><%=d.getTicketId() %></a></td>
                       <td><a href="#=<%=d.getPlayId() %>"><%=d.getPlayName() %></a></td>
                       <td><%=dh.getHTMLDateAndTime(d.getShowDate()) %></td>
                       <td><%=(d.isDelivered())? "Si" : "No" %></td>

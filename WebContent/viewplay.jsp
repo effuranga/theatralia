@@ -104,12 +104,12 @@ if(!shows.isEmpty()) System.out.println("No esta vacio. Tiene shows");
 	      <%if(loggedUser.isClient()){ %>    
 	          <p class="mytitle">Proximas funciones</p>
 	          <%if(descExt.get(play.getId()).isEmpty()) {%>
-	          	<p>«No hay funciones disponibles»</p>
+	          	<p class="subtitle">«No hay funciones disponibles»</p>
 	          <%} 
 	            else { 
 	            	ArrayList<DTODescriptionExtension> list = descExt.get(play.getId());
 	            	for(DTODescriptionExtension row : list){
-	            		out.print("<p>"+dh2.getHTMLDateAndTime(row.getShowDate())+"hs.   $"+row.getPrice()+" - ("+row.getAvailableSeats()+" asientos disponibles)</p>");
+	            		out.print("<p class=\"subtitle\">"+dh2.getHTMLDateAndTime(row.getShowDate())+"hs.   $"+row.getPrice()+" - ("+row.getAvailableSeats()+" asientos disponibles)</p>");
 	            	}
 			   }
 	       }%>

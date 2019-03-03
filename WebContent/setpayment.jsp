@@ -8,6 +8,7 @@
     import="business.Seat"
     import="business.Card"
     import="utils.Header"
+    import="utils.DateHandler"
     import="utils.DTOPurchase"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -29,6 +30,7 @@ for(Seat s : seats){
 String delivery = (payWithCard)? "Pago con tarjeta" : "Pago por ventanilla";
 
 ArrayList<Card> allCards = (ArrayList<Card>) session.getAttribute("allCards");
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,17 +77,17 @@ ArrayList<Card> allCards = (ArrayList<Card>) session.getAttribute("allCards");
         </div>
         <div class="col-md-5">
           <h3><%=play.getName() %></h3>
-          <p style="text-decoration: underline;">Funcion: <p style="text-decoration: none;"><%=show.getDate() %></p></p>
-          <p style="text-decoration: underline;">Asientos:</p>
+          <p class="mytitle">Funcion <p style="text-decoration: none;" class="subtitle"><%=dh.getHTMLDateAndTime(show.getDate()) %></p></p>
+          <p class="mytitle">Asientos</p>
 <% 			for(Seat s: seats){%>
-			<p><%=s.getRow()+s.getColumn()+"   $"+s.getPrice() %></p>
+			<p class="subtitle"><%="Fila: "+s.getRow()+" Columna: "+s.getColumn()+" //  $"+s.getPrice() %></p>
 <%}%>
-          <p style="text-decoration: underline;">Total a abonar:<p style="text-decoration: none;">$<%=total %></p></p>
-          <p style="text-decoration: underline;">Saldo a cargar en tarjeta: <p style="text-decoration: none;">$<%if(payWithCard) out.print(total); else out.print("0.0");%></p></p>
-          <p style="text-decoration: underline;">Modalidad: <p style="text-decoration: none;"><%=delivery %></p></p>
+          <p class="mytitle">Total a abonar<p style="text-decoration: none;" class="subtitle">$<%=total %></p></p>
+          <p class="mytitle">Saldo a cargar en tarjeta <p style="text-decoration: none;" class="subtitle">$<%if(payWithCard) out.print(total); else out.print("0.0");%></p></p>
+          <p class="mytitle">Modalidad <p style="text-decoration: none;" class="subtitle"><%=delivery %></p></p>
 <%// 	  <p style="text-decoration: underline;">Tarjeta: <p style="text-decoration: none;"><%=card.getType()+" "+card.getNumber() %><!--  </p></p><br />-->               
           
-          <form action="confirmpurchase" method="post" >
+          <form action="confirmpurchase" method="post" class="mytitle">
           <label for="card">Elegir tarjeta(*)</label>
           		<select name="card" class="round" required>
 <%         			for(Card c : allCards){

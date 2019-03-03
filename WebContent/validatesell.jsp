@@ -44,6 +44,9 @@ for(Seat s : seats){
 
     <!-- Custom styles for this template -->
     <link href="dashboardFE/css/1-col-portfolio.css" rel="stylesheet">
+    
+    <!-- MyCss -->
+    <link href="myCSS/myCSS.css" rel="stylesheet">
 
   </head>
 
@@ -69,13 +72,13 @@ for(Seat s : seats){
         </div>
         <div class="col-md-5">
           <h3><%=play.getName() %></h3>
-          <p style="text-decoration: underline;">Funcion: <p style="text-decoration: none;"><%=show.getDate() %></p></p>
-          <p style="text-decoration: underline;">Asientos:</p>
+          <p class="mytitle"><i>Funcion</i> <p style="text-decoration: none;" class="subtitle"><%=show.getDate() %></p></p>
+          <p class="mytitle"><i>Asientos</i></p>
 <% 			for(Seat s: seats){%>
-			<p><%=s.getId()+"   "+s.getRow()+s.getColumn()+"                 $"+s.getPrice() %></p>
+			<p class="subtitle"><%=/*s.getId()+"   "+*/"Fila: "+s.getRow()+" Columna: "+s.getColumn()+" // $"+s.getPrice() %></p>
 <%}%>
-          <p style="text-decoration: underline;">Total a abonar:<p style="text-decoration: none;"><%=total %></p></p>
-          <p style="text-decoration: underline;">Modalidad: <p style="text-decoration: none;">Venta por ventanilla - Entrega inmediata</p></p>
+          <p class="mytitle"><i>Total a abonar</i><p style="text-decoration: none;" class="subtitle"><%="$ "+total %></p></p>
+          <p class="mytitle"><i>Modalidad</i> <p style="text-decoration: none;" class="subtitle">Venta por ventanilla - Entrega inmediata</p></p>
           
 	
           	<a class="btn btn-secondary" href="home">Cancelar</a>

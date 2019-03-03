@@ -65,7 +65,7 @@ DateHandler dh = new DateHandler();
           <p><%=play.getDescription() %></p>
           
           <!-- Form para settings de compras -->
-          <form action="seatsselector" method="GET">
+          <form action="seatsselector" method="GET" class="subtitle">
           	<label for="showId">Funcion</label>
           		<select name="showId" class="round" required>
 <%         			for(Show s : shows){

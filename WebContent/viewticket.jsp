@@ -90,7 +90,7 @@ DateHandler dh = new DateHandler();
     <div class="container">
 
       <!-- Page Heading -->
-      <h1 class="my-4">Obras
+      <h1 class="my-4"><%=play.getName() %>
         <small></small>
       </h1>
 
@@ -198,7 +198,7 @@ DateHandler dh = new DateHandler();
 		          </div>
 		        </div>
 		      </div>
-		      <div class="col half"><img class="ticket-qrcode" src="https://1.bp.blogspot.com/-tWxtTHsnBvQ/Wx0E35ydjVI/AAAAAAAAA6w/SxUTG14Kx8ABJkT4_7S18j4W-Sj5a50YACLcBGAs/s1600/qr.png" alt="Ticket Code"/></div>
+		      <div class="col half"><img class="ticket-qrcode" src="utils/qr.png" alt="Ticket Code"/></div>
 		    </div><br/><br/><br/>
 		    <%
 		    ArrayList<Seat> seats = ticket.getSeats();

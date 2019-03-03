@@ -56,5 +56,11 @@ resize: none;
 }
 
 .mytitle {
+	background-color: rgb(255, 229, 204);
+	padding-left: 10px;
+}
+
+.subtitle{
 	background-color: rgb(255, 242, 230);
+	padding-left: 10px;
 }

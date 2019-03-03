@@ -57,6 +57,35 @@ if(user == null || play == null || !user.isAdmin()){
     <link rel="stylesheet" type="text/css" href="fileButton/component.css" />
 	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 	
+	
+	<style>
+		.loader {
+		  border: 3px solid #f3f3f3;
+		  border-radius: 50%;
+		  border-top: 3px solid orange;
+		  border-bottom: 3px solid orange;
+		  width: 20px;
+		  height: 20px;
+		  -webkit-animation: spin 2s linear infinite;
+		  animation: spin 2s linear infinite;
+		  margin-left: 50%;
+		}
+		
+		@-webkit-keyframes spin {
+		  0% { -webkit-transform: rotate(0deg); }
+		  100% { -webkit-transform: rotate(360deg); }
+		}
+		
+		@keyframes spin {
+		  0% { transform: rotate(0deg); }
+		  100% { transform: rotate(360deg); }
+		}
+		
+		
+		.myblocked{
+		  pointer-events: none;
+		}
+	</style>
   </head>
 
   <body>
@@ -183,7 +212,9 @@ if(user == null || play == null || !user.isAdmin()){
             <div class="card-footer small text-muted"><form action="createshow?id=<%=play.getId() %>" method="POST" >
         		<input type="datetime-local" name="showdate" min="<%=now %>" class="round" required> 
         		<input type="number" name="price" min="1" max="10000" placeholder="$---" class="round" required>
-        		<input type="submit" class="btn btn-primary" onclick="return confirm('Si ha editado la obra y aún no ha hecho click en Editar, se perderán los cambios. ¿Está seguro que desea continuar?');" value="Nueva funcion" >
+        		<input type="submit" class="btn btn-primary" onclick="return confirm('Si ha editado la obra y aún no ha hecho click en Editar, se perderán los cambios. ¿Está seguro que desea continuar?') && showDiv()" value="Nueva funcion" >
+	        		<!-- Spinner -->
+	  				<div id="loader" style="display:none;" class="loader" > </div>
         	</form></div>
           </div>
 
@@ -223,6 +254,13 @@ if(user == null || play == null || !user.isAdmin()){
    
     <!-- File button-->
     <script src="fileButton/custom-file-input.js"></script>
+    
+    <script>
+	function showDiv() {
+	   document.getElementById("loader").style.display = "block";
+	   document.body.classList.add("myblocked");
+	}
+	</script>
   </body>
 
 </html>

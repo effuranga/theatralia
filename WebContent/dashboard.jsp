@@ -71,12 +71,12 @@ if(toShow){
           <p><%=p.getDescription() %></p>
           <p class="mytitle">Proximas funciones</p>
           <%if(descExt.get(p.getId()).isEmpty()) {%>
-          	<p>«No hay funciones disponibles»</p>
+          	<p class="subtitle">«No hay funciones disponibles»</p>
           <%} 
             else { 
             	ArrayList<DTODescriptionExtension> list = descExt.get(p.getId());
             	for(DTODescriptionExtension row : list){
-            		out.print("<p>"+dh.getHTMLDateAndTime(row.getShowDate())+"hs.   $"+row.getPrice()+" - ("+row.getAvailableSeats()+" asientos disponibles)</p>");
+            		out.print("<p class=\"subtitle\">"+dh.getHTMLDateAndTime(row.getShowDate())+"hs.   $"+row.getPrice()+" - ("+row.getAvailableSeats()+" asientos disponibles)</p>");
             	}
 		   } %>
           <a class="btn btn-primary" href="viewplay?id=<%=p.getId()%>">Ver obra</a>

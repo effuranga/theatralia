@@ -301,5 +301,28 @@ System.out.println(qry);
 		}		
 		return null;
 	}
+
+	public int getPlayIdByShowId(int showId) {
+		Connection conn = connect();
+		
+		String qry = "SELECT DISTINCT S.`playId`\r\n" + 
+					"FROM `show` S\r\n" + 
+					"WHERE S.`showId` ="+showId+" ;";
+		System.out.println(qry);
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(qry);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("playId");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			done();
+		}
+		return 0;
+	}
 	
 }

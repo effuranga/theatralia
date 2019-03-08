@@ -354,4 +354,21 @@ public class PlayHandler {
 		
 		return descExt;
 	}
+
+	/**
+	 * Devuelve la obra que tiene ese showId
+	 * @param showId
+	 * @return wholePlay o null
+	 */
+	public Play getPlayByShow(int showId) {
+		DAOPlay daoPlay = new DAOPlay();
+		int playId = daoPlay.getPlayIdByShowId(showId);
+		
+		if(playId == 0) {
+			return null;
+		}
+		else {
+			return getWholePlay(playId);
+		}
+	}
 }

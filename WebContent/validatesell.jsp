@@ -8,6 +8,7 @@
     import="business.Seat"
     import="business.Card"
     import="utils.Header"
+    import="utils.DateHandler"
     import="utils.DTOSell"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
@@ -25,7 +26,7 @@ for(Seat s : seats){
 	total += s.getPrice();
 }
 
-
+DateHandler dh = new DateHandler();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +73,7 @@ for(Seat s : seats){
         </div>
         <div class="col-md-5">
           <h3><%=play.getName() %></h3>
-          <p class="mytitle"><i>Funcion</i> <p style="text-decoration: none;" class="subtitle"><%=show.getDate() %></p></p>
+          <p class="mytitle"><i>Funcion</i> <p style="text-decoration: none;" class="subtitle"><%=dh.getHTMLDateAndTime(show.getDate()) %></p></p>
           <p class="mytitle"><i>Asientos</i></p>
 <% 			for(Seat s: seats){%>
 			<p class="subtitle"><%=/*s.getId()+"   "+*/"Fila: "+s.getRow()+" Columna: "+s.getColumn()+" // $"+s.getPrice() %></p>

@@ -101,7 +101,7 @@ Play play = (Play)request.getAttribute("play");
 	                      <td><%=dto.getCantIssuedTickets() %></td>
 	                      <td><%=(dto.getCantIssuedTickets() == 0)? 0+"%" : dto.getCantChargedTickets()*100/dto.getCantIssuedTickets()+"% || ("+dto.getCantChargedTickets()+")" %></td>
 	                      <td><a href="listtickets?showId=<%=dto.getShowId() %>" <%if(dto.getCantIssuedTickets() == 0) out.print("style=\"pointer-events: none; cursor: default; color: grey\""); %>>Ver lista</a></td>
-	                      <td><a href="viewchart?showId=<%=dto.getShowId() %>">Ver sala</a></td>                    
+	                      <td><a target="_blank" href="viewchart?showId=<%=dto.getShowId() %>">Ver sala</a></td>                    
 	                    </tr>
 	<%
 					}

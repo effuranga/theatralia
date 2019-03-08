@@ -3,7 +3,7 @@ package controllers;
 
 public class TestNotServlet {
 	public static void main(String[] args) {
-	
-		System.out.println("Algo".substring(0,9));
+		double d = 14*100/50;
+		System.out.println(16*100/50);
 	}
 }

@@ -89,4 +89,44 @@ public class DAOShow extends DAO{
 		}
 		
 	}
+
+	/**
+	 * Devuelve un ResultSet con las estadisticas para todos los shows de una obra
+	 * @param playId
+	 * @return ResultSet o null 
+	 */
+	public ResultSet getStatistics(int playId) {
+		Connection conn = connect();
+		String sql = "SELECT DISTINCT S.`showId`, S.`date`, SS.`price`, IFNULL(SEATS.available,0) as \"available\", IFNULL(ISSUED.issued, 0) as \"issued\", IFNULL(CHARGED.charged, 0) as \"charged\"\r\n" + 
+				"FROM `show` S INNER JOIN showseat SS ON S.`showId` = SS.`showId`\r\n" + 
+				"LEFT JOIN (\r\n" + 
+				"  -- Available seats\r\n" + 
+				"  SELECT SE.`showId`, count(*) as \"available\"\r\n" + 
+				"  FROM showseat SE\r\n" + 
+				"  WHERE SE.`status` = 0\r\n" + 
+				"  group by SE.`showId`\r\n" + 
+				"  ) SEATS ON S.`showId` = SEATS.`showId`\r\n" + 
+				"LEFT JOIN (\r\n" + 
+				"  -- Issued tickets\r\n" + 
+				"  SELECT T.`showId`, count(*) as \"issued\"\r\n" + 
+				"  FROM ticket T\r\n" + 
+				"  group by T.`showId`\r\n" + 
+				"  ) ISSUED ON S.`showId` = ISSUED.`showId`\r\n" + 
+				"LEFT JOIN (\r\n" + 
+				"  -- Charged tickets\r\n" + 
+				"  SELECT T.`showId`, count(*) as \"charged\"\r\n" + 
+				"  FROM ticket T\r\n" + 
+				"  WHERE T.`isPaid` = 1\r\n" + 
+				"  group by T.`showId`\r\n" + 
+				") CHARGED ON S.`showId` = CHARGED.`showId`\r\n" + 
+				"WHERE S.`playId` = "+playId+";";
+		System.out.println(sql);
+		try {
+			ResultSet rs = conn.prepareStatement(sql).executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

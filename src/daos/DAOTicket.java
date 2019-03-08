@@ -317,6 +317,45 @@ System.out.println(sql);
 	}
 	
 	/**
+	 * Devuelve los datos para mostrar los tickets de un show particular
+	 * @return resultset o null
+	 */
+	public ResultSet getTicketsTableRows(int showId) {
+		Connection conn = connect();
+		
+		String qry = "SELECT T.`ticketId`, P.`name` AS \"playName\", P.`playId`, S.`date` AS \"showDate\", S.`showId`, U.`name` AS \"userName\", U.`lastName` AS \"userLastName\", U.`userId`, C.`cardId`, C.`number` AS \"cardNumber\", T.`isPaid`, T.`deliveryCode`, T.`buyingDate`, TOTAL.`total` AS \"total\", CANT.cant as \"cant\", UR.`roleId` as \"rol\"\r\n" + 
+				"FROM `ticket` T INNER JOIN `show` S ON T.`showId` = S.`showId`\r\n" + 
+				"INNER JOIN `play` P ON S.`playId` = P.`playId`\r\n" + 
+				"INNER JOIN `user` U ON T.`userId` = U.`userId` \r\n" + 
+				"INNER JOIN userrole UR ON U.`userId` = UR.`userId` \r\n" + 
+				"LEFT JOIN `card` C ON T.`cardId` = C.`cardId`\r\n" + 
+				"INNER JOIN (\r\n" + 
+				"  -- Ticket total\r\n" + 
+				"  SELECT T.`ticketId`, sum(SS.`price`) AS \"total\"\r\n" + 
+				"  FROM `ticket` T INNER JOIN `ticketshowseat` TSS ON T.`ticketId` = TSS.`ticketId`\r\n" + 
+				"  INNER JOIN showseat SS ON TSS.`showSeatId` = SS.`showSeatId`\r\n" + 
+				"  group by 1\r\n" + 
+				"  ) TOTAL ON T.`ticketId` = TOTAL.`ticketId`\r\n" + 
+				"INNER JOIN (\r\n" + 
+				"  -- Cantidad de asientos\r\n" + 
+				"  SELECT TSS.`ticketId`, count(*) AS \"cant\"\r\n" + 
+				"  FROM `ticketshowseat` TSS \r\n" + 
+				"  group by 1\r\n" + 
+				"  ) CANT ON T.`ticketId` = CANT.`ticketId`\r\n" + 
+				"WHERE T.`showId` ="+showId+";";
+		System.out.println(qry);
+		try {
+			PreparedStatement ps = conn.prepareStatement(qry);
+			ResultSet rs = ps.executeQuery();
+			
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
+	
+	/**
 	 * Cambia el isPaid del ticket a 1 y crea un registro en la tabla deskCash para trackear el cobro
 	 * @param ticketId
 	 * @return

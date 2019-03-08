@@ -16,6 +16,7 @@ import utils.DTODeliveryTable;
 import utils.DTOMyTickets;
 import utils.DTOPurchase;
 import utils.DTOSell;
+import utils.DTOTicketList;
 
 public class TicketHandler {
 
@@ -332,5 +333,43 @@ public class TicketHandler {
 		
 		daoTicket.done();
 		return dtoMyTicketsList;
+	}
+	
+	/**
+	 * Devuelve un arreglo de DTOs de tickets por show
+	 * @param showId
+	 * @return ArrayList<DTOTicketList> lleno o vacio, nunca null
+	 */
+	public ArrayList<DTOTicketList> getTicketsListDTOs(int showId) {
+		ArrayList<DTOTicketList> deliveryRows = new ArrayList<DTOTicketList>();
+		DAOTicket daoTicket = new DAOTicket();
+		ResultSet rs = daoTicket.getTicketsTableRows(showId);
+		
+		try {
+			while(rs.next()) {
+				int ticketId = rs.getInt("ticketId");
+				int playId = rs.getInt("playId");
+				int cardId = rs.getInt("cardId");
+				int clientId = rs.getInt("userId");
+				String playName = rs.getString("playName");
+				String showDate = rs.getString("showDate");
+				String userName = rs.getString("userName");
+				String userLastName= rs.getString("userLastName");
+				String cardNumber= rs.getString("cardNumber");
+				boolean isPaid = (rs.getInt("isPaid") == 0)? false : true; 
+				String deliveryCode = rs.getString("deliveryCode");
+				String buyingDate= rs.getString("buyingDate");
+				int total = rs.getInt("total");
+				int cantSeats = rs.getInt("cant");
+				boolean isClient = (rs.getInt("rol") == 1)? true : false;
+				
+				deliveryRows.add(new DTOTicketList(ticketId, playId, cardId, clientId, showId, playName, showDate, userName, userLastName, cardNumber, isPaid, deliveryCode, buyingDate, total, cantSeats, isClient));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		daoTicket.done();
+		return deliveryRows;
 	}
 }

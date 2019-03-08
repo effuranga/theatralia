@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
     import="java.util.ArrayList"
-    import="business.Card"
-    import="business.Play"
+    import="utils.DTOStatistics"
     import="utils.Header"
-    import="business.User"%>
+    import="utils.DateHandler"
+    import="business.User"
+    import="business.Play"%>
 <%
 User loggedUser = (User) session.getAttribute("loggedUser");
 if(loggedUser == null || !loggedUser.isAdmin()){
-	response.sendRedirect("error.jsp?e=No tengo el usuario en la session");
+	response.sendRedirect("error.jsp?e=El usuario debe ser administrador");
 	return;
 }
-ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
+
+ArrayList<DTOStatistics> stats = (ArrayList<DTOStatistics>) request.getAttribute("stats");
+DateHandler dh = new DateHandler();
+Play play = (Play)request.getAttribute("play");
 
 %>
 <!DOCTYPE html>
@@ -24,7 +28,7 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Plays</title>
+    <title>Estadisticas</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dashboardFE/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +55,6 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
     <%=Header.getHeader(loggedUser, "adminplays") %>
 
     <!-- Page Content -->
-    
         <div id="wrapper">
       <div id="content-wrapper">
 
@@ -60,56 +63,48 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Administrar obras
-              <br /><a class="btn btn-primary" href="newplay.jsp">Nueva obra</a></div>
+              <%=play.getName() %> <br>
+              <small>Estadisticas</small>
+              <br><a class="btn btn-primary" href="#">EXPORT</a>
+			</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Obra</th>
-                      <th>Autor</th>
-                      <th>En cartelera</th>
-                      <th>Editar</th>
-                      <th>Estadisticas</th>
+                      <th>Show Id</th>
+                      <th>Funcion</th>
+                      <th>Entrada $</th>
+                      <th>Asientos disp.</th>
+                      <th>Recaudado</th>
+                      <th>T. emitidos</th>
+                      <th>T. facturados</th>
+                      <th>Lista de tickets</th>
+                      <th>Ver sala</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>ID</th>
-                      <th>Obra</th>
-                      <th>Autor</th>
-                      <th>En cartelera</th>
-                      <th>Editar</th>
-                      <th>Estadisticas</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
-<%
-				for(Play p : plays){
-%>                  
-                    <tr>
-                      <td><%=p.getId() %></td>
-                      <td><a href="viewplay?id=<%=p.getId() %>"><%=p.getName() %></a></td>
-                      <td><%=p.getAuthor() %></td>
-                      <% 
-                      String action = "changeplayvisibility?playId="+p.getId()+"&toStatus=";
-                      String text ="";
-                      if(p.getStatus() == 1) {
-                    	  text = "Si";
-                    	  action += 0;
-                      	} 
-                      else {
-                    	  text = "No";
-                    	  action += 1;
-                      	}                    
-                      %>
-                      <td><a href="<%=action %>"><%=text %></a></td>
-                      <td><a href="editplay?playid=<%=p.getId() %>">Editar</a></td>
-                      <td><a href="stats?playId=<%=p.getId() %>">Ver</a></td>
-                    </tr>
-<%
+<%				if(stats.isEmpty()){%> 
+				 <tr>
+				 <td>Cuando existan funciones para la obra actual, las estadisticas apareceran aqui</td>
+				 </tr>
+<%				}
+				else{
+					for(DTOStatistics dto : stats){
+	%>                  
+	                    <tr>
+		                  <td><%=dto.getShowId() %></td>
+	                      <td><%=dh.getHTMLDateAndTime(dto.getShowDate()) %></td>
+	                      <td><%="$ "+dto.getPrice() %></td>
+	                      <td><%=dto.getAvailableSeats() %></td>
+	                      <td><%="$ "+((98-dto.getAvailableSeats())*dto.getPrice()) %></td>
+	                      <td><%=dto.getCantIssuedTickets() %></td>
+	                      <td><%=(dto.getCantIssuedTickets() == 0)? 0+"%" : dto.getCantChargedTickets()*100/dto.getCantIssuedTickets()+"% || ("+dto.getCantChargedTickets()+")" %></td>
+	                      <td><a href="listtickets?showId=<%=dto.getShowId() %>" <%if(dto.getCantIssuedTickets() == 0) out.print("style=\"pointer-events: none; cursor: default; color: grey\""); %>>Ver lista</a></td>
+	                      <td><a href="viewchart?showId=<%=dto.getShowId() %>">Ver sala</a></td>                    
+	                    </tr>
+	<%
+					}
 				}
 %>                       
                   </tbody>
@@ -157,6 +152,7 @@ ArrayList<Play> plays = (ArrayList<Play>) request.getAttribute("allPlays");
 
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
+   
   </body>
 
 </html>

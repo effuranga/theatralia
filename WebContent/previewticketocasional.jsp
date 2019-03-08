@@ -53,24 +53,17 @@ DateHandler dh = new DateHandler();
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		            <%
-		            String client = user.getLastName()+", "+user.getName();
-		            %>
-		              <h2 class="name">Cliente</h2><span class="value"><%=client %></span>
+		              <h2 class="name">Cliente</h2><span class="value">CLIENTE OCASIONAL</span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		            <%
-		            String seller = loggedUser.getLastName()+", "+loggedUser.getName();
-		            %>
-		              <h2 class="name">Vendedor</h2><span class="value"><%=loggedUser.isClient()? "WEB" : "WEB" %></span>
+		              <h2 class="name">Vendedor</h2><span class="value"><%=ticket.getUser().getLastName()+", "+ticket.getUser().getName() %></span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		    <%String card = retrieveCardString(ticket.getCard().getNumber()); %>
-		              <h2 class="name">Tarjeta Nro.</h2><span class="value"><%=card %></span>
+		              <h2 class="name">Tarjeta Nro.</h2><span class="value">N/A</span>
 		            </div>
 		          </div>
 		          <div class="col">
@@ -90,19 +83,12 @@ DateHandler dh = new DateHandler();
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		            <%
-		            String status = "";
-		            status = (ticket.isPaid())? "Pagado" : "Pago pendiente en boleteria";
-		            %>
-		              <h2 class="name">Estado</h2><span class="value"><%=status %></span>
+		              <h2 class="name">Estado</h2><span class="value">Pagado</span>
 		            </div>
 		          </div>
 		          <div class="col">
 		            <div class="item">
-		            <%
-		            String deliveryCode = ticket.getDeliveryCode();
-		            %>
-		              <h2 class="name">Delivery code</h2><span class="value"><%=deliveryCode %></span>
+		              <h2 class="name">Delivery code</h2><span class="value">N/A</span>
 		            </div>
 		          </div>
 		        </div>
@@ -148,11 +134,3 @@ DateHandler dh = new DateHandler();
 
 </html>
 
-<%! 
-public String retrieveCardString(String number){
-	if(number.length() >3)
-		return "XXX-XXXX-"+number.substring(number.length()-4);
-	else
-		return number;
-}
-%>

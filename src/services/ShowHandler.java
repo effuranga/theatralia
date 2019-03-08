@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import business.Play;
 import business.Show;
+import utils.DTOStatistics;
 import daos.DAOShow;
 
 public class ShowHandler {
@@ -69,5 +70,34 @@ public class ShowHandler {
 			if(shows.get(i).getId() == showId) return shows.get(i);
 		}
 		return null;
+	}
+
+	/**
+	 * Recibe un playId y devuelve un arreglo de filas de estadisticas por show para ese id
+	 * @param playId
+	 * @return ArrayList<DTOStatistics> stats: lleno o vacio, nunca nulo
+	 */
+	public ArrayList<DTOStatistics> getStatistics(int playId) {
+		ArrayList<DTOStatistics> stats = new ArrayList<DTOStatistics>();
+		DAOShow daoShow = new DAOShow();
+		try {
+			ResultSet rs = daoShow.getStatistics(playId);
+			while(rs != null && rs.next()) {
+				int showId = rs.getInt("showId");
+				String showDate = rs.getString("date");
+				int price = rs.getInt("price");
+				int cantChargedTickets = rs.getInt("charged");
+				int cantIssuedTickets = rs.getInt("issued");
+				int availableSeats = rs.getInt("available");
+				stats.add(new DTOStatistics(showId, showDate, price, cantChargedTickets, cantIssuedTickets, availableSeats));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			daoShow.done();
+		}
+		return stats;
 	}
 }

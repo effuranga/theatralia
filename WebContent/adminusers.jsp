@@ -60,7 +60,9 @@ DateHandler dh = new DateHandler();
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Administrar usuarios <br> <a href="createuser.jsp">(+) Nuevo usuario</a></div>
+              Administrar usuarios <br> <a href="createuser.jsp">(+) Nuevo usuario</a>
+              <br><a href="adminusers?export=true" target="_blank"><img src="utils/excel.png" width="40px" height="40px" /> </a>
+            </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import business.User;
 import services.TicketHandler;
 import utils.DTODeliveryTable;
+import utils.DateHandler;
 
 /**
  * Servlet implementation class Delivery
@@ -37,8 +39,38 @@ public class Delivery extends HttpServlet {
 		
 		deliveryTableDTOs = ticketHandler.getDeliveryTableDTOs();
 		
-		request.setAttribute("rows", deliveryTableDTOs);
-		request.getRequestDispatcher("delivery.jsp").forward(request, response);
+		// Export?
+		boolean export = (request.getParameter("export") != null && request.getParameter("export").equals("true"));
+		if(!export) {
+			request.setAttribute("rows", deliveryTableDTOs);
+			request.getRequestDispatcher("delivery.jsp").forward(request, response);
+		}
+		else {
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-disposition", "filename=Tickets delivery.xls");
+			
+			PrintWriter out = response.getWriter();
+			try {
+				DateHandler dh = new DateHandler();
+				out.println("Ticket ID\tObra\tFuncion\tCliente\tTarjeta\tPago\tDelivery code\tFecha de compra");
+				for(DTODeliveryTable dto : deliveryTableDTOs) {
+					String ticketId = ""+dto.getTicketId();
+					String playName = dto.getPlayName();
+					String showDate = dh.getHTMLDate(dto.getShowDate())+" "+dh.getHTMLTime(dto.getShowDate());
+					String client = dto.getUserLastName()+", "+dto.getUserName();
+					String card = dto.getCardNumber();
+					String isPaid = (dto.isPaid())? "Si" : "No";
+					String deliveryCode = dto.getDeliveryCode();
+					String buyingDate = dh.getHTMLDate(dto.getBuyingDate())+" "+dh.getHTMLTime(dto.getBuyingDate());
+					
+					out.println(ticketId+"\t"+playName+"\t"+showDate+"\t"+client+"\t"+card+"\t"+isPaid+"\t"+deliveryCode+"\t"+buyingDate);
+				} 
+				
+			}
+			finally {
+				out.close();
+			}
+		}
 	}
 
 }

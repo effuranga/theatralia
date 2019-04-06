@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import business.User;
 import services.UserHandler;
+import utils.DateHandler;
 
 /**
  * Servlet implementation class AdminUsers
@@ -31,8 +33,38 @@ public class AdminUsers extends HttpServlet {
 		
 		UserHandler userHandler = new UserHandler();
 		ArrayList<User> allUsers = userHandler.getAllUsers();
-		request.setAttribute("allUsers", allUsers);
-		request.getRequestDispatcher("adminusers.jsp").forward(request, response);
+		
+		// Export?
+		boolean export = (request.getParameter("export") != null && request.getParameter("export").equals("true"));
+		if(!export) {
+			request.setAttribute("allUsers", allUsers);
+			request.getRequestDispatcher("adminusers.jsp").forward(request, response);
+		}
+		else {
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-disposition", "filename=Lista de usuarios.xls");
+			
+			PrintWriter out = response.getWriter();
+			try {
+				DateHandler dh = new DateHandler();
+				out.println("ID\tUser name\tApellido, Nombre\tEmail\tStatus\tRol\tAlta");
+				for(User u : allUsers) {
+					String userId = ""+u.getUserId();
+					String userName = u.getUserName();
+					String fullName = u.getLastName()+", "+u.getName();
+					String email = u.getEmail();
+					String status = (u.getStatus()==0)? "Desactivado" : ((u.getStatus()==1)? "Activo" : "Pendiente");
+					String role = (u.isClient())? "Cliente" : ((u.isEmployee())? "Vendedor" : "Administrador");
+					String creationDate = dh.getHTMLDate(u.getCreated())+" "+dh.getHTMLTime(u.getCreated());
+					
+					out.println(userId+"\t"+userName+"\t"+fullName+"\t"+email+"\t"+status+"\t"+role+"\t"+creationDate);
+				} 
+				
+			}
+			finally {
+				out.close();
+			}
+		}
 	}
 
 }

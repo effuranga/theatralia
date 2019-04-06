@@ -64,7 +64,7 @@ DateHandler dh = new DateHandler();
               <i class="fas fa-table"></i>
               <%=rows.get(0).getPlayName() %> <br>
               <small><%=dh.getHTMLDateAndTime(rows.get(0).getShowDate()) %></small>
-              <br><a class="btn btn-primary" href="#">EXPORT</a>
+              <br><a href="listtickets?showId=<%=request.getParameter("showId")%>&export=true" target="_blank"><img src="utils/excel.png" width="40px" height="40px" /> </a>
 			</div>
             <div class="card-body">
               <div class="table-responsive">

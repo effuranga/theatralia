@@ -303,7 +303,7 @@ System.out.println(sql);
 				"INNER JOIN `play` P ON S.`playId` = P.`playId`\r\n" + 
 				"INNER JOIN `user` U ON T.`userId` = U.`userId`\r\n" + 
 				"INNER JOIN `card` C ON T.`cardId` = C.`cardId`\r\n" + 
-				"WHERE T.`status` = 0 AND cast(T.`showDate` as date) >= cast(now() as date)";
+				"WHERE T.`status` = 0 AND cast(T.`showDate` as date) >= cast(now() as date) ORDER BY T.`ticketId` asc";
 		System.out.println(qry);
 		try {
 			PreparedStatement ps = conn.prepareStatement(qry);
@@ -342,7 +342,7 @@ System.out.println(sql);
 				"  FROM `ticketshowseat` TSS \r\n" + 
 				"  group by 1\r\n" + 
 				"  ) CANT ON T.`ticketId` = CANT.`ticketId`\r\n" + 
-				"WHERE T.`showId` ="+showId+";";
+				"WHERE T.`showId` ="+showId+" order by T.`ticketId` asc;";
 		System.out.println(qry);
 		try {
 			PreparedStatement ps = conn.prepareStatement(qry);
@@ -419,7 +419,7 @@ System.out.println(sql);
 				"INNER JOIN `play` P ON S.`playId` = P.`playId`\r\n" + 
 				"INNER JOIN `user` U ON T.`userId` = U.`userId`\r\n" + 
 				"INNER JOIN `card` C ON T.`cardId` = C.`cardId`\r\n" + 
-				"WHERE T.`status` = 0 AND cast(T.`showDate` as date) < cast(now() as date)";
+				"WHERE T.`status` = 0 AND cast(T.`showDate` as date) < cast(now() as date) ORDER BY T.`ticketId` asc";
 		System.out.println(qry);
 		try {
 			PreparedStatement ps = conn.prepareStatement(qry);

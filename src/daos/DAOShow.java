@@ -119,7 +119,7 @@ public class DAOShow extends DAO{
 				"  WHERE T.`isPaid` = 1\r\n" + 
 				"  group by T.`showId`\r\n" + 
 				") CHARGED ON S.`showId` = CHARGED.`showId`\r\n" + 
-				"WHERE S.`playId` = "+playId+";";
+				"WHERE S.`playId` = "+playId+" Order by S.`showId` asc;";
 		System.out.println(sql);
 		try {
 			ResultSet rs = conn.prepareStatement(sql).executeQuery();

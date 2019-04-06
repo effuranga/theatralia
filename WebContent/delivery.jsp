@@ -66,6 +66,7 @@ DateHandler dh = new DateHandler();
               <small>(*) Solo se muestran los tickets del día de hoy o futuros</small>
               <%if(loggedUser.isAdmin()){ %>
               <br><a class="btn btn-primary" href="expiredtickets">Tickets vencidos</a>
+              <br><a href="delivery?export=true" target="_blank"><img src="utils/excel.png" width="40px" height="40px" /> </a>
               <%} %>
 			</div>
             <div class="card-body">

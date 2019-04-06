@@ -24,7 +24,7 @@ public class DAOUser extends DAO {
 		Connection conn = connect();
 		String sql = "SELECT U.`userId`, U.`userName`, U.`name`, U.`lastName`, U.`status`, U.`email`, U.`created`, R.`description`\r\n" + 
 				"FROM `user` U INNER JOIN `userrole` UR ON U.`userId` = UR.`userId`\r\n" + 
-				"INNER JOIN `role` R ON UR.`roleId` = R.`roleId`" ;
+				"INNER JOIN `role` R ON UR.`roleId` = R.`roleId` ORDER BY U.`userId` asc" ;
 		System.out.println(sql);
 		try {
 			ResultSet rs = conn.prepareStatement(sql).executeQuery();

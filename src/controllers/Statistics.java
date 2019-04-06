@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -51,9 +52,38 @@ public class Statistics extends HttpServlet {
 		ShowHandler showHandler = new ShowHandler();
 		ArrayList<DTOStatistics> stats = showHandler.getStatistics(playId);
 		
-		request.setAttribute("play", play);
-		request.setAttribute("stats", stats);	
-		request.getRequestDispatcher("statistics.jsp").forward(request, response);
+		// Export?
+		boolean export = (request.getParameter("export") != null && request.getParameter("export").equals("true"));
+		if(!export) {
+			request.setAttribute("play", play);
+			request.setAttribute("stats", stats);	
+			request.getRequestDispatcher("statistics.jsp").forward(request, response);
+		}
+		else {
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-disposition", "filename=Estadisticas para "+play.getName()+".xls");
+			
+			PrintWriter out = response.getWriter();
+			try {
+				out.println("ShowId\tFuncion\tEntrada $\tAsientos Disp.\tRecaudado\tTickets emitidos\tTickets facturados");
+				for(DTOStatistics dto : stats) {
+					int showId = dto.getShowId();
+					String showDate = dto.getShowDate();
+					int price = dto.getPrice();
+					int available = dto.getAvailableSeats();
+					int total = (98-dto.getAvailableSeats()) * price;
+					int issued = dto.getCantIssuedTickets();
+					int charged = dto.getCantChargedTickets();
+					out.println(""+showId+"\t"+showDate+"\t"+price+"\t"+available+"\t"+total+"\t"+issued+"\t"+charged);
+				} 
+				
+			}
+			finally {
+				out.close();
+			}
+		}
+		
+		
 
 	}
 

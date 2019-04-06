@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import business.User;
 import services.TicketHandler;
 import utils.DTODeliveryTable;
+import utils.DateHandler;
 
 /**
  * Servlet implementation class ExpiredTickets
@@ -39,9 +41,38 @@ public class ExpiredTickets extends HttpServlet {
 		ArrayList<DTODeliveryTable> expiredTableDTOs = new ArrayList<DTODeliveryTable>();
 		
 		expiredTableDTOs = ticketHandler.getExpiredTableDTOs();
-		
-		request.setAttribute("rows", expiredTableDTOs);
-		request.getRequestDispatcher("expiredtickets.jsp").forward(request, response);
+				
+		// Export?
+		boolean export = (request.getParameter("export") != null && request.getParameter("export").equals("true"));
+		if(!export) {
+			request.setAttribute("rows", expiredTableDTOs);
+			request.getRequestDispatcher("expiredtickets.jsp").forward(request, response);
+		}
+		else {
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-disposition", "filename=Tickets expirados.xls");
+			
+			PrintWriter out = response.getWriter();
+			try {
+				DateHandler dh = new DateHandler();
+				out.println("Ticket ID\tObra\tFuncion\tCliente\tPago\tFecha de compra\tTarjeta");
+				for(DTODeliveryTable dto : expiredTableDTOs) {
+					String ticketId = ""+dto.getTicketId();
+					String playName = dto.getPlayName();
+					String showDate = dh.getHTMLDate(dto.getShowDate())+" "+dh.getHTMLTime(dto.getShowDate());
+					String client = dto.getUserLastName()+", "+dto.getUserName();
+					String isPaid = (dto.isPaid())? "Si" : "No";
+					String buyingDate = dh.getHTMLDate(dto.getBuyingDate())+" "+dh.getHTMLTime(dto.getBuyingDate());
+					String card = dto.getCardNumber();
+					
+					out.println(ticketId+"\t"+playName+"\t"+showDate+"\t"+client+"\t"+isPaid+"\t"+buyingDate+"\t"+card);
+				} 
+				
+			}
+			finally {
+				out.close();
+			}
+		}
 	}
 
 }

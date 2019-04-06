@@ -61,7 +61,7 @@ DateHandler dh = new DateHandler();
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Tickets Delivery <br>
+              Tickets expirados <br>
               <small>(*) Solo se muestran los tickets de fechas pasadas que no fueron entregados (pagados o morosos)</small>
               <%if(loggedUser.isAdmin()){ %>
               <br><a class="btn btn-primary" href="delivery">Atras</a> 
@@ -71,6 +71,7 @@ DateHandler dh = new DateHandler();
 		              >(!) Cargar todos</a>
               <%	}
               } %>
+              <br><a href="expiredtickets?export=true" target="_blank"><img src="utils/excel.png" width="40px" height="40px" /> </a>
 			</div>
             <div class="card-body">
               <div class="table-responsive">

@@ -65,7 +65,7 @@ Play play = (Play)request.getAttribute("play");
               <i class="fas fa-table"></i>
               <%=play.getName() %> <br>
               <small>Estadisticas</small>
-              <br><a class="btn btn-primary" href="#">EXPORT</a>
+              <br><a href="stats?playId=<%=play.getId()%>&export=true" target="_blank"><img src="utils/excel.png" width="40px" height="40px" /> </a>
 			</div>
             <div class="card-body">
               <div class="table-responsive">

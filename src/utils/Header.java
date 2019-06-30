@@ -11,6 +11,7 @@ public class Header {
 		String adminplays = "";
 		String dashboard = "";
 		String profile = "";
+		String faqs = "";
 		
 		switch(index) {
 			case "searchplay": searchplay = "active";
@@ -27,6 +28,8 @@ public class Header {
 					break;
 			case "profile": profile = "active";
 					break;
+			case "faqs": faqs = "active";
+			break;		
 		}
 		
 		String header = "<!-- Navigation -->\r\n" + 
@@ -69,6 +72,9 @@ public class Header {
 				"            </li>\r\n" + 
 				"            <li class=\"nav-item\">\r\n" + 
 				"              <a class=\"nav-link\" href=\"logout\"><img src=\"homeFE/img/logout.svg\" height=\"16\" width=\"16\" /> Salir</a>\r\n" + 
+				"            </li>\r\n" + 
+				"            <li class=\"nav-item "+faqs+"\">\r\n" +
+				"              <a class=\"nav-link\" href=\"faqs\"><img src=\"homeFE/img/a.png\" height=\"16\" width=\"16\" /> FAQs</a>\r\n" + 
 				"            </li>\r\n" + 
 				"          </ul>\r\n" + 
 				"        </div>\r\n" + 

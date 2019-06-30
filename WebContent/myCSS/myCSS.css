@@ -64,3 +64,20 @@ resize: none;
 	background-color: rgb(255, 242, 230);
 	padding-left: 10px;
 }
+
+.indexTable {
+	background-color: rgb(234, 234, 234);
+	padding-left: 10px;
+}
+
+.questionAnswer {
+	margin-left: 30px;
+}
+
+.subir {
+  position: fixed;
+  top: 50%;
+  right: 0px;
+  background: rgb(255,225,187);
+  padding: 3px;
+}

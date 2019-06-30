@@ -95,7 +95,7 @@ DateHandler dh = new DateHandler();
 %>                  
                     <tr>
                       <td><a target="_blank" href="previewticket?ticketId=<%=d.getTicketId() %>"><%=d.getTicketId() %></a></td>
-                      <td><a href="#=<%=d.getPlayId() %>"><%=d.getPlayName() %></a></td>
+                      <td><a href="viewplay?id=<%=d.getPlayId() %>"><%=d.getPlayName() %></a></td>
                       <td><%=dh.getHTMLDateAndTime(d.getShowDate()) %></td>
                       <td><%=(d.isDelivered())? "Si" : "No" %></td>
                       <td><%=(d.isPaid())? "Si" : "No" %></td>

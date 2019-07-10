@@ -85,7 +85,7 @@ public class DAOComment extends DAO{
 		Connection conn = connect();
 		
 		String qry = "SELECT C.*, U.userName, U.profImage FROM theatralia.comment C INNER JOIN theatralia.user U ON C.userId = U.userId "
-				+ "WHERE C.playId = "+playId+" AND C.valid = 1 AND U.status = 1 ORDER BY parentId ASC;";
+				+ "WHERE C.playId = "+playId+" AND C.valid = 1 ORDER BY parentId ASC;"; //AND U.status = 1
 		System.out.println(qry);
 		try {
 			PreparedStatement ps = conn.prepareStatement(qry);
